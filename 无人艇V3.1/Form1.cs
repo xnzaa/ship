@@ -56,17 +56,19 @@ namespace whut_ship_control
 
         #endregion
 
+        //主窗体构造函数
         public Form1()
         {
             InitializeComponent();
             Control.CheckForIllegalCrossThreadCalls = false;        
         }
 
+        //主窗体加载   地图 端口 初始化过程
         private void Form1_Load(object sender, EventArgs e)
         {
             try
             {
-                webBrowser1.Navigate("E:\\map.html");//http://99.blog.lc/map2chuanxun.html
+                webBrowser1.Navigate("http://99.blog.lc/map_google.html");
                 try
                 {
                     string[] ports = SerialPort.GetPortNames();
@@ -87,11 +89,16 @@ namespace whut_ship_control
                     comboBox6.SelectedIndex = 1;
                     GPS_sp.DataReceived += comm_DataReceived2;
                 }
-                catch (Exception ex) { MessageBox.Show(ex.Message.ToString()); }
-
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
             }
-            catch (Exception ex) { MessageBox.Show(ex.ToString()); }
-        }       
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
 
         private void comm_DataReceived1(object sender, SerialDataReceivedEventArgs e)//串口数据监听器
         {
