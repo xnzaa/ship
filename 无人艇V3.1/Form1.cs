@@ -113,7 +113,7 @@ namespace whut_ship_control
                     //直接按ASCII规则转换成字符串 
                     string str = Encoding.ASCII.GetString(buf);
                     // builder.Append(str);
-                    sp1_receive(str);
+                    main_sp_receive(str);
                     point_counter_for_abandon++;
             }));
         }
@@ -157,97 +157,100 @@ namespace whut_ship_control
                 GPS_text = "";                // 置空GPS_text以便存储新的串口接收到的字符串
         }
 
-        void sp1_receive(string str)//主串口字符串处理函数
+        //主串口字符串处理函数
+        void main_sp_receive(string str)
+        {
+            try
             {
-                try
+                if (is_first_receive)       //第一次接收数据
                 {
-                    if (is_first_receive)       //第一次接收数据
-                    {
-                        is_first_receive = false;
-                        timer1.Start();
-                        timer2.Start();
-                        label7.Text = "已连接";
-                        label7.BackColor = Color.White;
-                    }
-                    else                        //不是第一次接收
-                    {
-                        //显示接收到的数据
-                        label12.Text = str;
+                    is_first_receive = false;
+                    timer1.Start();
+                    timer2.Start();
+                    label7.Text = "已连接";
+                    label7.BackColor = Color.White;
+                }
+                else                        //不是第一次接收
+                {
+                    //显示接收到的数据
+                    label12.Text = str;
 
-                        if (str.Contains("$GPRMC") && !str.Contains("GPGSA"))               //只处理含有$GPRMC的GPS数据
+                    if (str.Contains("$GPRMC") && !str.Contains("GPGSA"))               //只处理含有$GPRMC的GPS数据
+                    {
+                        string[] str1 = str.Split(',');
+                        string[] th = str1[12].Split('P', 'R', 'H', 'e','S','\r');
+                        string humidity = th[4];                //湿度
+                        string temperature = th[2];             //温度
+
+                        //温度标签
+                        label18.Text = temperature + "摄氏度";
+
+                        //湿度标签
+                        label19.Text = humidity + "%";
+
+                        //障碍物标签
+                        label9.Text = Convert.ToDouble(th[6])/100+"m";
+
+                        //红外检测
+                        if (str.Contains("!##!"))
                         {
-                            string[] str1 = str.Split(',');
-                            string[] th = str1[12].Split('P', 'R', 'H', 'e','S','\r');
-                            string humidity = th[4];                //湿度
-                            string temperature = th[2];             //温度
+                            label21.Text = "发现目标";
+                            label21.BackColor = Color.Red;
+                        }
+                        else
+                        {
+                            label21.Text = "正常";
+                            label21.BackColor = Color.White;
+                        }
 
-                            //温度标签
-                            label18.Text = temperature + "摄氏度";
+                        //纬度转换并计算正确值
+                        Double latitude = Convert.ToDouble(str1[3]) / 100 - latitude_check ;
 
-                            //湿度标签
-                            label19.Text = humidity + "%";
+                        //经度转换并计算正确值
+                        Double longitude = Convert.ToDouble(str1[5]) / 100 - longitude_check ;
 
-                            //障碍物标签
-                            label9.Text = Convert.ToDouble(th[6])/100+"m";
-
-                            //红外检测
-                            if (str.Contains("!##!"))
-                            {
-                                label21.Text = "发现目标";
-                                label21.BackColor = Color.Red;
-                            }
-                            else
-                            {
-                                label21.Text = "正常";
-                                label21.BackColor = Color.White;
-                            }
-
-                            //纬度转换并计算正确值
-                            Double latitude = Convert.ToDouble(str1[3]) / 100 - latitude_check ;
-
-                            //经度转换并计算正确值
-                            Double longitude = Convert.ToDouble(str1[5]) / 100 - longitude_check ;
-
-                            if (point_counter_for_abandon % 3 == 0)           //防止点数量过于密集，每接收三个丢弃一个
-                            {
-                                if (true)//check_ok
-                                { 
+                        if (point_counter_for_abandon % 3 == 0)           //防止点数量过于密集，每接收三个丢弃一个
+                        {
+                            if (true)//check_ok
+                            { 
                                     
-                                    label2.Text = latitude.ToString();
-                                    label3.Text = longitude.ToString();
-                                    objArray[0] = (object)latitude;
-                                    objArray[1] = (object)longitude;
-                                    webBrowser1.Document.InvokeScript("mark", objArray);
-                                    //check_ok = false;
-                                }
-                            }
-                            if (checkbox1.Checked)
-                            {
+                                label2.Text = latitude.ToString();
+                                label3.Text = longitude.ToString();
                                 objArray[0] = (object)latitude;
                                 objArray[1] = (object)longitude;
-                                webBrowser1.Document.InvokeScript("center", objArray);
+                                webBrowser1.Document.InvokeScript("mark", objArray);
+                                //check_ok = false;
                             }
-                            swr.WriteLine(str);
                         }
-                    }
-                    
-                    if (str.Contains(":") || str.Contains("!"))
-                    {
-                        if (str.Contains(":"))
+                        if (checkbox1.Checked)
                         {
-                            string[] strr=str.Split(':','$');
-                            order_back(":"+strr[1]);
+                            objArray[0] = (object)latitude;
+                            objArray[1] = (object)longitude;
+                            webBrowser1.Document.InvokeScript("center", objArray);
                         }
-                        if (str.Contains("!"))
-                        {
-                            string[] strr = str.Split('!','$');
-                            order_back("!" + strr[1]);
-                        }
+                        swr.WriteLine(str);
                     }
                 }
-                catch 
-                { return; }               
+                    
+                if (str.Contains(":") || str.Contains("!"))
+                {
+                    if (str.Contains(":"))
+                    {
+                        string[] strr=str.Split(':','$');
+                        order_back(":"+strr[1]);
+                    }
+                    else if (str.Contains("!"))
+                    {
+                        string[] strr = str.Split('!','$');
+                        order_back("!" + strr[1]);
+                    }
+                }
             }
+            catch 
+            {
+                return;
+            }               
+        }
 
         //void  sp2_receive(string str)//辅助串口字符串处理函数
         //{
@@ -995,7 +998,7 @@ namespace whut_ship_control
         // 测试按钮
         private void button27_Click(object sender, EventArgs e)
         {
-           sp1_receive (":10$GPRMC,031015.00,A,3036.78331,N,11421.08548,E,0.101,,020313,,,A*7B,!##!");
+           main_sp_receive (":10$GPRMC,031015.00,A,3036.78331,N,11421.08548,E,0.101,,020313,,,A*7B,!##!");
         }
 
 
