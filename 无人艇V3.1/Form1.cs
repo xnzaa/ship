@@ -29,7 +29,7 @@ namespace whut_ship_control
         //丢点计数器
         static int point_counter_for_abandon = 0;
 
-
+        //TODO
         static double longitude_true = 0;
         static double latitude_true = 0;
 
@@ -39,27 +39,36 @@ namespace whut_ship_control
         //基站纬度校正值
         static double latitude_check =-0.245311050;
 
+        //TODO
         string GPS_text = "";
 
-        static SerialPort sp1 = new SerialPort();//主端口类
-        static SerialPort sp2 = new SerialPort();
+        //主串口
+        static SerialPort main_sp = new SerialPort();
+
+        //辅助GPS串口
+        static SerialPort GPS_sp = new SerialPort();
+
+        //TODO
         bool isopen1;       //端口状态变量
-    
 
-        private StringBuilder builder = new StringBuilder();//避免在事件处理方法中反复的创建，定义到外面。
+        //避免在事件处理方法中反复的创建，定义到外面
+        private StringBuilder builder = new StringBuilder();
 
-    #endregion
+        #endregion
+
+        //主窗体构造函数
         public Form1()
         {
             InitializeComponent();
             Control.CheckForIllegalCrossThreadCalls = false;        
         }
 
+        //主窗体加载   地图 端口 初始化过程
         private void Form1_Load(object sender, EventArgs e)
         {
             try
             {
-                webBrowser1.Navigate("E:\\map.html");//http://99.blog.lc/map2chuanxun.html
+                webBrowser1.Navigate("http://99.blog.lc/map_google.html");
                 try
                 {
                     string[] ports = SerialPort.GetPortNames();
@@ -70,7 +79,7 @@ namespace whut_ship_control
                     comboBox3.SelectedIndex = 0;
                     comboBox4.SelectedIndex = 3;
                     comboBox5.SelectedIndex = 1;
-                    sp1.DataReceived += comm_DataReceived1;
+                    main_sp.DataReceived += comm_DataReceived1;
 
                     comboBox10.Items.AddRange(ports);
                     comboBox10.SelectedIndex = comboBox10.Items.Count > 0 ? 2 : -1;
@@ -78,20 +87,25 @@ namespace whut_ship_control
                     comboBox8.SelectedIndex = 0;
                     comboBox7.SelectedIndex = 3;
                     comboBox6.SelectedIndex = 1;
-                    sp2.DataReceived += comm_DataReceived2;
+                    GPS_sp.DataReceived += comm_DataReceived2;
                 }
-                catch (Exception ex) { MessageBox.Show(ex.Message.ToString()); }
-
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
             }
-            catch (Exception ex) { MessageBox.Show(ex.ToString()); }
-        }       
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
 
         private void comm_DataReceived1(object sender, SerialDataReceivedEventArgs e)//串口数据监听器
         {
             connect_count = 0;
-            int n = sp1.BytesToRead;//先记录下来，避免某种原因，人为的原因，操作几次之间时间长，缓存不一致   
+            int n = main_sp.BytesToRead;//先记录下来，避免某种原因，人为的原因，操作几次之间时间长，缓存不一致   
             byte[] buf = new byte[n];//声明一个临时数组存储当前来的串口数据     
-            sp1.Read(buf, 0, n);//读取缓冲数据   
+            main_sp.Read(buf, 0, n);//读取缓冲数据   
             builder.Remove(0, builder.Length);//清除字符串构造器的内容   
             //因为要访问ui资源，所以需要使用invoke方式同步ui。   
             this.Invoke((EventHandler)(delegate
@@ -106,7 +120,7 @@ namespace whut_ship_control
 
         private void comm_DataReceived2(object sender, SerialDataReceivedEventArgs e)//串口数据监听器
         {
-            GPS_text = GPS_text + sp2.ReadExisting();  // 读取串口数据
+            GPS_text = GPS_text + GPS_sp.ReadExisting();  // 读取串口数据
             if (GPS_text. Contains  ("$"))      // 如果GPS_text字符串最后一个字符是“回车”&&GPS_text.EndsWith("\n")
             {
                 Invoke(new EventHandler(update_data));    // 通过Invoke方法执行update_data函数
@@ -416,12 +430,12 @@ namespace whut_ship_control
             if (!CheckSendData())
             { MessageBox.Show("请输入要发送的数据！", "错误提示"); }
             if (!isopen1)
-            { SetPortProperty1(sp1); }
+            { SetPortProperty1(main_sp); }
             if (isopen1)
             {
                 try
                 {
-                    sp1.WriteLine(control_instruction);
+                    main_sp.WriteLine(control_instruction);
                 }
                 catch (Exception)
                 {
@@ -453,8 +467,8 @@ namespace whut_ship_control
             //{
                 if (!isopen1)
                 {
-                SetPortProperty1(sp1);
-                SetPortProperty2(sp2);
+                SetPortProperty1(main_sp);
+                SetPortProperty2(GPS_sp);
                 }
                 gPS开始接收ToolStripMenuItem.Enabled = false;
                 暂停接收ToolStripMenuItem.Enabled = true;
@@ -468,8 +482,8 @@ namespace whut_ship_control
             {
                 if (isopen1)
                 {
-                    sp1.Close();
-                    sp2.Close();
+                    main_sp.Close();
+                    GPS_sp.Close();
                     isopen1 = false;
                 }
                 gPS开始接收ToolStripMenuItem.Enabled = true;
@@ -969,10 +983,10 @@ namespace whut_ship_control
         {
             try
             {
-                if (sp1 != null)
-                    sp1.Close();
-                if (sp2 != null)
-                    sp2.Close();
+                if (main_sp != null)
+                    main_sp.Close();
+                if (GPS_sp != null)
+                    GPS_sp.Close();
                 sws.Close();
                 swr.Close();
             }
