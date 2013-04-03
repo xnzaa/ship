@@ -337,7 +337,7 @@ namespace whut_ship_control
             // gPS开始接收ToolStripMenuItem
             // 
             this.gPS开始接收ToolStripMenuItem.Name = "gPS开始接收ToolStripMenuItem";
-            this.gPS开始接收ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.gPS开始接收ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.gPS开始接收ToolStripMenuItem.Text = "开始接收";
             this.gPS开始接收ToolStripMenuItem.Click += new System.EventHandler(this.gPS开始接收ToolStripMenuItem_Click);
             // 
@@ -345,7 +345,7 @@ namespace whut_ship_control
             // 
             this.暂停接收ToolStripMenuItem.Enabled = false;
             this.暂停接收ToolStripMenuItem.Name = "暂停接收ToolStripMenuItem";
-            this.暂停接收ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.暂停接收ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.暂停接收ToolStripMenuItem.Text = "暂停接收";
             this.暂停接收ToolStripMenuItem.Click += new System.EventHandler(this.暂停接收ToolStripMenuItem_Click);
             // 
@@ -430,7 +430,7 @@ namespace whut_ship_control
             // 
             // button12
             // 
-            this.button12.Location = new System.Drawing.Point(76, 39);
+            this.button12.Location = new System.Drawing.Point(76, 38);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(53, 23);
             this.button12.TabIndex = 10;
