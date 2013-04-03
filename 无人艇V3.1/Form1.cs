@@ -976,39 +976,20 @@ namespace whut_ship_control
             change_map();
         }
 
-        void change_map_type(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-            if (radioButton1.Checked)
-            {
-                object[] array = new object[1];
-                array[0] = (object)2;
-                webBrowser1.Document.InvokeScript("type", array);
-            }
-            else if (radioButton2.Checked)
-            {
-                object[] array = new object[1];
-                array[0] = (object)1;
-                webBrowser1.Document.InvokeScript("type", array);
-            }
-        }
-
         private void change_map()
         {
             if (radioButton1.Checked)
             {
                 webBrowser1.Navigate("http://99.blog.lc/map_google.html");
-                webBrowser1.DocumentCompleted += change_map_type;
             }
             else if (radioButton2.Checked)
             {
-                webBrowser1.Navigate("http://99.blog.lc/map_google.html");
-                webBrowser1.DocumentCompleted += change_map_type;
+                webBrowser1.Navigate("http://99.blog.lc/map_google_road.html");
             }
             else if (radioButton3.Checked)
             {
                 webBrowser1.Navigate("http://99.blog.lc/map_chuanxun.html");
             }
-
         }
 
         private void 重载地图ToolStripMenuItem_Click(object sender, EventArgs e)
