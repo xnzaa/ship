@@ -232,6 +232,7 @@ namespace whut_ship_control
             this.radioButton3.TabStop = true;
             this.radioButton3.Text = "电子海图";
             this.radioButton3.UseVisualStyleBackColor = true;
+            this.radioButton3.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
             // 
             // checkbox1
             // 
@@ -254,6 +255,7 @@ namespace whut_ship_control
             this.radioButton2.TabIndex = 3;
             this.radioButton2.Text = "行政视图";
             this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
             // radioButton1
             // 

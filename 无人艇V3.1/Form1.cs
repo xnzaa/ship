@@ -951,7 +951,8 @@ namespace whut_ship_control
         #endregion
 
         #region 地图操作控件
-         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             if (numericUpDown1.Value > 20)
                 numericUpDown1.Value = 20;
@@ -962,25 +963,41 @@ namespace whut_ship_control
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
+            change_map();
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            change_map();
+        }
+
+        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        {
+            change_map();
+        }
+
+        private void change_map()
+        {
             if (radioButton1.Checked)
             {
-                object[] array = new object[1];
-                array[0] = (object)2;
-                webBrowser1.Document.InvokeScript("type", array);
+                webBrowser1.Navigate("http://99.blog.lc/map_google.html");
             }
-            if (radioButton2.Checked)
+            else if (radioButton2.Checked)
             {
-                object[] array = new object[1];
-                array[0] = (object)1;
-                webBrowser1.Document.InvokeScript("type", array);
+                webBrowser1.Navigate("http://99.blog.lc/map_google_road.html");
+            }
+            else if (radioButton3.Checked)
+            {
+                webBrowser1.Navigate("http://99.blog.lc/map_chuanxun.html");
             }
         }
 
         private void 重载地图ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            webBrowser1.Navigate("http://99.blog.lc/map2chuanxun.html");
+            change_map();
         }
-#endregion
+
+        #endregion
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
