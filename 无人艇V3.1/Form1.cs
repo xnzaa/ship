@@ -495,6 +495,7 @@ namespace whut_ship_control
             }
             sws.Write(control_instruction);
         }
+
         #region 菜单组
         private void gPS校正ToolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -992,7 +993,6 @@ namespace whut_ship_control
         }
         #endregion
 
-
         #region 定时器组
         private void timer1_Tick(object sender, EventArgs e)//定时发送@函数
         {
@@ -1073,20 +1073,11 @@ namespace whut_ship_control
 
         #endregion
 
-
-        
-
-
         // 测试按钮
         private void button27_Click(object sender, EventArgs e)
         {
            main_sp_receive (":10$GPRMC,031015.00,A,3036.78331,N,11421.08548,E,0.101,,020313,,,A*7B,!##!");
         }
-
-
-
-
-     
 
     }
 }
