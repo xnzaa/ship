@@ -133,16 +133,13 @@ namespace whut_ship_control
         {
             //已经接收到数据了 重置连接计数器
             connect_count = 0;
-        }
 
-        private void read_main_sp()
-        {
             string str = main_sp.ReadLine();
-            //whut_ship_control.Form1.Invoke((EventHandler)(delegate
-            //{
+            this.Invoke((EventHandler)(delegate
+            {
                 main_sp_receive(str);
                 point_counter_for_abandon++;
-            //}));
+            }));
             main_sp.DiscardInBuffer();
         }
 
@@ -520,8 +517,6 @@ namespace whut_ship_control
             }
             gPS开始接收ToolStripMenuItem.Enabled = false;
             暂停接收ToolStripMenuItem.Enabled = true;
-
-            Thread read_main_sp_thread = new Thread(read_main_sp);
         }
 
         private void 暂停接收ToolStripMenuItem_Click(object sender, EventArgs e)
