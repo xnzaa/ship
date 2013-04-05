@@ -125,7 +125,8 @@ namespace whut_ship_control
             }
         }
 
-        private void comm_DataReceived1(object sender, SerialDataReceivedEventArgs e)//串口数据监听器
+        //主串口数据监听器
+        private void comm_DataReceived1(object sender, SerialDataReceivedEventArgs e)
         {
             connect_count = 0;
             int n = main_sp.BytesToRead;//先记录下来，避免某种原因，人为的原因，操作几次之间时间长，缓存不一致   
@@ -143,7 +144,8 @@ namespace whut_ship_control
             }));
         }
 
-        private void comm_DataReceived2(object sender, SerialDataReceivedEventArgs e)//串口数据监听器
+        //辅助串口数据监听器
+        private void comm_DataReceived2(object sender, SerialDataReceivedEventArgs e)
         {
             GPS_text = GPS_text + GPS_sp.ReadExisting();  // 读取串口数据
             if (GPS_text. Contains  ("$"))      // 如果GPS_text字符串最后一个字符是“回车”&&GPS_text.EndsWith("\n")
