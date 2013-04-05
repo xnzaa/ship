@@ -305,27 +305,33 @@ namespace whut_ship_control
         }       
 
         #region 串口配置库函数
-        private bool CheckPortSetting()      //检查端口是否初始化
+
+        //检查端口是否初始化
+        private bool CheckPortSetting()
         {
             if (comboBox1.Text.Trim() == "") return false;
             if (comboBox2.Text.Trim() == "") return false;
             if (comboBox3.Text.Trim() == "") return false;
             if (comboBox4.Text.Trim() == "") return false;
             if (comboBox5.Text.Trim() == "") return false;
-            if (comboBox10.Text.Trim() == "") return false;
-            if (comboBox9.Text.Trim() == "") return false;
-            if (comboBox8.Text.Trim() == "") return false;
-            if (comboBox7.Text.Trim() == "") return false;
             if (comboBox6.Text.Trim() == "") return false;
+            if (comboBox7.Text.Trim() == "") return false;
+            if (comboBox8.Text.Trim() == "") return false;
+            if (comboBox9.Text.Trim() == "") return false;
+            if (comboBox10.Text.Trim() == "") return false;
             return true;
         }
 
-        private bool CheckSendData()        //检测发送数据是否为空
+        //检测发送数据是否为空
+        private bool CheckSendData()
         {
-            if (control_instruction == "") return false;
+            if (control_instruction == "")
+                return false;
             return true;
         }
+
         #endregion
+
         private void SetPortProperty1(SerialPort sp)       //初始化端口状态
         {
 
@@ -991,6 +997,7 @@ namespace whut_ship_control
 
         #region 地图操作控件
 
+        //地图缩放
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             if (numericUpDown1.Value > 20)
@@ -1000,21 +1007,34 @@ namespace whut_ship_control
             webBrowser1.Document.InvokeScript("zoom", array);
         }
 
+        #region 地图类型选择
+
+        //卫星视图
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             change_map();
         }
 
+        //行政视图
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
             change_map();
         }
 
+        //电子海图
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
             change_map();
         }
 
+        #endregion
+
+        private void 重载地图ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            change_map();
+        }
+
+        //更换地图的函数(重新加载对应地图)
         private void change_map()
         {
             if (radioButton1.Checked)
@@ -1031,17 +1051,13 @@ namespace whut_ship_control
             }
         }
 
-        private void 重载地图ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            change_map();
-        }
-
         #endregion
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             try
             {
+                Application.DoEvents();
                 if (main_sp != null)
                     main_sp.Close();
                 if (GPS_sp != null)
