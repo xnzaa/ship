@@ -4,6 +4,7 @@ using System.IO;
 using System.IO.Ports;
 using System.Text;
 using System.Windows.Forms;
+using System.Threading;
 namespace whut_ship_control
 {
     public partial class Form1 : Form
@@ -48,8 +49,8 @@ namespace whut_ship_control
         //辅助GPS串口
         static SerialPort GPS_sp = new SerialPort();
 
-        //TODO
-        bool isopen1;       //端口状态变量
+        //端口状态变量
+        bool isopen1;
 
         //避免在事件处理方法中反复的创建，定义到外面
         private StringBuilder builder = new StringBuilder();
@@ -60,10 +61,10 @@ namespace whut_ship_control
         public Form1()
         {
             InitializeComponent();
-            Control.CheckForIllegalCrossThreadCalls = false;        
+            Control.CheckForIllegalCrossThreadCalls = false;
         }
 
-        //主窗体加载   地图 端口 初始化过程
+        //主窗体加载   地图 串口 初始化过程
         private void Form1_Load(object sender, EventArgs e)
         {
             try
@@ -85,6 +86,8 @@ namespace whut_ship_control
                     comboBox4.SelectedIndex = 3;
                     comboBox5.SelectedIndex = 1;
                     main_sp.DataReceived += comm_DataReceived1;
+                    main_sp.NewLine = "\r\n";
+                    
 
                     //辅助串口设置项
                     comboBox10.Items.AddRange(ports);
@@ -128,20 +131,19 @@ namespace whut_ship_control
         //主串口数据监听器
         private void comm_DataReceived1(object sender, SerialDataReceivedEventArgs e)
         {
+            //已经接收到数据了 重置连接计数器
             connect_count = 0;
-            int n = main_sp.BytesToRead;//先记录下来，避免某种原因，人为的原因，操作几次之间时间长，缓存不一致   
-            byte[] buf = new byte[n];//声明一个临时数组存储当前来的串口数据     
-            main_sp.Read(buf, 0, n);//读取缓冲数据   
-            builder.Remove(0, builder.Length);//清除字符串构造器的内容   
-            //因为要访问ui资源，所以需要使用invoke方式同步ui。   
-            this.Invoke((EventHandler)(delegate
-            {       
-                    //直接按ASCII规则转换成字符串 
-                    string str = Encoding.ASCII.GetString(buf);
-                    // builder.Append(str);
-                    main_sp_receive(str);
-                    point_counter_for_abandon++;
-            }));
+        }
+
+        private void read_main_sp()
+        {
+            string str = main_sp.ReadLine();
+            //whut_ship_control.Form1.Invoke((EventHandler)(delegate
+            //{
+                main_sp_receive(str);
+                point_counter_for_abandon++;
+            //}));
+            main_sp.DiscardInBuffer();
         }
 
         //辅助串口数据监听器
@@ -202,7 +204,7 @@ namespace whut_ship_control
                     //显示接收到的数据
                     label12.Text = str;
 
-                    if (str.Contains("$GPRMC") )               //只处理含有$GPRMC的GPS数据&& !str.Contains("GPGSA")
+                    if (str.Contains("$GPRMC"))               //只处理含有$GPRMC的GPS数据&& !str.Contains("GPGSA")
                     {
                         string[] str1 = str.Split(',');
                         string[] th = str1[12].Split('P', 'R', 'H', 'e','S','\r');
@@ -361,7 +363,6 @@ namespace whut_ship_control
 
         private void SetPortProperty1(SerialPort sp)       //初始化端口状态
         {
-
             sp.PortName = comboBox1.Text.Trim();
             sp.BaudRate = Convert.ToInt32(comboBox2.Text.Trim());
             float f = Convert.ToSingle(comboBox5.Text.Trim());
@@ -411,7 +412,6 @@ namespace whut_ship_control
             }
             catch (Exception)
             {
-                //label8.Text = "打开串口时发生错误";
                 MessageBox.Show("打开串口时发生错误");
             }
         }
@@ -513,17 +513,15 @@ namespace whut_ship_control
 
         private void gPS开始接收ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //if (check_ok)
-            //{
-                if (!isopen1)
-                {
-                    SetPortProperty1(main_sp);
-                    SetPortProperty2(GPS_sp);
-                }
-                gPS开始接收ToolStripMenuItem.Enabled = false;
-                暂停接收ToolStripMenuItem.Enabled = true;
-            //}
-            //else { MessageBox .Show ("请先设置GPS校正值")}
+            if (!isopen1)
+            {
+                SetPortProperty1(main_sp);
+                SetPortProperty2(GPS_sp);
+            }
+            gPS开始接收ToolStripMenuItem.Enabled = false;
+            暂停接收ToolStripMenuItem.Enabled = true;
+
+            Thread read_main_sp_thread = new Thread(read_main_sp);
         }
 
         private void 暂停接收ToolStripMenuItem_Click(object sender, EventArgs e)
