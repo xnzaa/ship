@@ -175,7 +175,7 @@ namespace whut_ship_control
                     //显示接收到的数据
                     label12.Text = str;
 
-                    if (str.Contains("$GPRMC") && !str.Contains("GPGSA"))               //只处理含有$GPRMC的GPS数据
+                    if (str.Contains("$GPRMC") )               //只处理含有$GPRMC的GPS数据&& !str.Contains("GPGSA")
                     {
                         string[] str1 = str.Split(',');
                         string[] th = str1[12].Split('P', 'R', 'H', 'e','S','\r');
@@ -184,13 +184,13 @@ namespace whut_ship_control
 
                         //温度标签
                         label18.Text = temperature + "摄氏度";
+                        progressBar1.Value = Convert.ToInt32(Convert.ToDouble(temperature));
 
                         //湿度标签
                         label19.Text = humidity + "%";
-
+                        progressBar2.Value = Convert.ToInt32(Convert.ToDouble(humidity));
                         //障碍物标签
-                        label9.Text = Convert.ToDouble(th[6])/100+"m";
-
+                        
                         //红外检测
                         if (str.Contains("!##!"))
                         {
@@ -209,11 +209,10 @@ namespace whut_ship_control
                         //经度转换并计算正确值
                         Double longitude = Convert.ToDouble(str1[5]) / 100 - longitude_check ;
 
-                        if (point_counter_for_abandon % 3 == 0)           //防止点数量过于密集，每接收三个丢弃一个
+                        if (true)           //防止点数量过于密集，每接收三个丢弃一个point_counter_for_abandon % 3 == 0
                         {
                             if (true)//check_ok
-                            { 
-                                    
+                            {
                                 label2.Text = latitude.ToString();
                                 label3.Text = longitude.ToString();
                                 objArray[0] = (object)latitude;
@@ -231,18 +230,33 @@ namespace whut_ship_control
                         swr.WriteLine(str);
                     }
                 }
+                if (str.Contains("DIS"))
+                {
+                    string[] str3 = str.Split('I', 'S', '$');
+
+                    if (str3[2] == "-1")
+                    {
+                        label9.Text = "前方无目标";
+                        progressBar3.Value=10;
+                    }
+                    else
+                    {
+                        label9.Text = Convert.ToDouble(str3[2]) / 100 + "m";
+                        progressBar3.Value = Convert.ToInt32(Convert.ToDouble(str3[2]) / 100);
+                    }
+                }
                     
                 if (str.Contains(":") || str.Contains("!"))
                 {
                     if (str.Contains(":"))
                     {
                         string[] strr=str.Split(':','$');
-                        order_back(":"+strr[1]);
+                        //order_back(":"+strr[1]);
                     }
                     else if (str.Contains("!"))
                     {
                         string[] strr = str.Split('!','$');
-                        order_back("!" + strr[1]);
+                        //order_back("!" + strr[1]);
                     }
                 }
             }
@@ -513,6 +527,7 @@ namespace whut_ship_control
             button10.Enabled = true;
             button11.Enabled = true;
             button12.Enabled = true;
+            order_back(control_instruction);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -531,6 +546,7 @@ namespace whut_ship_control
             button10.Enabled = true;
             button11.Enabled = true;
             button12.Enabled = true;
+            order_back(control_instruction);
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -549,6 +565,7 @@ namespace whut_ship_control
             button10.Enabled = true;
             button11.Enabled = true;
             button12.Enabled = true;
+            order_back(control_instruction);
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -567,6 +584,7 @@ namespace whut_ship_control
             button10.Enabled = true;
             button11.Enabled = true;
             button12.Enabled = true;
+            order_back(control_instruction);
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -585,6 +603,7 @@ namespace whut_ship_control
             button10.Enabled = true;
             button11.Enabled = true;
             button12.Enabled = true;
+            order_back(control_instruction);
         }
 
         private void button12_Click(object sender, EventArgs e)
@@ -603,6 +622,7 @@ namespace whut_ship_control
             button10.Enabled = true;
             button11.Enabled = true;
             button12.Enabled = false ;
+            order_back(control_instruction);
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -621,6 +641,7 @@ namespace whut_ship_control
             button10.Enabled = true;
             button11.Enabled = true;
             button12.Enabled = true;
+            order_back(control_instruction);
         }
 
         private void button8_Click(object sender, EventArgs e)
@@ -639,6 +660,7 @@ namespace whut_ship_control
             button10.Enabled = true;
             button11.Enabled = true;
             button12.Enabled = true;
+            order_back(control_instruction);
         }
 
         private void button9_Click(object sender, EventArgs e)
@@ -657,6 +679,7 @@ namespace whut_ship_control
             button10.Enabled = true;
             button11.Enabled = true;
             button12.Enabled = true;
+            order_back(control_instruction);
         }
 
         private void button10_Click(object sender, EventArgs e)
@@ -675,6 +698,7 @@ namespace whut_ship_control
             button10.Enabled = false ;
             button11.Enabled = true;
             button12.Enabled = true;
+            order_back(control_instruction);
         }
 
         private void button11_Click(object sender, EventArgs e)
@@ -693,6 +717,7 @@ namespace whut_ship_control
             button10.Enabled = true;
             button11.Enabled =false ;
             button12.Enabled = true;
+            order_back(control_instruction);
         }
 
         private void button13_Click(object sender, EventArgs e)
@@ -711,6 +736,7 @@ namespace whut_ship_control
             button21.Enabled = true;
             button22.Enabled = true;
             button23.Enabled = true;
+            order_back(control_instruction);
         }
 
         private void button23_Click(object sender, EventArgs e)
@@ -729,6 +755,7 @@ namespace whut_ship_control
             button21.Enabled = true;
             button22.Enabled = true;
             button23.Enabled = false ;
+            order_back(control_instruction);
         }
 
         private void button22_Click(object sender, EventArgs e)
@@ -747,6 +774,7 @@ namespace whut_ship_control
             button21.Enabled = true;
             button22.Enabled = false ;
             button23.Enabled = true;
+            order_back(control_instruction);
         }
 
         private void button21_Click(object sender, EventArgs e)
@@ -765,6 +793,7 @@ namespace whut_ship_control
             button21.Enabled =false ;
             button22.Enabled = true;
             button23.Enabled = true;
+            order_back(control_instruction);
         }
 
         private void button20_Click(object sender, EventArgs e)
@@ -783,6 +812,7 @@ namespace whut_ship_control
             button21.Enabled = true;
             button22.Enabled = true;
             button23.Enabled = true;
+            order_back(control_instruction);
         }
 
         private void button19_Click(object sender, EventArgs e)
@@ -801,6 +831,7 @@ namespace whut_ship_control
             button21.Enabled = true;
             button22.Enabled = true;
             button23.Enabled = true;
+            order_back(control_instruction);
         }
 
         private void button18_Click(object sender, EventArgs e)
@@ -819,6 +850,7 @@ namespace whut_ship_control
             button21.Enabled = true;
             button22.Enabled = true;
             button23.Enabled = true;
+            order_back(control_instruction);
         }
 
         private void button17_Click(object sender, EventArgs e)
@@ -837,6 +869,7 @@ namespace whut_ship_control
             button21.Enabled = true;
             button22.Enabled = true;
             button23.Enabled = true;
+            order_back(control_instruction);
         }
 
         private void button16_Click(object sender, EventArgs e)
@@ -855,6 +888,7 @@ namespace whut_ship_control
             button21.Enabled = true;
             button22.Enabled = true;
             button23.Enabled = true;
+            order_back(control_instruction);
         }
 
         private void button15_Click(object sender, EventArgs e)
@@ -873,6 +907,7 @@ namespace whut_ship_control
             button21.Enabled = true;
             button22.Enabled = true;
             button23.Enabled = true;
+            order_back(control_instruction);
         }
 
         private void button14_Click(object sender, EventArgs e)
@@ -891,6 +926,7 @@ namespace whut_ship_control
             button21.Enabled = true;
             button22.Enabled = true;
             button23.Enabled = true;
+            order_back(control_instruction);
         }
 
         private void button3_Click(object sender, EventArgs e)//游动机开启
@@ -908,6 +944,7 @@ namespace whut_ship_control
             send(); 
             button3.Enabled = true;
             button24.Enabled = false;
+            order_back(control_instruction);
         }
 
         private void button25_Click(object sender, EventArgs e)//抽水机开启
@@ -916,6 +953,7 @@ namespace whut_ship_control
             send();           
             button25.Enabled = false  ;
             button26.Enabled = true  ;
+            order_back(control_instruction);
         }
 
         private void button26_Click(object sender, EventArgs e)//抽水机关闭
@@ -924,6 +962,7 @@ namespace whut_ship_control
             send();          
             button25.Enabled = true ;
             button26.Enabled = false ;
+            order_back(control_instruction);
         }
         #endregion
 
