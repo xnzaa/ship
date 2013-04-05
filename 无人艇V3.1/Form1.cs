@@ -68,11 +68,16 @@ namespace whut_ship_control
         {
             try
             {
+                //地图初始化为卫星视图
                 webBrowser1.Navigate("http://99.blog.lc/map_google.html");
+
                 try
                 {
+                    //获取串口列表
                     string[] ports = SerialPort.GetPortNames();
                     Array.Sort(ports);
+
+                    //主串口设置项
                     comboBox1.Items.AddRange(ports);
                     comboBox1.SelectedIndex = comboBox1.Items.Count > 0 ? 1 : -1;
                     comboBox2.SelectedIndex = 5;
@@ -81,6 +86,7 @@ namespace whut_ship_control
                     comboBox5.SelectedIndex = 1;
                     main_sp.DataReceived += comm_DataReceived1;
 
+                    //辅助串口设置项
                     comboBox10.Items.AddRange(ports);
                     comboBox10.SelectedIndex = comboBox10.Items.Count > 0 ? 2 : -1;
                     comboBox9.SelectedIndex = 5;
@@ -97,6 +103,25 @@ namespace whut_ship_control
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
+            }
+        }
+
+        //点击右上角关闭时执行的动作
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                Application.DoEvents();
+                if (main_sp != null)
+                    main_sp.Close();
+                if (GPS_sp != null)
+                    GPS_sp.Close();
+                sws.Close();
+                swr.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
             }
         }
 
@@ -490,8 +515,8 @@ namespace whut_ship_control
             //{
                 if (!isopen1)
                 {
-                SetPortProperty1(main_sp);
-                SetPortProperty2(GPS_sp);
+                    SetPortProperty1(main_sp);
+                    SetPortProperty2(GPS_sp);
                 }
                 gPS开始接收ToolStripMenuItem.Enabled = false;
                 暂停接收ToolStripMenuItem.Enabled = true;
@@ -1053,20 +1078,10 @@ namespace whut_ship_control
 
         #endregion
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            try
-            {
-                Application.DoEvents();
-                if (main_sp != null)
-                    main_sp.Close();
-                if (GPS_sp != null)
-                    GPS_sp.Close();
-                sws.Close();
-                swr.Close();
-            }
-            catch (Exception ex) { MessageBox.Show(ex.Message.ToString()); }
-        }
+
+        
+
+
         // 测试按钮
         private void button27_Click(object sender, EventArgs e)
         {
