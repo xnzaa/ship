@@ -147,6 +147,10 @@ namespace whut_ship_control
             this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.timer4 = new System.Windows.Forms.Timer(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -371,21 +375,21 @@ namespace whut_ship_control
             // 重载地图ToolStripMenuItem
             // 
             this.重载地图ToolStripMenuItem.Name = "重载地图ToolStripMenuItem";
-            this.重载地图ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.重载地图ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.重载地图ToolStripMenuItem.Text = "重载地图";
             this.重载地图ToolStripMenuItem.Click += new System.EventHandler(this.重载地图ToolStripMenuItem_Click);
             // 
             // gPS校正ToolStripMenuItem1
             // 
             this.gPS校正ToolStripMenuItem1.Name = "gPS校正ToolStripMenuItem1";
-            this.gPS校正ToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.gPS校正ToolStripMenuItem1.Size = new System.Drawing.Size(124, 22);
             this.gPS校正ToolStripMenuItem1.Text = "GPS校正";
             this.gPS校正ToolStripMenuItem1.Click += new System.EventHandler(this.gPS校正ToolStripMenuItem1_Click);
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(532, 192);
+            this.label13.Location = new System.Drawing.Point(531, 175);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(41, 12);
             this.label13.TabIndex = 38;
@@ -394,7 +398,7 @@ namespace whut_ship_control
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(532, 253);
+            this.label17.Location = new System.Drawing.Point(531, 236);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(41, 12);
             this.label17.TabIndex = 39;
@@ -403,7 +407,7 @@ namespace whut_ship_control
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(573, 192);
+            this.label18.Location = new System.Drawing.Point(572, 175);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(29, 12);
             this.label18.TabIndex = 40;
@@ -412,7 +416,7 @@ namespace whut_ship_control
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(579, 253);
+            this.label19.Location = new System.Drawing.Point(578, 236);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(29, 12);
             this.label19.TabIndex = 41;
@@ -779,7 +783,7 @@ namespace whut_ship_control
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(531, 403);
+            this.label20.Location = new System.Drawing.Point(531, 365);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(89, 12);
             this.label20.TabIndex = 48;
@@ -788,7 +792,7 @@ namespace whut_ship_control
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(612, 403);
+            this.label21.Location = new System.Drawing.Point(612, 365);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(29, 12);
             this.label21.TabIndex = 49;
@@ -1101,7 +1105,7 @@ namespace whut_ship_control
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(532, 315);
+            this.label8.Location = new System.Drawing.Point(531, 298);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(77, 12);
             this.label8.TabIndex = 65;
@@ -1110,7 +1114,7 @@ namespace whut_ship_control
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(603, 315);
+            this.label9.Location = new System.Drawing.Point(602, 298);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(29, 12);
             this.label9.TabIndex = 66;
@@ -1136,21 +1140,21 @@ namespace whut_ship_control
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(541, 219);
+            this.progressBar1.Location = new System.Drawing.Point(540, 202);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(100, 23);
             this.progressBar1.TabIndex = 69;
             // 
             // progressBar2
             // 
-            this.progressBar2.Location = new System.Drawing.Point(540, 274);
+            this.progressBar2.Location = new System.Drawing.Point(539, 257);
             this.progressBar2.Name = "progressBar2";
             this.progressBar2.Size = new System.Drawing.Size(100, 23);
             this.progressBar2.TabIndex = 70;
             // 
             // progressBar3
             // 
-            this.progressBar3.Location = new System.Drawing.Point(540, 346);
+            this.progressBar3.Location = new System.Drawing.Point(539, 329);
             this.progressBar3.Maximum = 10;
             this.progressBar3.Name = "progressBar3";
             this.progressBar3.Size = new System.Drawing.Size(100, 23);
@@ -1188,11 +1192,49 @@ namespace whut_ship_control
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(539, 402);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(29, 12);
+            this.label32.TabIndex = 74;
+            this.label32.Text = "速度";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(573, 402);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(0, 12);
+            this.label33.TabIndex = 75;
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(539, 428);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(29, 12);
+            this.label34.TabIndex = 76;
+            this.label34.Text = "航向";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(573, 428);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(0, 12);
+            this.label35.TabIndex = 77;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1118, 469);
+            this.Controls.Add(this.label35);
+            this.Controls.Add(this.label34);
+            this.Controls.Add(this.label33);
+            this.Controls.Add(this.label32);
             this.Controls.Add(this.button29);
             this.Controls.Add(this.button28);
             this.Controls.Add(this.progressBar3);
@@ -1357,6 +1399,10 @@ namespace whut_ship_control
         private System.Windows.Forms.Timer timer3;
         private System.Windows.Forms.Timer timer4;
         private OpenFileDialog openFileDialog1;
+        private Label label32;
+        private Label label33;
+        private Label label34;
+        private Label label35;
 
     }
 }

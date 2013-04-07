@@ -4,6 +4,8 @@ using System.IO;
 using System.IO.Ports;
 using System.Text;
 using System.Windows.Forms;
+using System.Timers;
+using System.Collections;
 namespace whut_ship_control
 {
     public partial class Form1 : Form
@@ -57,6 +59,34 @@ namespace whut_ship_control
 
         string form_navigation_name = "";
 
+        System.Timers.Timer receive_time = new System.Timers.Timer();
+        int time_passed = 0;
+        struct latlogtime
+        {
+            public point latlog;
+            public double time;
+        };
+        public struct point
+        {
+            public double x;
+            public double y;
+            public static point operator -(point lhs, point rhs)    //重载-号运算
+            {
+                point result;
+                result.x = lhs.x - rhs.x;
+                result.y = lhs.y - rhs.y;
+                return result;
+            }
+        };
+
+        public struct coordinate
+        {
+            public double x;
+            public double y;
+        };
+        static coordinate[] axis = new coordinate[4];				//四个坐标轴上的单位向量 用初始化函数进行初始化
+        Queue latlogtime_queue = new Queue();
+        
         #endregion
 
         //主窗体构造函数
@@ -72,6 +102,9 @@ namespace whut_ship_control
             try
             {
                 webBrowser1.Navigate("http://99.blog.lc/map_google.html");
+                receive_time.Interval = 1;
+                receive_time.Elapsed += new System.Timers.ElapsedEventHandler(receive_time_Elapsed);
+                init(axis);
                 try
                 {
                     string[] ports = SerialPort.GetPortNames();
@@ -160,6 +193,44 @@ namespace whut_ship_control
                 GPS_text = "";                // 置空GPS_text以便存储新的串口接收到的字符串
         }
 
+        void receive_time_Elapsed(Object sender, ElapsedEventArgs e)
+        {
+            time_passed += 1;
+        }
+
+        public static void init(coordinate[] axis)						//计算速度初始化函数 必须调用一次
+        {
+            coordinate temp;
+            temp.x = 1;
+            temp.y = 0;
+            axis[0] = temp;		//(1,0)
+            temp.x = 0;
+            temp.y = 1;
+            axis[1] = temp;		//(0,1)
+            temp.x = -1;
+            temp.y = 0;
+            axis[2] = temp;		//(-1,0)
+            temp.x = 0;
+            temp.y = -1;
+            axis[3] = temp;		//(0,-1)
+        }
+
+        public static double get_angle(coordinate a, coordinate b)			//计算两个向量的夹角
+        {
+            double angle = Math.Acos((a.x * b.x + a.y * b.y) / (Math.Sqrt(a.x * a.x + a.y * a.y) * Math.Sqrt(b.x * b.x + b.y * b.y))) / 3.1415926 * 180;
+            if (angle < 0.0001)
+                angle = 0;
+            return angle;
+        }
+
+        public static coordinate get_direction(point previous_location, point current_location)
+        {
+            coordinate temp;
+            temp.x = current_location.x - previous_location.x;
+            temp.y = current_location.y - previous_location.y;
+            return temp;
+        }
+
         //主串口字符串处理函数
         void main_sp_receive(string str)
         {
@@ -170,6 +241,7 @@ namespace whut_ship_control
                     is_first_receive = false;
                     timer1.Start();
                     timer2.Start();
+                    receive_time.Start();
                     label7.Text = "已连接";
                     label7.BackColor = Color.White;
                 }
@@ -211,6 +283,39 @@ namespace whut_ship_control
 
                         //经度转换并计算正确值
                         Double longitude = Convert.ToDouble(str1[5]) / 100 - longitude_check ;
+
+
+                        /*********************************************************/
+                        latlogtime temp;
+                        temp.latlog.y = latitude;
+                        temp.latlog.x = longitude;
+                        temp.time = time_passed;
+                        latlogtime_queue.Enqueue(temp);
+                        if (latlogtime_queue.Count == 2)
+                        {
+                            latlogtime temp1 = (latlogtime)latlogtime_queue.Dequeue();
+                            latlogtime temp2 = (latlogtime)latlogtime_queue.Dequeue();
+                            double distance = Math.Sqrt(Math.Pow(temp1.latlog.x - temp2.latlog.x, 2) + Math.Pow(temp1.latlog.y - temp2.latlog.y, 2));
+                            double time = Math.Abs(temp2.time - temp1.time);
+                            double speed = distance / time;
+                            label33.Text = speed.ToString();
+                            coordinate temp_coor = get_direction(temp1.latlog, temp2.latlog);
+                            double[] degree = new double[4];
+                            for (int i = 0; i < 4; ++i)
+                            {
+                                degree[i] = get_angle(temp_coor, axis[i]);
+                            }
+                            if (degree[0] <= 90 && degree[1] <= 90)
+                                label35.Text = "北偏东" + degree[1].ToString() + "°";
+                            else if (degree[1] <= 90 && degree[2] <= 90)
+                                label35.Text = "北偏西" + degree[1].ToString() + "°";
+                            else if (degree[2] <= 90 && degree[3] <= 90)
+                                label35.Text = "南偏西" + degree[3].ToString() + "°";
+                            else if (degree[3] <= 90 && degree[4] <= 90)
+                                label35.Text = "南偏东" + degree[3].ToString() + "°";
+                        }
+
+
 
                         if (true)           //防止点数量过于密集，每接收三个丢弃一个point_counter_for_abandon % 3 == 0
                         {
@@ -325,6 +430,7 @@ namespace whut_ship_control
             return true;
         }
         #endregion
+
         private void SetPortProperty1(SerialPort sp)       //初始化端口状态
         {
 
