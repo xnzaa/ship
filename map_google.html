@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<style type="text/css">
+html {
+	height: 100%
+}
+body {
+	height: 100%;
+	margin: 0px;
+	padding: 0px
+}
+#map_canvas {
+	height: 100%
+}
+</style>
+<script type="text/javascript"
+    src="http://maps.google.com/maps/api/js?key=AIzaSyByDCzPFGyoQcmU5Pcuuo4ZPw5ZUDTEnyw&sensor=false">
+</script>
+<script type="text/javascript">
+	var map;					//地图
+	var poly;					//线
+	var path = [];				//路径点组
+	var markers = [];
+
+
+  function initialize() {					<!--初始化时加载默认参数的地图-->
+    var latlng = new google.maps.LatLng(30.61322767,114.3513717);
+    var myOptions = {
+      zoom: 8,
+      center: latlng,
+	  disableDefaultUI: true,
+      mapTypeId: google.maps.MapTypeId.SATELLITE
+    };
+    map = new google.maps.Map(document.getElementById("map_canvas"),
+        myOptions);
+		
+	var polyOptions = {
+        strokeColor: '#000000',
+        strokeOpacity: 1.0,
+        strokeWeight: 3
+    }
+    poly = new google.maps.Polyline(polyOptions);
+    poly.setMap(map);
+	path = poly.getPath();
+  }
+  
+  function start(lng, lat) {
+	  mark(lat, lng);
+  }
+  
+  function mark_line(lng, lat) {
+	var latlng = new google.maps.LatLng(lat, lng);
+	markers.push(new google.maps.Marker({
+      position: latlng, 
+      map: map,
+      icon: "http://maps.google.com/mapfiles/marker" + String.fromCharCode(markers.length + 65) + ".png"
+    }));    
+	path = poly.getPath();
+	path.push(latlng);
+	<!--双击删除标签的监听器-->
+	//google.maps.event.addListener(markers.valueOf(markers.length), 'dblclick', function() {
+		//markers.valueOf(markers.length).setMap(null);
+    //});
+	center(lat, lng);
+  }
+  
+  function mark(lat, lng) {
+	var latlng = new google.maps.LatLng(lat, lng);
+	var marker = new google.maps.Marker({position: latlng});
+	marker.setMap(map);
+	<!--双击删除标签的监听器-->
+	google.maps.event.addListener(marker, 'dblclick', function() {
+		marker.setMap(null);
+    });
+	center(lat, lng);
+  }
+  
+  function center(lat, lng) {
+	  var latlng = new google.maps.LatLng(lat, lng);
+	  map.setCenter(latlng);
+  }
+  
+  function zoom(zoom) {
+	  map.setZoom(zoom);
+  }
+  
+  function type(typeid) {
+	  if (typeid == 1)
+	  	map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+	  if (typeid == 2)
+	  	map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+  }
+  
+  function test() {					<!--测试用函数-->
+    var latlng = new google.maps.LatLng(30.61322767,114.3513717);
+    var myOptions = {
+      zoom: 15,
+      center: latlng,
+	  disableDefaultUI: true,
+      mapTypeId: google.maps.MapTypeId.SATELLITE
+    };
+    map = new google.maps.Map(document.getElementById("map_canvas"),
+        myOptions);
+		
+	var latlng = new google.maps.LatLng(lat, lng);		//这里给经纬度 纬度 经度
+	var marker = new google.maps.Marker({position: latlng, title:"Current Position"});
+	marker.setMap(map);
+	google.maps.event.addListener(marker, 'dblclick', function() {
+		marker.setMap(null);
+    });
+  }
+  
+
+  
+</script>
+</head>
+<body onload="initialize()">
+<div id="map_canvas" style="width:100%; height:100%"></div>
+<noscript>
+</body>
+</noscript>
+</html>

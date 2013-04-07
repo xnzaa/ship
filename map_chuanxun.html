@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<title>船讯网</title>
+<style type="text/css">
+html {
+	height: 100%
+}
+body {
+	height: 100%;
+	margin: 0px;
+	padding: 0px
+}
+#mapDiv {
+	height: 100%
+}
+</style>
+<script src="http://api.shipxy.com/apdll/ap.dll?api=map&key=810CC478BF2515247A4D873A20E0DD6F&ver=1.1" type="text/javascript"></script>
+<script src="http://api.shipxy.com/apdll/ap.dll?api=data&key=810CC478BF2515247A4D873A20E0DD6F&ver=1.1" type="text/javascript"></script>
+<script type="text/javascript">
+	var map;
+	function initialize() {					<!--初始化时加载默认参数的地图-->
+		var mapOptions = new shipxyMap.MapOptions();
+		mapOptions.center = new shipxyMap.LatLng(32, 122);
+		mapOptions.zoom = 5;
+		mapOptions.mapType = shipxyMap.MapType.CMAP;
+		map = new shipxyMap.Map('mapDiv', mapOptions);
+		shipxyMap.mapReady = function () {
+			center(30, 114);
+		}
+	}
+	
+	function center(lat, lng) {
+		map.setCenter(new shipxyMap.LatLng(lat, lng));
+	}
+	
+	function zoom(zoom) {
+		map.setZoom(zoom);
+	}
+	
+	function type(typeid) {
+	  if (typeid == 1)
+		map.setMapTypeId(shipxyMap.MapType.GOOGLEMAP);
+	  if (typeid == 2)
+		map.setMapTypeId(shipxyMap.MapType.CMAP);
+	}
+	
+	function removeAllOverlay() {
+		map.removeAllOverlay();
+	}
+	
+	function mark(lat, lng) {
+		var markerOptions = new shipxyMap.MarkerOptions();
+		markerOptions.imageUrl = 'http://api.shipxy.com/APIHTML/js/img/mark.png'; //图片URL
+		var marker = new shipxyMap.Marker("",new shipxyMap.LatLng(lat, lng),markerOptions);
+		map.addOverlay(marker, true);
+		map.setCenter(new shipxyMap.LatLng(lat, lng));
+	}
+	
+	function show_ships(lata, lnga) {
+		var region = new shipxyAPI.Region();
+		var shipOptions = new shipxyMap.ShipOptions();
+		shipOptions.isShowLabel = false;
+		region.data = [{lat:lata-0.5,lng:lnga+0.5},{lat:lata+0.5,lng:lnga+0.5},{lat:lata-0.5,lng:lnga-0.5},{lat:lata+0.5,lng:lnga-0.5}];
+		var ships = new shipxyAPI.Ships(region,shipxyAPI.Ships.INIT_REGION);
+		ships.getShips(function (status) {
+			var myShipData = ships.data;
+			if (status == 0 && myShipData && myShipData.length > 0) {
+				for (var i = 0; i < myShipData.length; i++) {
+					var ship = new shipxyMap.Ship(myShipData[i].shipId, myShipData[i],shipOptions);
+					//var ship = new shipxyMap.Ship(myShipData[i].shipId, myShipData[i]);
+                	map.addOverlay(ship);
+				}
+			}
+		});
+	}
+	
+	function locateShipById(shipId) {
+		map.removeAllOverlay();
+        var ships = new shipxyAPI.Ships(shipId, shipxyAPI.Ships.INIT_SHIPID);
+        ships.getShips(function (status) {
+			var data = this.data;
+            if (status == 0 && data && data.length > 0) {
+				var d = data[0];
+                var ship = new shipxyMap.Ship(d.shipId, d);
+                map.addOverlay(ship);
+                map.locateOverlay(ship);
+			} 
+		});
+	}
+	
+</script>
+</head>
+<body onload="initialize()">
+<div id="mapDiv" style="width:100%; height:100%"></div>
+<noscript>
+</body>
+</noscript>
+</html>
