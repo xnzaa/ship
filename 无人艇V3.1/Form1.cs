@@ -4,7 +4,6 @@ using System.IO;
 using System.IO.Ports;
 using System.Text;
 using System.Windows.Forms;
-using System.Threading;
 namespace whut_ship_control
 {
     public partial class Form1 : Form
@@ -20,7 +19,8 @@ namespace whut_ship_control
 
         StreamWriter swr = new StreamWriter("E:\\received.txt", true);
         StreamWriter sws = new StreamWriter("E:\\send.txt", true);
-
+        StreamWriter sww_nag;
+        StreamReader swr_nag;
         //纬度 经度 构造Javascript函数参数使用此数组
         public static object[] objArray = new object[2];
 
@@ -49,11 +49,13 @@ namespace whut_ship_control
         //辅助GPS串口
         static SerialPort GPS_sp = new SerialPort();
 
-        //端口状态变量
-        bool isopen1;
+        //TODO
+        bool isopen1;       //端口状态变量
 
         //避免在事件处理方法中反复的创建，定义到外面
         private StringBuilder builder = new StringBuilder();
+
+        string form_navigation_name = "";
 
         #endregion
 
@@ -61,24 +63,19 @@ namespace whut_ship_control
         public Form1()
         {
             InitializeComponent();
-            Control.CheckForIllegalCrossThreadCalls = false;
+            Control.CheckForIllegalCrossThreadCalls = false;        
         }
 
-        //主窗体加载   地图 串口 初始化过程
+        //主窗体加载   地图 端口 初始化过程
         private void Form1_Load(object sender, EventArgs e)
         {
             try
             {
-                //地图初始化为卫星视图
                 webBrowser1.Navigate("http://99.blog.lc/map_google.html");
-
                 try
                 {
-                    //获取串口列表
                     string[] ports = SerialPort.GetPortNames();
                     Array.Sort(ports);
-
-                    //主串口设置项
                     comboBox1.Items.AddRange(ports);
                     comboBox1.SelectedIndex = comboBox1.Items.Count > 0 ? 1 : -1;
                     comboBox2.SelectedIndex = 5;
@@ -86,10 +83,7 @@ namespace whut_ship_control
                     comboBox4.SelectedIndex = 3;
                     comboBox5.SelectedIndex = 1;
                     main_sp.DataReceived += comm_DataReceived1;
-                    main_sp.NewLine = "\r\n";
-                    
 
-                    //辅助串口设置项
                     comboBox10.Items.AddRange(ports);
                     comboBox10.SelectedIndex = comboBox10.Items.Count > 0 ? 2 : -1;
                     comboBox9.SelectedIndex = 5;
@@ -109,42 +103,25 @@ namespace whut_ship_control
             }
         }
 
-        //点击右上角关闭时执行的动作
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        private void comm_DataReceived1(object sender, SerialDataReceivedEventArgs e)//串口数据监听器
         {
-            try
-            {
-                Application.DoEvents();
-                if (main_sp != null)
-                    main_sp.Close();
-                if (GPS_sp != null)
-                    GPS_sp.Close();
-                sws.Close();
-                swr.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString());
-            }
-        }
-
-        //主串口数据监听器
-        private void comm_DataReceived1(object sender, SerialDataReceivedEventArgs e)
-        {
-            //已经接收到数据了 重置连接计数器
             connect_count = 0;
-
-            string str = main_sp.ReadLine();
+            int n = main_sp.BytesToRead;//先记录下来，避免某种原因，人为的原因，操作几次之间时间长，缓存不一致   
+            byte[] buf = new byte[n];//声明一个临时数组存储当前来的串口数据     
+            main_sp.Read(buf, 0, n);//读取缓冲数据   
+            builder.Remove(0, builder.Length);//清除字符串构造器的内容   
+            //因为要访问ui资源，所以需要使用invoke方式同步ui。   
             this.Invoke((EventHandler)(delegate
-            {
-                main_sp_receive(str);
-                point_counter_for_abandon++;
+            {       
+                    //直接按ASCII规则转换成字符串 
+                    string str = Encoding.ASCII.GetString(buf);
+                    // builder.Append(str);
+                    main_sp_receive(str);
+                    point_counter_for_abandon++;
             }));
-            main_sp.DiscardInBuffer();
         }
 
-        //辅助串口数据监听器
-        private void comm_DataReceived2(object sender, SerialDataReceivedEventArgs e)
+        private void comm_DataReceived2(object sender, SerialDataReceivedEventArgs e)//串口数据监听器
         {
             GPS_text = GPS_text + GPS_sp.ReadExisting();  // 读取串口数据
             if (GPS_text. Contains  ("$"))      // 如果GPS_text字符串最后一个字符是“回车”&&GPS_text.EndsWith("\n")
@@ -201,7 +178,7 @@ namespace whut_ship_control
                     //显示接收到的数据
                     label12.Text = str;
 
-                    if (str.Contains("$GPRMC"))               //只处理含有$GPRMC的GPS数据&& !str.Contains("GPGSA")
+                    if (str.Contains("$GPRMC") )               //只处理含有$GPRMC的GPS数据&& !str.Contains("GPGSA")
                     {
                         string[] str1 = str.Split(',');
                         string[] th = str1[12].Split('P', 'R', 'H', 'e','S','\r');
@@ -292,10 +269,6 @@ namespace whut_ship_control
             }               
         }
 
-        //void  sp2_receive(string str)//辅助串口字符串处理函数
-        //{
-            
-        //}   //修改算法
 
         private void order_back(string str1)
         {
@@ -331,35 +304,30 @@ namespace whut_ship_control
         }       
 
         #region 串口配置库函数
-
-        //检查端口是否初始化
-        private bool CheckPortSetting()
+        private bool CheckPortSetting()      //检查端口是否初始化
         {
             if (comboBox1.Text.Trim() == "") return false;
             if (comboBox2.Text.Trim() == "") return false;
             if (comboBox3.Text.Trim() == "") return false;
             if (comboBox4.Text.Trim() == "") return false;
             if (comboBox5.Text.Trim() == "") return false;
-            if (comboBox6.Text.Trim() == "") return false;
-            if (comboBox7.Text.Trim() == "") return false;
-            if (comboBox8.Text.Trim() == "") return false;
-            if (comboBox9.Text.Trim() == "") return false;
             if (comboBox10.Text.Trim() == "") return false;
+            if (comboBox9.Text.Trim() == "") return false;
+            if (comboBox8.Text.Trim() == "") return false;
+            if (comboBox7.Text.Trim() == "") return false;
+            if (comboBox6.Text.Trim() == "") return false;
             return true;
         }
 
-        //检测发送数据是否为空
-        private bool CheckSendData()
+        private bool CheckSendData()        //检测发送数据是否为空
         {
-            if (control_instruction == "")
-                return false;
+            if (control_instruction == "") return false;
             return true;
         }
-
         #endregion
-
         private void SetPortProperty1(SerialPort sp)       //初始化端口状态
         {
+
             sp.PortName = comboBox1.Text.Trim();
             sp.BaudRate = Convert.ToInt32(comboBox2.Text.Trim());
             float f = Convert.ToSingle(comboBox5.Text.Trim());
@@ -409,6 +377,7 @@ namespace whut_ship_control
             }
             catch (Exception)
             {
+                //label8.Text = "打开串口时发生错误";
                 MessageBox.Show("打开串口时发生错误");
             }
         }
@@ -472,30 +441,36 @@ namespace whut_ship_control
 
         private void send()//端口发射函数
         {
-            if (!CheckPortSetting())
-            { MessageBox.Show("串口未设置！", "错误提示"); }
-            if (!CheckSendData())
-            { MessageBox.Show("请输入要发送的数据！", "错误提示"); }
-            if (!isopen1)
-            { SetPortProperty1(main_sp); }
-            if (isopen1)
-            {
-                try
-                {
-                    main_sp.WriteLine(control_instruction);
-                }
-                catch (Exception)
-                {
-                    //label8.Text = "发送数据时发生错误！";
-                }
-            }
-            else
-            {
-                MessageBox.Show("串口未打开！", "错误提示");
-            }
+            //if (!CheckPortSetting())
+            //{ MessageBox.Show("串口未设置！", "错误提示"); }
+            //if (!CheckSendData())
+            //{ MessageBox.Show("请输入要发送的数据！", "错误提示"); }
+            //if (!isopen1)
+            //{ SetPortProperty1(main_sp); }
+            //if (isopen1)
+            //{
+            //    try
+            //    {
+            //        main_sp.WriteLine(control_instruction);
+            //    }
+            //    catch (Exception)
+            //    {
+            //        //label8.Text = "发送数据时发生错误！";
+            //    }
+            //}
+            //else
+            //{
+            //    MessageBox.Show("串口未打开！", "错误提示");
+            //}
             sws.Write(control_instruction);
+            order_back(control_instruction);
+            try
+            {
+                sww_nag.Write(control_instruction);
+                sww_nag.Write("\r\n");
+            }
+            catch {return ;}
         }
-
         #region 菜单组
         private void gPS校正ToolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -511,13 +486,17 @@ namespace whut_ship_control
 
         private void gPS开始接收ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!isopen1)
-            {
+            //if (check_ok)
+            //{
+                if (!isopen1)
+                {
                 SetPortProperty1(main_sp);
                 SetPortProperty2(GPS_sp);
-            }
-            gPS开始接收ToolStripMenuItem.Enabled = false;
-            暂停接收ToolStripMenuItem.Enabled = true;
+                }
+                gPS开始接收ToolStripMenuItem.Enabled = false;
+                暂停接收ToolStripMenuItem.Enabled = true;
+            //}
+            //else { MessageBox .Show ("请先设置GPS校正值")}
         }
 
         private void 暂停接收ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -554,7 +533,7 @@ namespace whut_ship_control
             button10.Enabled = true;
             button11.Enabled = true;
             button12.Enabled = true;
-            order_back(control_instruction);
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -573,7 +552,7 @@ namespace whut_ship_control
             button10.Enabled = true;
             button11.Enabled = true;
             button12.Enabled = true;
-            order_back(control_instruction);
+            
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -592,7 +571,7 @@ namespace whut_ship_control
             button10.Enabled = true;
             button11.Enabled = true;
             button12.Enabled = true;
-            order_back(control_instruction);
+            
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -611,7 +590,7 @@ namespace whut_ship_control
             button10.Enabled = true;
             button11.Enabled = true;
             button12.Enabled = true;
-            order_back(control_instruction);
+            
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -630,7 +609,7 @@ namespace whut_ship_control
             button10.Enabled = true;
             button11.Enabled = true;
             button12.Enabled = true;
-            order_back(control_instruction);
+            
         }
 
         private void button12_Click(object sender, EventArgs e)
@@ -649,7 +628,7 @@ namespace whut_ship_control
             button10.Enabled = true;
             button11.Enabled = true;
             button12.Enabled = false ;
-            order_back(control_instruction);
+            
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -668,7 +647,7 @@ namespace whut_ship_control
             button10.Enabled = true;
             button11.Enabled = true;
             button12.Enabled = true;
-            order_back(control_instruction);
+            
         }
 
         private void button8_Click(object sender, EventArgs e)
@@ -687,7 +666,7 @@ namespace whut_ship_control
             button10.Enabled = true;
             button11.Enabled = true;
             button12.Enabled = true;
-            order_back(control_instruction);
+            
         }
 
         private void button9_Click(object sender, EventArgs e)
@@ -706,7 +685,7 @@ namespace whut_ship_control
             button10.Enabled = true;
             button11.Enabled = true;
             button12.Enabled = true;
-            order_back(control_instruction);
+            
         }
 
         private void button10_Click(object sender, EventArgs e)
@@ -725,7 +704,7 @@ namespace whut_ship_control
             button10.Enabled = false ;
             button11.Enabled = true;
             button12.Enabled = true;
-            order_back(control_instruction);
+            
         }
 
         private void button11_Click(object sender, EventArgs e)
@@ -744,7 +723,7 @@ namespace whut_ship_control
             button10.Enabled = true;
             button11.Enabled =false ;
             button12.Enabled = true;
-            order_back(control_instruction);
+            
         }
 
         private void button13_Click(object sender, EventArgs e)
@@ -763,7 +742,7 @@ namespace whut_ship_control
             button21.Enabled = true;
             button22.Enabled = true;
             button23.Enabled = true;
-            order_back(control_instruction);
+            
         }
 
         private void button23_Click(object sender, EventArgs e)
@@ -782,7 +761,7 @@ namespace whut_ship_control
             button21.Enabled = true;
             button22.Enabled = true;
             button23.Enabled = false ;
-            order_back(control_instruction);
+            
         }
 
         private void button22_Click(object sender, EventArgs e)
@@ -801,7 +780,7 @@ namespace whut_ship_control
             button21.Enabled = true;
             button22.Enabled = false ;
             button23.Enabled = true;
-            order_back(control_instruction);
+            
         }
 
         private void button21_Click(object sender, EventArgs e)
@@ -820,7 +799,7 @@ namespace whut_ship_control
             button21.Enabled =false ;
             button22.Enabled = true;
             button23.Enabled = true;
-            order_back(control_instruction);
+            
         }
 
         private void button20_Click(object sender, EventArgs e)
@@ -839,7 +818,7 @@ namespace whut_ship_control
             button21.Enabled = true;
             button22.Enabled = true;
             button23.Enabled = true;
-            order_back(control_instruction);
+            
         }
 
         private void button19_Click(object sender, EventArgs e)
@@ -858,7 +837,7 @@ namespace whut_ship_control
             button21.Enabled = true;
             button22.Enabled = true;
             button23.Enabled = true;
-            order_back(control_instruction);
+            
         }
 
         private void button18_Click(object sender, EventArgs e)
@@ -877,7 +856,7 @@ namespace whut_ship_control
             button21.Enabled = true;
             button22.Enabled = true;
             button23.Enabled = true;
-            order_back(control_instruction);
+            
         }
 
         private void button17_Click(object sender, EventArgs e)
@@ -896,7 +875,7 @@ namespace whut_ship_control
             button21.Enabled = true;
             button22.Enabled = true;
             button23.Enabled = true;
-            order_back(control_instruction);
+            
         }
 
         private void button16_Click(object sender, EventArgs e)
@@ -915,7 +894,7 @@ namespace whut_ship_control
             button21.Enabled = true;
             button22.Enabled = true;
             button23.Enabled = true;
-            order_back(control_instruction);
+            
         }
 
         private void button15_Click(object sender, EventArgs e)
@@ -934,7 +913,7 @@ namespace whut_ship_control
             button21.Enabled = true;
             button22.Enabled = true;
             button23.Enabled = true;
-            order_back(control_instruction);
+            
         }
 
         private void button14_Click(object sender, EventArgs e)
@@ -953,7 +932,7 @@ namespace whut_ship_control
             button21.Enabled = true;
             button22.Enabled = true;
             button23.Enabled = true;
-            order_back(control_instruction);
+            
         }
 
         private void button3_Click(object sender, EventArgs e)//游动机开启
@@ -971,7 +950,7 @@ namespace whut_ship_control
             send(); 
             button3.Enabled = true;
             button24.Enabled = false;
-            order_back(control_instruction);
+            
         }
 
         private void button25_Click(object sender, EventArgs e)//抽水机开启
@@ -980,7 +959,7 @@ namespace whut_ship_control
             send();           
             button25.Enabled = false  ;
             button26.Enabled = true  ;
-            order_back(control_instruction);
+            
         }
 
         private void button26_Click(object sender, EventArgs e)//抽水机关闭
@@ -989,9 +968,10 @@ namespace whut_ship_control
             send();          
             button25.Enabled = true ;
             button26.Enabled = false ;
-            order_back(control_instruction);
+            
         }
         #endregion
+
 
         #region 定时器组
         private void timer1_Tick(object sender, EventArgs e)//定时发送@函数
@@ -1017,7 +997,6 @@ namespace whut_ship_control
 
         #region 地图操作控件
 
-        //地图缩放
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             if (numericUpDown1.Value > 20)
@@ -1027,34 +1006,21 @@ namespace whut_ship_control
             webBrowser1.Document.InvokeScript("zoom", array);
         }
 
-        #region 地图类型选择
-
-        //卫星视图
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             change_map();
         }
 
-        //行政视图
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
             change_map();
         }
 
-        //电子海图
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
             change_map();
         }
 
-        #endregion
-
-        private void 重载地图ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            change_map();
-        }
-
-        //更换地图的函数(重新加载对应地图)
         private void change_map()
         {
             if (radioButton1.Checked)
@@ -1071,13 +1037,96 @@ namespace whut_ship_control
             }
         }
 
+        private void 重载地图ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            change_map();
+        }
+
         #endregion
 
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                if (main_sp != null)
+                    main_sp.Close();
+                if (GPS_sp != null)
+                    GPS_sp.Close();
+                sws.Close();
+                swr.Close();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message.ToString()); }
+        }
         // 测试按钮
         private void button27_Click(object sender, EventArgs e)
         {
            main_sp_receive (":10$GPRMC,031015.00,A,3036.78331,N,11421.08548,E,0.101,,020313,,,A*7B,!##!");
         }
+
+        private void button28_Click(object sender, EventArgs e)
+        {
+
+            Form_navigation form_navigation = new Form_navigation();
+            form_navigation.MessageSent += delegate(object caller, string msg, string msg2)
+            {
+                form_navigation_name = msg;
+                sww_nag = new StreamWriter("E:\\" + form_navigation_name+".txt", false);
+            };
+            if (button28.Text == "开始学习")
+            {
+                form_navigation.ShowDialog();
+                button28.Text = "结束学习";
+                timer3.Start();
+                
+            }
+            else
+            { 
+                button28.Text = "开始学习"; 
+                timer3.Stop();
+                sww_nag.Close();
+            }
+        }
+
+        private void button29_Click(object sender, EventArgs e)
+        {
+            if (button29.Text == "一键执行")
+            {
+                openFileDialog1.Title = "选择动作";
+                if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                    swr_nag = new StreamReader(openFileDialog1.FileName);
+                button29.Text = "停止执行";
+                timer4.Start();
+            }
+            else
+            {
+                button29.Text = "一键执行";
+                timer4.Stop();
+                swr_nag.Close();
+            }
+        }
+
+        private void timer3_Tick(object sender, EventArgs e)
+        {
+            sww_nag.Write("navigation\r\n");
+        }
+
+        private void timer4_Tick(object sender, EventArgs e)
+        {
+            string str = swr_nag.ReadLine();
+            if (str != "navigation")
+            {
+                control_instruction = str;
+                send();
+                //label14.Text = str;
+            }
+            //label15.Text = str;
+
+        }
+
+
+
+
+     
 
     }
 }
