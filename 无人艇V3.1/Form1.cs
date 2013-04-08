@@ -23,6 +23,7 @@ namespace whut_ship_control
         StreamWriter sws = new StreamWriter("E:\\send.txt", true);
         StreamWriter sww_nag;
         StreamReader swr_nag;
+        bool is_sww_nag;
         //纬度 经度 构造Javascript函数参数使用此数组
         public static object[] objArray = new object[2];
 
@@ -116,6 +117,7 @@ namespace whut_ship_control
                     comboBox4.SelectedIndex = 3;
                     comboBox5.SelectedIndex = 1;
                     main_sp.DataReceived += comm_DataReceived1;
+                    main_sp.NewLine = "\r\n";
 
                     comboBox10.Items.AddRange(ports);
                     comboBox10.SelectedIndex = comboBox10.Items.Count > 0 ? 2 : -1;
@@ -136,21 +138,17 @@ namespace whut_ship_control
             }
         }
 
-        private void comm_DataReceived1(object sender, SerialDataReceivedEventArgs e)//串口数据监听器
+        //主串口数据监听器
+        private void comm_DataReceived1(object sender, SerialDataReceivedEventArgs e)
         {
+            //已经接收到数据了 重置连接计数器
             connect_count = 0;
-            int n = main_sp.BytesToRead;//先记录下来，避免某种原因，人为的原因，操作几次之间时间长，缓存不一致   
-            byte[] buf = new byte[n];//声明一个临时数组存储当前来的串口数据     
-            main_sp.Read(buf, 0, n);//读取缓冲数据   
-            builder.Remove(0, builder.Length);//清除字符串构造器的内容   
-            //因为要访问ui资源，所以需要使用invoke方式同步ui。   
+
+            string str = main_sp.ReadLine();
             this.Invoke((EventHandler)(delegate
-            {       
-                    //直接按ASCII规则转换成字符串 
-                    string str = Encoding.ASCII.GetString(buf);
-                    // builder.Append(str);
-                    main_sp_receive(str);
-                    point_counter_for_abandon++;
+            {
+                main_sp_receive(str);
+                point_counter_for_abandon++;
             }));
         }
 
@@ -232,7 +230,7 @@ namespace whut_ship_control
         }
 
         //主串口字符串处理函数
-        void main_sp_receive(string str)
+        private void main_sp_receive(string str)
         {
             try
             {
@@ -250,42 +248,21 @@ namespace whut_ship_control
                     //显示接收到的数据
                     label12.Text = str;
 
-                    if (str.Contains("$GPRMC") )               //只处理含有$GPRMC的GPS数据&& !str.Contains("GPGSA")
+                    //接收到的数据保存在文本中
+                    swr.WriteLine(str);
+
+                    //处理含有$GPRMC的GPS数据
+                    if (str.Contains("$GPRMC"))
                     {
-                        string[] str1 = str.Split(',');
-                        string[] th = str1[12].Split('P', 'R', 'H', 'e','S','\r');
-                        string humidity = th[4];                //湿度
-                        string temperature = th[2];             //温度
-
-                        //温度标签
-                        label18.Text = temperature + "摄氏度";
-                        progressBar1.Value = Convert.ToInt32(Convert.ToDouble(temperature));
-
-                        //湿度标签
-                        label19.Text = humidity + "%";
-                        progressBar2.Value = Convert.ToInt32(Convert.ToDouble(humidity));
-                        //障碍物标签
-                        
-                        //红外检测
-                        if (str.Contains("!##!"))
-                        {
-                            label21.Text = "发现目标";
-                            label21.BackColor = Color.Red;
-                        }
-                        else
-                        {
-                            label21.Text = "正常";
-                            label21.BackColor = Color.White;
-                        }
+                        string[] str_gps = str.Split(',');
 
                         //纬度转换并计算正确值
-                        Double latitude = Convert.ToDouble(str1[3]) / 100 - latitude_check ;
+                        double latitude = Convert.ToDouble(str_gps[3]) / 100 - latitude_check ;
 
                         //经度转换并计算正确值
-                        Double longitude = Convert.ToDouble(str1[5]) / 100 - longitude_check ;
+                        double longitude = Convert.ToDouble(str_gps[5]) / 100 - longitude_check ;
 
-
-                        /*********************************************************/
+                        /***************************计算速度和航向********没事不要改***************************/
                         latlogtime temp;
                         temp.latlog.y = latitude;
                         temp.latlog.x = longitude;
@@ -318,66 +295,116 @@ namespace whut_ship_control
                             else if (degree[3] <= 90 && degree[4] <= 90)
                                 label35.Text = "南偏东" + degree[3].ToString().Substring(0, 5) + "°";
                         }
+                        /**************************************************************************************/
 
+                        //显示当前坐标
+                        label2.Text = latitude.ToString();
+                        label3.Text = longitude.ToString();
+                        
+                        //此处有一个未解决的疑问：每次调用InvokeScript之后，会交换objArray的值
+                        //故每次均需重新构造objArray
 
-
-                        if (true)           //防止点数量过于密集，每接收三个丢弃一个point_counter_for_abandon % 3 == 0
+                        //防止点数量过于密集，每接收三个丢弃一个point_counter_for_abandon % 3 == 0
+                        if (point_counter_for_abandon % 3 == 0)
                         {
-                            if (true)//check_ok
-                            {
-                                label2.Text = latitude.ToString();
-                                label3.Text = longitude.ToString();
-                                objArray[0] = (object)latitude;
-                                objArray[1] = (object)longitude;
-                                webBrowser1.Document.InvokeScript("mark", objArray);
-                                //check_ok = false;
-                            }
+                            point_counter_for_abandon = 0;
+                            objArray[0] = (object)latitude;
+                            objArray[1] = (object)longitude;
+                            webBrowser1.Document.InvokeScript("mark", objArray);
                         }
+
+                        //船讯网显示船只信息函数
+                        if (radioButton3.Checked)
+                        {
+                            objArray[0] = (object)latitude;
+                            objArray[1] = (object)longitude;
+                            webBrowser1.Document.InvokeScript("show_ships", objArray);
+                        }
+
+                        //地图居中
                         if (checkbox1.Checked)
                         {
                             objArray[0] = (object)latitude;
                             objArray[1] = (object)longitude;
                             webBrowser1.Document.InvokeScript("center", objArray);
                         }
-                        swr.WriteLine(str);
                     }
-                }
-                if (str.Contains("DIS"))
-                {
-                    string[] str3 = str.Split('I', 'S', '$');
 
-                    if (str3[2] == "-1")
+                    //处理温湿度距离数据
+                    if (str.Contains("#TEMP"))
                     {
-                        label9.Text = "前方无目标";
-                        progressBar3.Value=10;
+                        //#TEMP22.7RH46.5endDIS65.68
+                        /*
+                         th
+                        {string[6]}
+                            [0]: "#TEM"
+                            [1]: "22.7"
+                            [2]: ""
+                            [3]: "46.5"
+                            [4]: "ndDI"
+                            [5]: "65.68"
+                         */
+
+                        string[] th = str.Split('P', 'R', 'H', 'e', 'S', '\r');
+                        string humidity = th[3];                //湿度
+                        string temperature = th[1];             //温度
+
+                        //温度标签
+                        label18.Text = temperature + "摄氏度";
+                        progressBar1.Value = Convert.ToInt32(Convert.ToDouble(temperature));
+
+                        //湿度标签
+                        label19.Text = humidity + "%";
+                        progressBar2.Value = Convert.ToInt32(Convert.ToDouble(humidity));
+                        
+
+                        //红外检测
+                        if (str.Contains("!##!"))
+                        {
+                            label21.Text = "发现目标";
+                            label21.BackColor = Color.Red;
+                        }
+                        else
+                        {
+                            label21.Text = "正常";
+                            label21.BackColor = Color.White;
+                        }
+
+                        //障碍物距离
+                        if (th[5] == "-1")
+                        {
+                            label9.Text = "前方无目标";
+                            progressBar3.Value = 1200;
+                        }
+                        else
+                        {
+                            label9.Text = Convert.ToDouble(th[5]) / 100 + "m";
+                            progressBar3.Value = Convert.ToInt32(Convert.ToDouble(th[5]));
+                        }
                     }
-                    else
-                    {
-                        label9.Text = Convert.ToDouble(str3[2]) / 100 + "m";
-                        progressBar3.Value = Convert.ToInt32(Convert.ToDouble(str3[2]) / 100);
-                    }
-                }
                     
-                if (str.Contains(":") || str.Contains("!"))
-                {
-                    if (str.Contains(":"))
+                    //TODO: 命令返回值
+                    if (str.Contains(":") || str.Contains("!"))
                     {
-                        string[] strr=str.Split(':','$');
-                        //order_back(":"+strr[1]);
+                        if (str.Contains(":"))
+                        {
+                            string[] strr=str.Split(':','$');
+                            //order_back(":"+strr[1]);
+                        }
+                        else if (str.Contains("!"))
+                        {
+                            string[] strr = str.Split('!','$');
+                            //order_back("!" + strr[1]);
+                        }
                     }
-                    else if (str.Contains("!"))
-                    {
-                        string[] strr = str.Split('!','$');
-                        //order_back("!" + strr[1]);
-                    }
+                    main_sp.DiscardInBuffer();
                 }
             }
             catch 
             {
                 return;
-            }               
+            }
         }
-
 
         private void order_back(string str1)
         {
@@ -410,7 +437,16 @@ namespace whut_ship_control
                 case ":9": textBox1.Text += "速度已调整为9级\r\n"; break;
                 case ":10": textBox1.Text += "速度已调整为10级\r\n"; break;
             }
-        }       
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+            textBox1.SelectionStart = textBox1.Text.Length;
+
+            textBox1.ScrollToCaret();
+
+        }
 
         #region 串口配置库函数
         private bool CheckPortSetting()      //检查端口是否初始化
@@ -433,7 +469,7 @@ namespace whut_ship_control
             if (control_instruction == "") return false;
             return true;
         }
-        #endregion
+        #endregion 
 
         private void SetPortProperty1(SerialPort sp)       //初始化端口状态
         {
@@ -551,33 +587,36 @@ namespace whut_ship_control
 
         private void send()//端口发射函数
         {
-            //if (!CheckPortSetting())
-            //{ MessageBox.Show("串口未设置！", "错误提示"); }
-            //if (!CheckSendData())
-            //{ MessageBox.Show("请输入要发送的数据！", "错误提示"); }
-            //if (!isopen1)
-            //{ SetPortProperty1(main_sp); }
-            //if (isopen1)
-            //{
-            //    try
-            //    {
-            //        main_sp.WriteLine(control_instruction);
-            //    }
-            //    catch (Exception)
-            //    {
-            //        //label8.Text = "发送数据时发生错误！";
-            //    }
-            //}
-            //else
-            //{
-            //    MessageBox.Show("串口未打开！", "错误提示");
-            //}
+            if (!CheckPortSetting())
+            { MessageBox.Show("串口未设置！", "错误提示"); }
+            if (!CheckSendData())
+            { MessageBox.Show("请输入要发送的数据！", "错误提示"); }
+            if (!isopen1)
+            { SetPortProperty1(main_sp); }
+            if (isopen1)
+            {
+                try
+                {
+                    main_sp.WriteLine(control_instruction);
+                }
+                catch (Exception)
+                {
+                    //label8.Text = "发送数据时发生错误！";
+                }
+            }
+            else
+            {
+                MessageBox.Show("串口未打开！", "错误提示");
+            }
             sws.Write(control_instruction);
             order_back(control_instruction);
             try
             {
-                sww_nag.Write(control_instruction);
-                sww_nag.Write("\r\n");
+                if (is_sww_nag)
+                {
+                    sww_nag.Write(control_instruction);
+                    sww_nag.Write("\r\n");
+                }
             }
             catch {return ;}
         }
@@ -1082,7 +1121,6 @@ namespace whut_ship_control
         }
         #endregion
 
-
         #region 定时器组
         private void timer1_Tick(object sender, EventArgs e)//定时发送@函数
         {
@@ -1109,8 +1147,13 @@ namespace whut_ship_control
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            if (numericUpDown1.Value > 20)
-                numericUpDown1.Value = 20;
+            int max;
+            if (radioButton3.Checked)
+                max = 18;
+            else
+                max = 20;
+            if (numericUpDown1.Value > max)
+                numericUpDown1.Value = max;
             object[] array = new object[1];
             array[0] = (object)numericUpDown1.Value;
             webBrowser1.Document.InvokeScript("zoom", array);
@@ -1158,6 +1201,7 @@ namespace whut_ship_control
         {
             try
             {
+                Application.DoEvents();
                 if (main_sp != null)
                     main_sp.Close();
                 if (GPS_sp != null)
@@ -1167,6 +1211,7 @@ namespace whut_ship_control
             }
             catch (Exception ex) { MessageBox.Show(ex.Message.ToString()); }
         }
+
         // 测试按钮
         private void button27_Click(object sender, EventArgs e)
         {
@@ -1187,32 +1232,24 @@ namespace whut_ship_control
                 form_navigation.ShowDialog();
                 button28.Text = "结束学习";
                 timer3.Start();
-                
+                is_sww_nag = true;
             }
             else
             { 
                 button28.Text = "开始学习"; 
                 timer3.Stop();
                 sww_nag.Close();
+                is_sww_nag = false;
             }
         }
 
         private void button29_Click(object sender, EventArgs e)
         {
-            if (button29.Text == "一键执行")
-            {
                 openFileDialog1.Title = "选择动作";
                 if (openFileDialog1.ShowDialog() == DialogResult.OK)
                     swr_nag = new StreamReader(openFileDialog1.FileName);
                 button29.Text = "停止执行";
                 timer4.Start();
-            }
-            else
-            {
-                button29.Text = "一键执行";
-                timer4.Stop();
-                swr_nag.Close();
-            }
         }
 
         private void timer3_Tick(object sender, EventArgs e)
@@ -1225,18 +1262,27 @@ namespace whut_ship_control
             string str = swr_nag.ReadLine();
             if (str != "navigation")
             {
-                control_instruction = str;
-                send();
+                if (!string.IsNullOrEmpty(str))
+                {
+                    control_instruction = str;
+                    send();
+                }
+                else
+                {
+                    button29.Text = "一键执行";
+                    timer4.Stop();
+                    MessageBox.Show("执行完毕");
+                    swr_nag.Close();
+                }
                 //label14.Text = str;
             }
             //label15.Text = str;
 
         }
 
-
-
-
-     
-
+        private void button30_Click(object sender, EventArgs e)
+        {
+            main_sp.DiscardInBuffer();
+        }
     }
 }

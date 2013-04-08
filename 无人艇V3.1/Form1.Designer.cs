@@ -151,6 +151,7 @@ namespace whut_ship_control
             this.label33 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
+            this.button30 = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -335,7 +336,7 @@ namespace whut_ship_control
             this.其他功能ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1118, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(1203, 25);
             this.menuStrip1.TabIndex = 37;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -407,7 +408,7 @@ namespace whut_ship_control
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(572, 175);
+            this.label18.Location = new System.Drawing.Point(574, 175);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(29, 12);
             this.label18.TabIndex = 40;
@@ -416,7 +417,7 @@ namespace whut_ship_control
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(578, 236);
+            this.label19.Location = new System.Drawing.Point(574, 236);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(29, 12);
             this.label19.TabIndex = 41;
@@ -685,7 +686,7 @@ namespace whut_ship_control
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(187, 4);
+            this.label6.Location = new System.Drawing.Point(386, 7);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(65, 12);
             this.label6.TabIndex = 44;
@@ -696,7 +697,7 @@ namespace whut_ship_control
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.Color.Red;
             this.label7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label7.Location = new System.Drawing.Point(258, 4);
+            this.label7.Location = new System.Drawing.Point(457, 7);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(44, 12);
             this.label7.TabIndex = 45;
@@ -704,7 +705,7 @@ namespace whut_ship_control
             // 
             // timer2
             // 
-            this.timer2.Interval = 8000;
+            this.timer2.Interval = 900;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
             // button3
@@ -800,7 +801,7 @@ namespace whut_ship_control
             // 
             // button27
             // 
-            this.button27.Location = new System.Drawing.Point(1139, 253);
+            this.button27.Location = new System.Drawing.Point(1105, 236);
             this.button27.Name = "button27";
             this.button27.Size = new System.Drawing.Size(75, 23);
             this.button27.TabIndex = 60;
@@ -824,9 +825,10 @@ namespace whut_ship_control
             this.textBox1.Location = new System.Drawing.Point(6, 20);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBox1.Size = new System.Drawing.Size(184, 185);
             this.textBox1.TabIndex = 62;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // tabControl1
             // 
@@ -1140,7 +1142,7 @@ namespace whut_ship_control
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(540, 202);
+            this.progressBar1.Location = new System.Drawing.Point(539, 202);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(100, 23);
             this.progressBar1.TabIndex = 69;
@@ -1155,14 +1157,14 @@ namespace whut_ship_control
             // progressBar3
             // 
             this.progressBar3.Location = new System.Drawing.Point(539, 329);
-            this.progressBar3.Maximum = 10;
+            this.progressBar3.Maximum = 1200;
             this.progressBar3.Name = "progressBar3";
             this.progressBar3.Size = new System.Drawing.Size(100, 23);
             this.progressBar3.TabIndex = 71;
             // 
             // button28
             // 
-            this.button28.Location = new System.Drawing.Point(695, 4);
+            this.button28.Location = new System.Drawing.Point(695, 2);
             this.button28.Name = "button28";
             this.button28.Size = new System.Drawing.Size(75, 23);
             this.button28.TabIndex = 72;
@@ -1172,7 +1174,7 @@ namespace whut_ship_control
             // 
             // button29
             // 
-            this.button29.Location = new System.Drawing.Point(799, 4);
+            this.button29.Location = new System.Drawing.Point(799, 2);
             this.button29.Name = "button29";
             this.button29.Size = new System.Drawing.Size(75, 23);
             this.button29.TabIndex = 73;
@@ -1226,11 +1228,22 @@ namespace whut_ship_control
             this.label35.Size = new System.Drawing.Size(0, 12);
             this.label35.TabIndex = 77;
             // 
+            // button30
+            // 
+            this.button30.Location = new System.Drawing.Point(1105, 152);
+            this.button30.Name = "button30";
+            this.button30.Size = new System.Drawing.Size(75, 23);
+            this.button30.TabIndex = 78;
+            this.button30.Text = "button30";
+            this.button30.UseVisualStyleBackColor = true;
+            this.button30.Click += new System.EventHandler(this.button30_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1118, 469);
+            this.ClientSize = new System.Drawing.Size(1203, 469);
+            this.Controls.Add(this.button30);
             this.Controls.Add(this.label35);
             this.Controls.Add(this.label34);
             this.Controls.Add(this.label33);
@@ -1403,6 +1416,7 @@ namespace whut_ship_control
         private Label label33;
         private Label label34;
         private Label label35;
+        private Button button30;
 
     }
 }
