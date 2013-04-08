@@ -78,6 +78,18 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_navigation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_navigation.Designer.cs">
+      <DependentUpon>Form_navigation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_navigation2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_navigation2.Designer.cs">
+      <DependentUpon>Form_navigation2.cs</DependentUpon>
+    </Compile>
     <Compile Include="GPS.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +100,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_navigation.resx">
+      <DependentUpon>Form_navigation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_navigation2.resx">
+      <DependentUpon>Form_navigation2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GPS.resx">
       <DependentUpon>GPS.cs</DependentUpon>
