@@ -295,10 +295,14 @@ namespace whut_ship_control
                         {
                             latlogtime temp1 = (latlogtime)latlogtime_queue.Dequeue();
                             latlogtime temp2 = (latlogtime)latlogtime_queue.Dequeue();
-                            double distance = Math.Sqrt(Math.Pow(temp1.latlog.x - temp2.latlog.x, 2) + Math.Pow(temp1.latlog.y - temp2.latlog.y, 2));
+                            /***采用数学方法计算球面两点间距离****/
+                            point A = temp1.latlog;
+                            point B = temp2.latlog;
+                            double distance = Math.Sqrt(Math.Pow((B.y - A.y) * 111700, 2) + Math.Pow((6371000*Math.Cos(A.y*180/Math.PI)*(B.x-A.x)/360),2));
+                            /*************************************/
                             double time = Math.Abs(temp2.time - temp1.time) / 1000.0;       //毫秒转化为秒
                             double speed = distance / time;
-                            label33.Text = speed.ToString();
+                            label33.Text = speed.ToString().Substring(0,5);
                             coordinate temp_coor = get_direction(temp1.latlog, temp2.latlog);
                             double[] degree = new double[4];
                             for (int i = 0; i < 4; ++i)
@@ -306,13 +310,13 @@ namespace whut_ship_control
                                 degree[i] = get_angle(temp_coor, axis[i]);
                             }
                             if (degree[0] <= 90 && degree[1] <= 90)
-                                label35.Text = "北偏东" + degree[1].ToString() + "°";
+                                label35.Text = "北偏东" + degree[1].ToString().Substring(0, 5) + "°";
                             else if (degree[1] <= 90 && degree[2] <= 90)
-                                label35.Text = "北偏西" + degree[1].ToString() + "°";
+                                label35.Text = "北偏西" + degree[1].ToString().Substring(0, 5) + "°";
                             else if (degree[2] <= 90 && degree[3] <= 90)
-                                label35.Text = "南偏西" + degree[3].ToString() + "°";
+                                label35.Text = "南偏西" + degree[3].ToString().Substring(0, 5) + "°";
                             else if (degree[3] <= 90 && degree[4] <= 90)
-                                label35.Text = "南偏东" + degree[3].ToString() + "°";
+                                label35.Text = "南偏东" + degree[3].ToString().Substring(0, 5) + "°";
                         }
 
 
