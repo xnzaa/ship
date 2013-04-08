@@ -296,7 +296,7 @@ namespace whut_ship_control
                             latlogtime temp1 = (latlogtime)latlogtime_queue.Dequeue();
                             latlogtime temp2 = (latlogtime)latlogtime_queue.Dequeue();
                             double distance = Math.Sqrt(Math.Pow(temp1.latlog.x - temp2.latlog.x, 2) + Math.Pow(temp1.latlog.y - temp2.latlog.y, 2));
-                            double time = Math.Abs(temp2.time - temp1.time);
+                            double time = Math.Abs(temp2.time - temp1.time) / 1000.0;       //毫秒转化为秒
                             double speed = distance / time;
                             label33.Text = speed.ToString();
                             coordinate temp_coor = get_direction(temp1.latlog, temp2.latlog);
