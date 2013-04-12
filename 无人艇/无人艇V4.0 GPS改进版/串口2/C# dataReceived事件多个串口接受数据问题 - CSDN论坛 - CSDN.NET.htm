@@ -1,0 +1,1546 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0036)http://bbs.csdn.net/topics/380201721 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET</title>
+    <link href="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/main-cc38e613492704b0b103318eeb63d95c.css" media="screen" rel="stylesheet" type="text/css">
+    <script type="text/javascript" async="" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/ga.js"></script><script src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/application-1a33bfd3d5ee7e433197442aeb9c03b6.js" type="text/javascript"></script><style type="text/css" id="LB_ADBLOCK_0">.ad_960,.banner_top2,.banner_top3,[src*="&sourcesuninfo=ad-"],.adarea,.adarea_top,#lovexin1,#lovexin2,.m_ad,#topBanner,.ad1,.ad2,.ad3,.ad4,.ad5,.ad6,.ad7,.ad8,.ad9,.adSpace,.ad_240_h,.side-Rad,.ol_ad_xiala,iframe[src^="http://a.cntv.cn"],[id^="youku_ad_"],#bd1,#bd2,#bd3,.h8r.font0,.topbod>.topbodr,.topbodr>table[width="670"][height="70"],.widget_ad_slot_wrapper,.gg01,.gg02,.gg03,.gg04,.gg05,.gg06,.gg07,.gg08,.gg09,#_SNYU_Ad_Wrap,[id^="snyu_slot_"],.random-box>.random-banner,.gonglue_rightad,iframe[src^="http://www.37cs.com/html/click/"],#AdZoneRa,#AdZoneRb,#AdZoneRc,#AdZoneRd,#AdZoneRe,#AdZoneRf,#AdZoneRg,div[id="adAreaBbox"],.absolute.a_cover,#QQCOM_Width3,#auto_gen_6,.l_qq_com,#cj_ad,[href^="http://c.l.qq.com/adsclick?oid="],.right_ad_lefttext,.right_ad_righttext,.AdTop-Article-QQ,.business-Article-QQ,.qiye-Article-QQ,.AdBox-Article-QQ,td[width="960"][height="90"][align="center"],.adclass,.ad1,[id^="tonglan_"],.ads5,.adv,.ads220_60,.ad-h60,.ad-h65,.ggs,[class^="ads360"],.news_ad_box,#XianAd,.Ad3Top-Article-QQ,.AdTop2-Article-QQ,.adbutton-Aritcle-QQ,#AdRight-Article-QQ,[id^=ad-block],.sidBoxNoborder.mar-b8,#ent_ad,[class="ad"][id="ad_bottom"],[class="ad"][id="ad_top"],.plrad,.ad300,#top_ad1,#top_ad2,#top_ad3,#top_ad4,#top_ad5,#top_ad6,#top_ad7,#top_ad8,#top_ad9,#mid_ad1,#mid_ad2,#mid_ad3,#mid_ad4,#mid_ad5,#mid_ad6,#mid_ad7,#mid_ad8,#mid_ad9,#ads1,#ads2,#ads3,#ads4,#ads5,#ads6,#ads7,#ads8,#ads9,.dlAd,.changeAd,.unionCpv,#Advertisement,iframe[src*="/advertisement."],img[src*="/advertisement."],.ad_headerbanner,#ad_headerbanner,div[class^=ad_textlink],iframe[src*="guanggao"],img[src*="guanggao"],#ads-top,#ads-bot,.adBanner,#topAd,.top_ad,.topAds,.topAd,.ad_column,#ad1,#ad2,#ad3,#ad4,#ad5,#ad6,#ad7,#ad8,#ad9,.ad_footerbanner,#adleft,#adright,.advleft,.advright,.ad980X60,.banner-ad,.top-ad,#adright,#AdLayer1,#AdLayer2,#AdLayer3,div[href*="click.mediav.com"],div[class=top_ad],div[class^="headads"],div[class="ads"],.txtad,.guanggao,#guanggao,.adclass,div[id*="AdsLayer"],.ad950,.guangg,.header-ads-top,#adleft,#adright,#ad_show,.ad_pic,#fullScreenAd,div[class^="adbox"],#topADImg,div[class^="ad_box"],div[id^="adbox"],div[class^="ads_"],div[alt*="￥ﾹ﾿￥ﾑﾊ￤ﾽﾍ"],div[id^="ads_"],div[src*="/adfile/"],.delayadv,#vplayad,.jadv,div[src*="/ads/"],div[src*="/advpic/"],div[id*="_adbox"],div[id*="-adbox"],div[class^="showad"],div[id^="adshow"],#bottomads,.ad_column,div[id^="_AdSame"],iframe[src^="http://drmcmm.baidu.com"],div[src^="http://drmcmm.baidu.com"],frame[src^="http://drmcmm.baidu.com"],div[href^="http://www.baidu.com/cpro.php?"],iframe[href^="http://www.baidu.com/cpro.php?"],div[src^="http://cpro.baidu.com"],div[src^="http://eiv.baidu.com"],div[href^="http://www.baidu.com/baidu.php?url="],div[href^="http://www.baidu.com/adrc.php?url="],.ad_text,div[href^="http://click.cm.sandai.net"],div.adA.area,div[src*=".qq937.com"],iframe[src*=".qq937.com"],div[src*=".88210212.com"],iframe[src*=".88210212.com"],.adBox,.adRight,.adLeft,.banner-ads,.right_ad,.left_ad,.content_ad,.post-top-gg,div[class*="_ad_slot"],.col_ad,.block_ad,div[class^="adList"],.adBlue,.mar_ad,div[id^="ArpAdPro"],.adItem,.ggarea,.adiframe,iframe[src*="/adiframe/"],#bottom_ad,.bottom_ad,.crumb_ad,.topadna,.topadbod,div[src*="qq494.cn"],iframe[src*="qq494.cn"],.topadbod,embed[src*="gamefiles.qq937.com"],embed[src*="17kuxun.com"],.crazy_ad_layer,#crazy_ad_layer,.bannerad,iframe[src*="/ads/"],img[src*="/ads/"],embed[src*="/ads/"],#crazy_ad_float,.crazy_ad_float,.main_ad,.topads,div[class^="txtadsblk"],.head-ad,div[src*="/728x90."],img[src*="/728x90."],embed[src*="/728x90."],iframe[src*="/gg/"],img[src*="/gg/"],iframe[src^="http://www.460.com.cn"],#bg_ad,.ad_pic,iframe[src*="gg.yxdown.com"],.ad_top,#baiduSpFrame,.flashad,#flashad,#ShowAD,[onclick^="ad_clicked"],[class^="ad_video_"],#ad_240,.wp.a_f,.a_mu,#hd_ad,#top_ads,#header_ad,#adbanner,#adbanner_1,#Left_bottomAd,#Right_bottomAd,#ad_alimama,#vipTip,.ad_pip,#show-gg,.ad-box,.advbox,.widget-ads.banner,.a760x100,.a200x375,.a760x100,.a200x100,.ad_left,.ad_right{display:none !important;}</style>
+    <meta content="authenticity_token" name="csrf-param">
+<meta content="FodMcurGe0IFiVfGEwgYMJ5AwCFSpVZMNMPJrmEwYuY=" name="csrf-token">
+    <link href="http://csdnimg.cn/www/images/favicon.ico" rel="SHORTCUT ICON">
+
+      <link href="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/sh-2364fad8c7dc15e3401b73afdf331470.css" media="all" rel="stylesheet" type="text/css">
+  <script src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/sh-d778121d099d6e5ed8bb7ce42824a371.js" type="text/javascript"></script>
+
+  </head>
+  <body>
+    <div class="wraper">
+      <script type="text/javascript" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/pub_topnav_2011.js"></script><link rel="stylesheet" type="text/css" href="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/navtop_2012.css">
+<div class="nav_top_2011">
+<p><span style="color:red;">您还未登录！</span>|<a href="https://passport.csdn.net/account/login" target="_top">登录</a>|<a href="https://passport.csdn.net/account/register" target="_top">注册</a>|<a href="https://passport.csdn.net/help/faq" target="_blank">帮助</a></p><ul>
+<li><a href="http://www.csdn.net/" target="_blank">首页</a></li>
+<li><a href="http://news.csdn.net/" target="_blank">业界</a></li>
+<li><a href="http://mobile.csdn.net/" target="_blank">移动</a></li>
+<li><a href="http://cloud.csdn.net/" target="_blank">云计算</a></li>
+<li><a href="http://sd.csdn.net/" target="_blank">研发</a></li>
+<li><a href="http://bbs.csdn.net/" target="_blank">论坛</a></li>
+<li><a href="http://blog.csdn.net/" target="_blank">博客</a></li>
+<li><a href="http://download.csdn.net/" target="_blank">下载</a></li>
+<li class="more"><h2 id="topnav_btnmore" onclick="showNavMore(this)"><a href="javascript:void(0);">更多</a></h2>
+<div id="topnav_hidlist">
+<iframe name="nav_frm" src="about:blank" width="92" height="178" scrolling="no" frameborder="no"></iframe>
+</div>
+</li>
+</ul>
+</div>
+
+
+        <!-- 页顶通栏 -->
+  <iframe id="Topic_Top" marginwidth="0" marginheight="0" frameborder="0" scrolling="no" width="100%" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/TopicPageTop.htm" style="height: 60px; "></iframe>
+
+      <div id="nav">
+        <a href="http://bbs.csdn.net/" class="logo" target="_top"></a>
+        <div class="nav_list">
+          <a href="http://bbs.csdn.net/home" title="CSDN论坛首页" class="home">首页</a><a href="http://bbs.csdn.net/help" class=""><span>论坛帮助</span></a><a href="http://bbs.csdn.net/rank" class=""><span>论坛牛人</span></a><a href="http://bbs.csdn.net/map" class=""><span>论坛地图</span></a>
+        </div>
+
+        <div class="nav_sear">
+          <form action="http://so.csdn.net/search" target="_blank">
+            <input name="t" type="hidden" value="thread">
+            <input name="q" type="text">
+          </form>
+        </div>
+      </div>
+      <!--[if IE]>
+<style type="text/css" media="screen">
+.control_area .control .drop_menu{border:3px solid #ccc \9; _*border:3px solid #ccc;}
+</style>
+<![endif]-->
+
+  <!-- 页顶Button (D3) -->
+  <iframe id="frm_tt1" marginwidth="0" marginheight="0" frameborder="0" scrolling="no" width="100%" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/TopicBodyTop.htm"></iframe>
+  <script type="text/javascript">
+    setTimeout(function () { document.getElementById("frm_tt1").src = "/sda/TopicBodyTop.htm?v="+new Date().getTime(); }, 5000);
+  </script>
+
+<div class="bread_nav">
+  <a href="http://www.csdn.net/" target="_blank">CSDN</a> <em>&gt;</em>
+  <a href="http://bbs.csdn.net/" target="_blank">CSDN论坛</a> <em>&gt;</em>
+    <a href="http://bbs.csdn.net/forums/DotNET" target="_blank">.NET技术</a> <em>&gt;</em>
+  <a href="http://bbs.csdn.net/forums/CSharp" target="_blank">C#</a>
+</div>
+
+<div class="flash_messages">
+</div>
+
+
+<div class="control_area">
+  <form name="form" id="form">
+    
+    <div class="control">
+      <ul>
+        <li class="drop_menu_wrap drop_menu_down"><a href="http://bbs.csdn.net/topics/380201721#" class="drop_toggle btn_1"><span><img src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/ico_set.gif" alt="">管理菜单<img src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/arrow_down.gif" alt=""></span></a>
+        <ul class="drop_menu" style="display: none; top:26px;">
+            <li><a href="http://bbs.csdn.net/topics/380201721/top" class="fancybox" rel="nofollow">置顶</a></li>
+
+  <li><a href="http://bbs.csdn.net/topics/380201721/recommend" data-confirm="确定要将该帖推荐(加精)吗？被推荐的帖子将给帖主奖励可用分88分!" data-method="put" rel="nofollow">推荐</a></li>
+
+  <li><a href="http://bbs.csdn.net/topics/380201721/lock" class="fancybox" rel="nofollow">锁定</a></li>
+
+<li><a href="http://bbs.csdn.net/topics/380201721/move" class="fancybox" rel="nofollow">移动</a></li>
+<li><a href="http://bbs.csdn.net/topics/380201721/edit" class="fancybox" rel="nofollow">编辑</a></li>
+<li><a href="http://bbs.csdn.net/topics/380201721/destroy_edit" class="fancybox" rel="nofollow">删除</a></li>
+<li><a href="http://bbs.csdn.net/topics/380201721/add_point" class="fancybox" rel="nofollow">帖子加分</a></li>
+  <li><a href="http://bbs.csdn.net/topics/380201721/highlight" class="fancybox" rel="nofollow">帖子高亮</a></li>
+
+        </ul>
+        </li>
+        <li><a href="http://bbs.csdn.net/topics/380201721/close" class="btn_1" rel="nofollow"><span><img src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/ico_over.gif" alt="">结帖</span></a></li>
+        <li><a href="http://bbs.csdn.net/topics/new?forum_id=CSharp" class="btn_1"><span><img src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/ico_publish.gif" alt="">发帖</span></a></li>
+        <li><a href="http://bbs.csdn.net/topics/380201721#new_post" class="btn_1"><span><img src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/ico_return.gif" alt="">回复</span></a></li>
+      </ul>
+    </div>
+  </form>
+</div>
+<div class="detail_title">
+  <div class="fr">
+    <select name="filter_posts">
+      <option value="default">不显示删除回复</option>
+      <option value="all">显示所有回复</option>
+      <option value="star">显示星级回复</option>
+      <option value="pointed">显示得分回复</option>
+    </select>
+    <a href="http://my.csdn.net/my/favorite/miniadd?u=http://bbs.csdn.net/topics/380201721&t=C%23%20dataReceived%E4%BA%8B%E4%BB%B6%E5%A4%9A%E4%B8%AA%E4%B8%B2%E5%8F%A3%E6%8E%A5%E5%8F%97%E6%95%B0%E6%8D%AE%E9%97%AE%E9%A2%98" id="fav" class="fav" rel="nofollow"><img src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/nolines_plus.gif" alt="">收藏</a>
+  </div>
+  <h1>
+      C# dataReceived事件多个串口接受数据问题
+    <span>
+      [问题点数：40分，结帖人GJHF_Wuchao]
+    </span>
+  </h1>
+</div>
+<div class="detailed">
+    <table border="0" cellspacing="0" cellpadding="0" id="post-380201721" class="post topic " data-post-id="380201721" data-is-topic-locked="false">
+  <colgroup><col width="180"><col></colgroup>
+  <tbody><tr>
+      <td rowspan="2" valign="top" class="wirter">
+                <dl class="user_info ">
+          <dt class="user_head" data-username="GJHF_Wuchao"><a href="http://my.csdn.net/GJHF_Wuchao" target="_blank"><img alt="GJHF_Wuchao" class="avatar" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/1_gjhf_wuchao.jpg"></a>
+          </dt>
+          <dd class="username"><a href="http://my.csdn.net/GJHF_Wuchao" target="_blank">GJHF_Wuchao</a>
+          </dd>
+          <dd class="nickname"><span class="name2nick">GJHF_Wuchao</span></dd>
+          <dd title="总技术分：38；总技术排名：209291">等级：<img alt="Blank" class="grade user1" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/blank.gif"></dd>
+          <dd class="close_rate" title="用户结帖率：86.67%
+总发帖：30
+正常结帖：26
+未结帖：4">结帖率：86.67%</dd>
+          
+        </dl>
+
+      </td>
+      <td valign="top" class="post_info topic pointed" data-username="GJHF_Wuchao" data-floor="">
+                <div class="data">
+            <strong class="fr">
+              楼主
+            </strong>
+          <span class="time">
+              发表于：
+            2012-03-01 18:51:27
+          </span>
+        </div>
+        <div class="post_body">
+            串口的定义是根据外界设备数量来定义的...因此是动态的...我将每个串口的发送命令分别放在不同的线程了,接收就用一个事件,怎么处理数据才不会乱
+              <div class="tag ">
+              </div>
+        </div>
+          <!-- 主帖下Banner (D4) -->
+          <!-- 主帖下文字 (D5) -->
+          <iframe id="tad2" marginwidth="0" marginheight="0" frameborder="0" scrolling="no" width="100%" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/TopicBodyBottom.htm" style="height: 130px; "></iframe>
+
+      </td>
+    </tr>
+    <tr>
+      <td valign="bottom">
+              <div class="control">
+        <div class="fr">
+          <a href="http://bbs.csdn.net/posts/380201721/digg?topic_id=380201721" class="red digg" data-method="put" data-remote="true" rel="nofollow">对我有用[0]</a>
+          <a href="http://bbs.csdn.net/posts/380201721/bury?topic_id=380201721" class="bury" data-method="put" data-remote="true" rel="nofollow">丢个板砖[0]</a>
+          <a href="http://bbs.csdn.net/topics/380201721#quote" class="quote">引用</a> |
+          <a href="http://bbs.csdn.net/posts/380201721/report?topic_id=380201721" class="fancybox red" rel="nofollow">举报 </a> |
+          <span class="manage-toggle">
+            <div class="manage" style="display: none;">
+                <a href="http://bbs.csdn.net/topics/380201721/edit" class="fancybox" rel="nofollow">编辑</a>
+                <a href="http://bbs.csdn.net/topics/380201721/destroy_edit" class="fancybox" rel="nofollow">删除</a>
+            </div>
+            管理
+          </span> |
+          <a href="http://bbs.csdn.net/topics/380201721#">TOP</a>
+        </div>
+          <span class="return_time">回复次数：20</span>
+      </div>
+
+      </td>
+  </tr>
+</tbody></table>
+
+  <table border="0" cellspacing="0" cellpadding="0" id="post-390485660" class="post  " data-post-id="390485660" data-is-topic-locked="false">
+  <colgroup><col width="180"><col></colgroup>
+  <tbody><tr>
+      <td rowspan="2" valign="top" class="wirter">
+                <dl class="user_info ">
+          <dt class="user_head" data-username="GJHF_Wuchao"><a href="http://my.csdn.net/GJHF_Wuchao" target="_blank"><img alt="GJHF_Wuchao" class="avatar" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/1_gjhf_wuchao.jpg"></a>
+          </dt>
+          <dd class="username"><a href="http://my.csdn.net/GJHF_Wuchao" target="_blank">GJHF_Wuchao</a>
+          </dd>
+          <dd class="nickname"><span class="name2nick">GJHF_Wuchao</span></dd>
+          <dd title="总技术分：38；总技术排名：209291">等级：<img alt="Blank" class="grade user1" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/blank.gif"></dd>
+          <dd class="close_rate" title="用户结帖率：86.67%
+总发帖：30
+正常结帖：26
+未结帖：4">结帖率：86.67%</dd>
+          
+        </dl>
+
+      </td>
+      <td valign="top" class="post_info " data-username="GJHF_Wuchao" data-floor="1">
+                <div class="data">
+            <span class="fr">
+              <a href="http://bbs.csdn.net/topics/380201721#post-390485660">#1</a>
+              得分：0
+            </span>
+          <span class="time">
+              回复于：
+            2012-03-01 19:20:37
+          </span>
+        </div>
+        <div class="post_body">
+            ....来帮下啊
+        </div>
+
+      </td>
+    </tr>
+    <tr>
+      <td valign="bottom">
+              <div class="control">
+          <div id="post-forum-bulletin-1" class="fl"><a href="http://www.csdn.net/article/2013-01-21/2813843" class="title_style_blue title_style_bold" target="_blank">专访杨刚：移动互联网是孕育下一代高科技企业的土壤</a></div>
+        <div class="fr">
+          <a href="http://bbs.csdn.net/posts/390485660/digg?topic_id=380201721" class="red digg" data-method="put" data-remote="true" rel="nofollow">对我有用[0]</a>
+          <a href="http://bbs.csdn.net/posts/390485660/bury?topic_id=380201721" class="bury" data-method="put" data-remote="true" rel="nofollow">丢个板砖[0]</a>
+          <a href="http://bbs.csdn.net/topics/380201721#quote" class="quote">引用</a> |
+          <a href="http://bbs.csdn.net/posts/390485660/report?topic_id=380201721" class="fancybox red" rel="nofollow">举报 </a> |
+          <span class="manage-toggle">
+            <div class="manage" style="display: none;">
+                <a href="http://bbs.csdn.net/posts/390485660/edit" class="fancybox" rel="nofollow">编辑</a>
+                <a href="http://bbs.csdn.net/posts/390485660/destroy_edit" class="fancybox" rel="nofollow">删除</a>
+            </div>
+            管理
+          </span> |
+          <a href="http://bbs.csdn.net/topics/380201721#">TOP</a>
+        </div>
+      </div>
+
+      </td>
+  </tr>
+</tbody></table>
+<table border="0" cellspacing="0" cellpadding="0" id="post-390485778" class="post  " data-post-id="390485778" data-is-topic-locked="false">
+  <colgroup><col width="180"><col></colgroup>
+  <tbody><tr>
+      <td rowspan="2" valign="top" class="wirter">
+                <dl class="user_info ">
+          <dt class="user_head" data-username="zhaozheng1988"><a href="http://my.csdn.net/zhaozheng1988" target="_blank"><img alt="zhaozheng1988" class="avatar" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/1_zhaozheng1988.jpg"></a>
+          </dt>
+          <dd class="username"><a href="http://my.csdn.net/zhaozheng1988" target="_blank">zhaozheng1988</a>
+          </dd>
+          <dd class="nickname"><span class="name2nick">哪吒</span></dd>
+          <dd title="总技术分：1263；总技术排名：21981">等级：<img alt="Blank" class="grade user4" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/blank.gif"></dd>
+          <dd class="close_rate" title="用户结帖率：100%
+总发帖：8
+正常结帖：8
+未结帖：0">结帖率：100%</dd>
+          
+        </dl>
+
+      </td>
+      <td valign="top" class="post_info " data-username="zhaozheng1988" data-floor="2">
+                <div class="data">
+            <span class="fr">
+              <a href="http://bbs.csdn.net/topics/380201721#post-390485778">#2</a>
+              得分：0
+            </span>
+          <span class="time">
+              回复于：
+            2012-03-01 19:37:29
+          </span>
+        </div>
+        <div class="post_body">
+            你问题是多个串口接受数据，每个串口接受的数据不一样？格式差不多？
+        </div>
+
+      </td>
+    </tr>
+    <tr>
+      <td valign="bottom">
+              <div class="control">
+          <div id="post-forum-bulletin-2" class="fl"><a href="http://bbs.csdn.net/topics/390352607" class="title_style_red title_style_bold" target="_blank">CSDN社区“聊聊春运买票那点事儿”活动正式开始！</a></div>
+        <div class="fr">
+          <a href="http://bbs.csdn.net/posts/390485778/digg?topic_id=380201721" class="red digg" data-method="put" data-remote="true" rel="nofollow">对我有用[0]</a>
+          <a href="http://bbs.csdn.net/posts/390485778/bury?topic_id=380201721" class="bury" data-method="put" data-remote="true" rel="nofollow">丢个板砖[0]</a>
+          <a href="http://bbs.csdn.net/topics/380201721#quote" class="quote">引用</a> |
+          <a href="http://bbs.csdn.net/posts/390485778/report?topic_id=380201721" class="fancybox red" rel="nofollow">举报 </a> |
+          <span class="manage-toggle">
+            <div class="manage" style="display: none;">
+                <a href="http://bbs.csdn.net/posts/390485778/edit" class="fancybox" rel="nofollow">编辑</a>
+                <a href="http://bbs.csdn.net/posts/390485778/destroy_edit" class="fancybox" rel="nofollow">删除</a>
+            </div>
+            管理
+          </span> |
+          <a href="http://bbs.csdn.net/topics/380201721#">TOP</a>
+        </div>
+      </div>
+
+      </td>
+  </tr>
+</tbody></table>
+<table border="0" cellspacing="0" cellpadding="0" id="post-390485799" class="post  " data-post-id="390485799" data-is-topic-locked="false">
+  <colgroup><col width="180"><col></colgroup>
+  <tbody><tr>
+      <td rowspan="2" valign="top" class="wirter">
+                <dl class="user_info ">
+          <dt class="user_head" data-username="GJHF_Wuchao"><a href="http://my.csdn.net/GJHF_Wuchao" target="_blank"><img alt="GJHF_Wuchao" class="avatar" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/1_gjhf_wuchao.jpg"></a>
+          </dt>
+          <dd class="username"><a href="http://my.csdn.net/GJHF_Wuchao" target="_blank">GJHF_Wuchao</a>
+          </dd>
+          <dd class="nickname"><span class="name2nick">GJHF_Wuchao</span></dd>
+          <dd title="总技术分：38；总技术排名：209291">等级：<img alt="Blank" class="grade user1" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/blank.gif"></dd>
+          <dd class="close_rate" title="用户结帖率：86.67%
+总发帖：30
+正常结帖：26
+未结帖：4">结帖率：86.67%</dd>
+          
+        </dl>
+
+      </td>
+      <td valign="top" class="post_info " data-username="GJHF_Wuchao" data-floor="3">
+                <div class="data">
+            <span class="fr">
+              <a href="http://bbs.csdn.net/topics/380201721#post-390485799">#3</a>
+              得分：0
+            </span>
+          <span class="time">
+              回复于：
+            2012-03-01 19:40:45
+          </span>
+        </div>
+        <div class="post_body">
+            每个串口数据都是一样的...用的MOXA的串口服务器在主机上虚拟了多个串口,轮询方式没问题了.<br>
+<br>
+5秒中轮询一个,那10个设备就要等50秒,时间太长了....我想用多个串口同时发送数据,每个串口独立工作,间隔10秒发慢点也行
+        </div>
+
+      </td>
+    </tr>
+    <tr>
+      <td valign="bottom">
+              <div class="control">
+          <div id="post-forum-bulletin-3" class="fl"><a href="http://blog.csdn.net/blogdevteam/article/details/8534797" class="title_style_red title_style_bold" target="_blank">智能开发框架 JEECG 作者张代浩专访 </a></div>
+        <div class="fr">
+          <a href="http://bbs.csdn.net/posts/390485799/digg?topic_id=380201721" class="red digg" data-method="put" data-remote="true" rel="nofollow">对我有用[0]</a>
+          <a href="http://bbs.csdn.net/posts/390485799/bury?topic_id=380201721" class="bury" data-method="put" data-remote="true" rel="nofollow">丢个板砖[0]</a>
+          <a href="http://bbs.csdn.net/topics/380201721#quote" class="quote">引用</a> |
+          <a href="http://bbs.csdn.net/posts/390485799/report?topic_id=380201721" class="fancybox red" rel="nofollow">举报 </a> |
+          <span class="manage-toggle">
+            <div class="manage" style="display: none;">
+                <a href="http://bbs.csdn.net/posts/390485799/edit" class="fancybox" rel="nofollow">编辑</a>
+                <a href="http://bbs.csdn.net/posts/390485799/destroy_edit" class="fancybox" rel="nofollow">删除</a>
+            </div>
+            管理
+          </span> |
+          <a href="http://bbs.csdn.net/topics/380201721#">TOP</a>
+        </div>
+      </div>
+
+      </td>
+  </tr>
+</tbody></table>
+<table border="0" cellspacing="0" cellpadding="0" id="post-390485812" class="post  " data-post-id="390485812" data-is-topic-locked="false">
+  <colgroup><col width="180"><col></colgroup>
+  <tbody><tr>
+      <td rowspan="2" valign="top" class="wirter">
+                <dl class="user_info ">
+          <dt class="user_head" data-username="zhaozheng1988"><a href="http://my.csdn.net/zhaozheng1988" target="_blank"><img alt="zhaozheng1988" class="avatar" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/1_zhaozheng1988.jpg"></a>
+          </dt>
+          <dd class="username"><a href="http://my.csdn.net/zhaozheng1988" target="_blank">zhaozheng1988</a>
+          </dd>
+          <dd class="nickname"><span class="name2nick">哪吒</span></dd>
+          <dd title="总技术分：1263；总技术排名：21981">等级：<img alt="Blank" class="grade user4" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/blank.gif"></dd>
+          <dd class="close_rate" title="用户结帖率：100%
+总发帖：8
+正常结帖：8
+未结帖：0">结帖率：100%</dd>
+          
+        </dl>
+
+      </td>
+      <td valign="top" class="post_info " data-username="zhaozheng1988" data-floor="4">
+                <div class="data">
+            <span class="fr">
+              <a href="http://bbs.csdn.net/topics/380201721#post-390485812">#4</a>
+              得分：0
+            </span>
+          <span class="time">
+              回复于：
+            2012-03-01 19:42:52
+          </span>
+        </div>
+        <div class="post_body">
+            如果是一个串口接受&nbsp;许多数据，来判断前面几位。<br>
+判断两个字节，如果是&nbsp;xx&nbsp;yy，xx是地址，yy是功能码，然后开始校验。&nbsp;<br>
+读出一条完整的数据，存储，然后把缓冲区的删除。<br>
+接着判断，如果是&nbsp;xx&nbsp;zz，zz是别的类型的数据，校验，取出完整的一条数据。<br>
+。。。。<br>
+<br>
+如果是多个串口，每个串口接受的数据都是同一类型的，那能分开写DataReceived
+        </div>
+
+      </td>
+    </tr>
+    <tr>
+      <td valign="bottom">
+              <div class="control">
+          <div id="post-forum-bulletin-4" class="fl">
+          </div>
+        <div class="fr">
+          <a href="http://bbs.csdn.net/posts/390485812/digg?topic_id=380201721" class="red digg" data-method="put" data-remote="true" rel="nofollow">对我有用[0]</a>
+          <a href="http://bbs.csdn.net/posts/390485812/bury?topic_id=380201721" class="bury" data-method="put" data-remote="true" rel="nofollow">丢个板砖[0]</a>
+          <a href="http://bbs.csdn.net/topics/380201721#quote" class="quote">引用</a> |
+          <a href="http://bbs.csdn.net/posts/390485812/report?topic_id=380201721" class="fancybox red" rel="nofollow">举报 </a> |
+          <span class="manage-toggle">
+            <div class="manage" style="display: none;">
+                <a href="http://bbs.csdn.net/posts/390485812/edit" class="fancybox" rel="nofollow">编辑</a>
+                <a href="http://bbs.csdn.net/posts/390485812/destroy_edit" class="fancybox" rel="nofollow">删除</a>
+            </div>
+            管理
+          </span> |
+          <a href="http://bbs.csdn.net/topics/380201721#">TOP</a>
+        </div>
+      </div>
+
+      </td>
+  </tr>
+</tbody></table>
+<table border="0" cellspacing="0" cellpadding="0" id="post-390485820" class="post  " data-post-id="390485820" data-is-topic-locked="false">
+  <colgroup><col width="180"><col></colgroup>
+  <tbody><tr>
+      <td rowspan="2" valign="top" class="wirter">
+                <dl class="user_info ">
+          <dt class="user_head" data-username="GJHF_Wuchao"><a href="http://my.csdn.net/GJHF_Wuchao" target="_blank"><img alt="GJHF_Wuchao" class="avatar" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/1_gjhf_wuchao.jpg"></a>
+          </dt>
+          <dd class="username"><a href="http://my.csdn.net/GJHF_Wuchao" target="_blank">GJHF_Wuchao</a>
+          </dd>
+          <dd class="nickname"><span class="name2nick">GJHF_Wuchao</span></dd>
+          <dd title="总技术分：38；总技术排名：209291">等级：<img alt="Blank" class="grade user1" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/blank.gif"></dd>
+          <dd class="close_rate" title="用户结帖率：86.67%
+总发帖：30
+正常结帖：26
+未结帖：4">结帖率：86.67%</dd>
+          
+        </dl>
+
+      </td>
+      <td valign="top" class="post_info " data-username="GJHF_Wuchao" data-floor="5">
+                <div class="data">
+            <span class="fr">
+              <a href="http://bbs.csdn.net/topics/380201721#post-390485820">#5</a>
+              得分：0
+            </span>
+          <span class="time">
+              回复于：
+            2012-03-01 19:44:01
+          </span>
+        </div>
+        <div class="post_body">
+            如何分开写DataReceived,要动态注册的..
+        </div>
+
+      </td>
+    </tr>
+    <tr>
+      <td valign="bottom">
+              <div class="control">
+          <div id="post-forum-bulletin-5" class="fl">
+          </div>
+        <div class="fr">
+          <a href="http://bbs.csdn.net/posts/390485820/digg?topic_id=380201721" class="red digg" data-method="put" data-remote="true" rel="nofollow">对我有用[0]</a>
+          <a href="http://bbs.csdn.net/posts/390485820/bury?topic_id=380201721" class="bury" data-method="put" data-remote="true" rel="nofollow">丢个板砖[0]</a>
+          <a href="http://bbs.csdn.net/topics/380201721#quote" class="quote">引用</a> |
+          <a href="http://bbs.csdn.net/posts/390485820/report?topic_id=380201721" class="fancybox red" rel="nofollow">举报 </a> |
+          <span class="manage-toggle">
+            <div class="manage" style="display: none;">
+                <a href="http://bbs.csdn.net/posts/390485820/edit" class="fancybox" rel="nofollow">编辑</a>
+                <a href="http://bbs.csdn.net/posts/390485820/destroy_edit" class="fancybox" rel="nofollow">删除</a>
+            </div>
+            管理
+          </span> |
+          <a href="http://bbs.csdn.net/topics/380201721#">TOP</a>
+        </div>
+      </div>
+
+      </td>
+  </tr>
+</tbody></table>
+<table border="0" cellspacing="0" cellpadding="0" id="post-390485839" class="post  " data-post-id="390485839" data-is-topic-locked="false">
+  <colgroup><col width="180"><col></colgroup>
+  <tbody><tr>
+      <td rowspan="2" valign="top" class="wirter">
+                <dl class="user_info ">
+          <dt class="user_head" data-username="zhaozheng1988"><a href="http://my.csdn.net/zhaozheng1988" target="_blank"><img alt="zhaozheng1988" class="avatar" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/1_zhaozheng1988.jpg"></a>
+          </dt>
+          <dd class="username"><a href="http://my.csdn.net/zhaozheng1988" target="_blank">zhaozheng1988</a>
+          </dd>
+          <dd class="nickname"><span class="name2nick">哪吒</span></dd>
+          <dd title="总技术分：1263；总技术排名：21981">等级：<img alt="Blank" class="grade user4" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/blank.gif"></dd>
+          <dd class="close_rate" title="用户结帖率：100%
+总发帖：8
+正常结帖：8
+未结帖：0">结帖率：100%</dd>
+          
+        </dl>
+
+      </td>
+      <td valign="top" class="post_info " data-username="zhaozheng1988" data-floor="6">
+                <div class="data">
+            <span class="fr">
+              <a href="http://bbs.csdn.net/topics/380201721#post-390485839">#6</a>
+              得分：0
+            </span>
+          <span class="time">
+              回复于：
+            2012-03-01 19:45:47
+          </span>
+        </div>
+        <div class="post_body">
+            MOXA的串口服务器和MOXA多串口卡一样不。是不是一个串口接上，拖上了好几个串口，装上驱动后，变成COM1、COM2、COM3等等。
+        </div>
+
+      </td>
+    </tr>
+    <tr>
+      <td valign="bottom">
+              <div class="control">
+          <div id="post-forum-bulletin-6" class="fl">
+          </div>
+        <div class="fr">
+          <a href="http://bbs.csdn.net/posts/390485839/digg?topic_id=380201721" class="red digg" data-method="put" data-remote="true" rel="nofollow">对我有用[0]</a>
+          <a href="http://bbs.csdn.net/posts/390485839/bury?topic_id=380201721" class="bury" data-method="put" data-remote="true" rel="nofollow">丢个板砖[0]</a>
+          <a href="http://bbs.csdn.net/topics/380201721#quote" class="quote">引用</a> |
+          <a href="http://bbs.csdn.net/posts/390485839/report?topic_id=380201721" class="fancybox red" rel="nofollow">举报 </a> |
+          <span class="manage-toggle">
+            <div class="manage" style="display: none;">
+                <a href="http://bbs.csdn.net/posts/390485839/edit" class="fancybox" rel="nofollow">编辑</a>
+                <a href="http://bbs.csdn.net/posts/390485839/destroy_edit" class="fancybox" rel="nofollow">删除</a>
+            </div>
+            管理
+          </span> |
+          <a href="http://bbs.csdn.net/topics/380201721#">TOP</a>
+        </div>
+      </div>
+
+      </td>
+  </tr>
+</tbody></table>
+<table border="0" cellspacing="0" cellpadding="0" id="post-390485878" class="post  " data-post-id="390485878" data-is-topic-locked="false">
+  <colgroup><col width="180"><col></colgroup>
+  <tbody><tr>
+      <td rowspan="2" valign="top" class="wirter">
+                <dl class="user_info ">
+          <dt class="user_head" data-username="zhaozheng1988"><a href="http://my.csdn.net/zhaozheng1988" target="_blank"><img alt="zhaozheng1988" class="avatar" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/1_zhaozheng1988.jpg"></a>
+          </dt>
+          <dd class="username"><a href="http://my.csdn.net/zhaozheng1988" target="_blank">zhaozheng1988</a>
+          </dd>
+          <dd class="nickname"><span class="name2nick">哪吒</span></dd>
+          <dd title="总技术分：1263；总技术排名：21981">等级：<img alt="Blank" class="grade user4" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/blank.gif"></dd>
+          <dd class="close_rate" title="用户结帖率：100%
+总发帖：8
+正常结帖：8
+未结帖：0">结帖率：100%</dd>
+          
+        </dl>
+
+      </td>
+      <td valign="top" class="post_info " data-username="zhaozheng1988" data-floor="7">
+                <div class="data">
+            <span class="fr">
+              <a href="http://bbs.csdn.net/topics/380201721#post-390485878">#7</a>
+              得分：0
+            </span>
+          <span class="time">
+              回复于：
+            2012-03-01 19:51:04
+          </span>
+        </div>
+        <div class="post_body">
+            comm1.DataReceived&nbsp;+=&nbsp;comm1_DataReceived；<br>
+如果换数据了，“-=”。+=别新的事件
+        </div>
+
+      </td>
+    </tr>
+    <tr>
+      <td valign="bottom">
+              <div class="control">
+          <div id="post-forum-bulletin-7" class="fl">
+          </div>
+        <div class="fr">
+          <a href="http://bbs.csdn.net/posts/390485878/digg?topic_id=380201721" class="red digg" data-method="put" data-remote="true" rel="nofollow">对我有用[0]</a>
+          <a href="http://bbs.csdn.net/posts/390485878/bury?topic_id=380201721" class="bury" data-method="put" data-remote="true" rel="nofollow">丢个板砖[0]</a>
+          <a href="http://bbs.csdn.net/topics/380201721#quote" class="quote">引用</a> |
+          <a href="http://bbs.csdn.net/posts/390485878/report?topic_id=380201721" class="fancybox red" rel="nofollow">举报 </a> |
+          <span class="manage-toggle">
+            <div class="manage" style="display: none;">
+                <a href="http://bbs.csdn.net/posts/390485878/edit" class="fancybox" rel="nofollow">编辑</a>
+                <a href="http://bbs.csdn.net/posts/390485878/destroy_edit" class="fancybox" rel="nofollow">删除</a>
+            </div>
+            管理
+          </span> |
+          <a href="http://bbs.csdn.net/topics/380201721#">TOP</a>
+        </div>
+      </div>
+
+      </td>
+  </tr>
+</tbody></table>
+<table border="0" cellspacing="0" cellpadding="0" id="post-390485901" class="post  " data-post-id="390485901" data-is-topic-locked="false">
+  <colgroup><col width="180"><col></colgroup>
+  <tbody><tr>
+      <td rowspan="2" valign="top" class="wirter">
+                <dl class="user_info ">
+          <dt class="user_head" data-username="csrwgs"><a href="http://my.csdn.net/csrwgs" target="_blank"><img alt="csrwgs" class="avatar" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/1_csrwgs.jpg"></a>
+          </dt>
+          <dd class="username"><a href="http://my.csdn.net/csrwgs" target="_blank">csrwgs</a>
+          </dd>
+          <dd class="nickname"><span class="name2nick">csrwgs</span></dd>
+          <dd title="总技术分：4853；总技术排名：6098">等级：<img alt="Blank" class="grade user5" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/blank.gif"></dd>
+          <dd class="close_rate" title="用户结帖率：100%
+总发帖：36
+正常结帖：36
+未结帖：0">结帖率：100%</dd>
+          
+        </dl>
+
+      </td>
+      <td valign="top" class="post_info " data-username="csrwgs" data-floor="8">
+                <div class="data">
+            <span class="fr">
+              <a href="http://bbs.csdn.net/topics/380201721#post-390485901">#8</a>
+              得分：0
+            </span>
+          <span class="time">
+              回复于：
+            2012-03-01 19:52:55
+          </span>
+        </div>
+        <div class="post_body">
+            串口一般是一对一，如果要多个串口通讯，必定有一个做总线管理器BA。<br>
+<br>
+既然协调机制有了，多个串口跟一个串口有什么区别？
+        </div>
+
+      </td>
+    </tr>
+    <tr>
+      <td valign="bottom">
+              <div class="control">
+          <div id="post-forum-bulletin-8" class="fl">
+          </div>
+        <div class="fr">
+          <a href="http://bbs.csdn.net/posts/390485901/digg?topic_id=380201721" class="red digg" data-method="put" data-remote="true" rel="nofollow">对我有用[0]</a>
+          <a href="http://bbs.csdn.net/posts/390485901/bury?topic_id=380201721" class="bury" data-method="put" data-remote="true" rel="nofollow">丢个板砖[0]</a>
+          <a href="http://bbs.csdn.net/topics/380201721#quote" class="quote">引用</a> |
+          <a href="http://bbs.csdn.net/posts/390485901/report?topic_id=380201721" class="fancybox red" rel="nofollow">举报 </a> |
+          <span class="manage-toggle">
+            <div class="manage" style="display: none;">
+                <a href="http://bbs.csdn.net/posts/390485901/edit" class="fancybox" rel="nofollow">编辑</a>
+                <a href="http://bbs.csdn.net/posts/390485901/destroy_edit" class="fancybox" rel="nofollow">删除</a>
+            </div>
+            管理
+          </span> |
+          <a href="http://bbs.csdn.net/topics/380201721#">TOP</a>
+        </div>
+      </div>
+
+      </td>
+  </tr>
+</tbody></table>
+<table border="0" cellspacing="0" cellpadding="0" id="post-390485910" class="post  " data-post-id="390485910" data-is-topic-locked="false">
+  <colgroup><col width="180"><col></colgroup>
+  <tbody><tr>
+      <td rowspan="2" valign="top" class="wirter">
+                <dl class="user_info ">
+          <dt class="user_head" data-username="GJHF_Wuchao"><a href="http://my.csdn.net/GJHF_Wuchao" target="_blank"><img alt="GJHF_Wuchao" class="avatar" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/1_gjhf_wuchao.jpg"></a>
+          </dt>
+          <dd class="username"><a href="http://my.csdn.net/GJHF_Wuchao" target="_blank">GJHF_Wuchao</a>
+          </dd>
+          <dd class="nickname"><span class="name2nick">GJHF_Wuchao</span></dd>
+          <dd title="总技术分：38；总技术排名：209291">等级：<img alt="Blank" class="grade user1" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/blank.gif"></dd>
+          <dd class="close_rate" title="用户结帖率：86.67%
+总发帖：30
+正常结帖：26
+未结帖：4">结帖率：86.67%</dd>
+          
+        </dl>
+
+      </td>
+      <td valign="top" class="post_info " data-username="GJHF_Wuchao" data-floor="9">
+                <div class="data">
+            <span class="fr">
+              <a href="http://bbs.csdn.net/topics/380201721#post-390485910">#9</a>
+              得分：0
+            </span>
+          <span class="time">
+              回复于：
+            2012-03-01 19:54:33
+          </span>
+        </div>
+        <div class="post_body">
+            <fieldset><legend class="font_bold">引用&nbsp;7&nbsp;楼&nbsp;zhaozheng1988&nbsp;的回复:</legend><blockquote>comm1.DataReceived&nbsp;+=&nbsp;comm1_DataReceived；<br>
+如果换数据了，“-=”。+=别新的事件</blockquote></fieldset><br>
+<br>
+给个例子看看好吗
+        </div>
+
+      </td>
+    </tr>
+    <tr>
+      <td valign="bottom">
+              <div class="control">
+          <div id="post-forum-bulletin-9" class="fl">
+          </div>
+        <div class="fr">
+          <a href="http://bbs.csdn.net/posts/390485910/digg?topic_id=380201721" class="red digg" data-method="put" data-remote="true" rel="nofollow">对我有用[0]</a>
+          <a href="http://bbs.csdn.net/posts/390485910/bury?topic_id=380201721" class="bury" data-method="put" data-remote="true" rel="nofollow">丢个板砖[0]</a>
+          <a href="http://bbs.csdn.net/topics/380201721#quote" class="quote">引用</a> |
+          <a href="http://bbs.csdn.net/posts/390485910/report?topic_id=380201721" class="fancybox red" rel="nofollow">举报 </a> |
+          <span class="manage-toggle">
+            <div class="manage" style="display: none;">
+                <a href="http://bbs.csdn.net/posts/390485910/edit" class="fancybox" rel="nofollow">编辑</a>
+                <a href="http://bbs.csdn.net/posts/390485910/destroy_edit" class="fancybox" rel="nofollow">删除</a>
+            </div>
+            管理
+          </span> |
+          <a href="http://bbs.csdn.net/topics/380201721#">TOP</a>
+        </div>
+      </div>
+
+      </td>
+  </tr>
+</tbody></table>
+<table border="0" cellspacing="0" cellpadding="0" id="post-390485915" class="post  " data-post-id="390485915" data-is-topic-locked="false">
+  <colgroup><col width="180"><col></colgroup>
+  <tbody><tr>
+      <td rowspan="2" valign="top" class="wirter">
+                <dl class="user_info ">
+          <dt class="user_head" data-username="GJHF_Wuchao"><a href="http://my.csdn.net/GJHF_Wuchao" target="_blank"><img alt="GJHF_Wuchao" class="avatar" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/1_gjhf_wuchao.jpg"></a>
+          </dt>
+          <dd class="username"><a href="http://my.csdn.net/GJHF_Wuchao" target="_blank">GJHF_Wuchao</a>
+          </dd>
+          <dd class="nickname"><span class="name2nick">GJHF_Wuchao</span></dd>
+          <dd title="总技术分：38；总技术排名：209291">等级：<img alt="Blank" class="grade user1" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/blank.gif"></dd>
+          <dd class="close_rate" title="用户结帖率：86.67%
+总发帖：30
+正常结帖：26
+未结帖：4">结帖率：86.67%</dd>
+          
+        </dl>
+
+      </td>
+      <td valign="top" class="post_info " data-username="GJHF_Wuchao" data-floor="10">
+                <div class="data">
+            <span class="fr">
+              <a href="http://bbs.csdn.net/topics/380201721#post-390485915">#10</a>
+              得分：0
+            </span>
+          <span class="time">
+              回复于：
+            2012-03-01 19:55:24
+          </span>
+        </div>
+        <div class="post_body">
+            <fieldset><legend class="font_bold">引用&nbsp;8&nbsp;楼&nbsp;csrwgs&nbsp;的回复:</legend><blockquote>串口一般是一对一，如果要多个串口通讯，必定有一个做总线管理器BA。<br>
+<br>
+既然协调机制有了，多个串口跟一个串口有什么区别？</blockquote></fieldset><br>
+<br>
+初次搞这类型的程序,确实不明白...我现在是一个事件,里面的局部变量容易混乱
+        </div>
+
+      </td>
+    </tr>
+    <tr>
+      <td valign="bottom">
+              <div class="control">
+          <div id="post-forum-bulletin-10" class="fl">
+          </div>
+        <div class="fr">
+          <a href="http://bbs.csdn.net/posts/390485915/digg?topic_id=380201721" class="red digg" data-method="put" data-remote="true" rel="nofollow">对我有用[0]</a>
+          <a href="http://bbs.csdn.net/posts/390485915/bury?topic_id=380201721" class="bury" data-method="put" data-remote="true" rel="nofollow">丢个板砖[0]</a>
+          <a href="http://bbs.csdn.net/topics/380201721#quote" class="quote">引用</a> |
+          <a href="http://bbs.csdn.net/posts/390485915/report?topic_id=380201721" class="fancybox red" rel="nofollow">举报 </a> |
+          <span class="manage-toggle">
+            <div class="manage" style="display: none;">
+                <a href="http://bbs.csdn.net/posts/390485915/edit" class="fancybox" rel="nofollow">编辑</a>
+                <a href="http://bbs.csdn.net/posts/390485915/destroy_edit" class="fancybox" rel="nofollow">删除</a>
+            </div>
+            管理
+          </span> |
+          <a href="http://bbs.csdn.net/topics/380201721#">TOP</a>
+        </div>
+      </div>
+
+      </td>
+  </tr>
+</tbody></table>
+<table border="0" cellspacing="0" cellpadding="0" id="post-390485980" class="post  " data-post-id="390485980" data-is-topic-locked="false">
+  <colgroup><col width="180"><col></colgroup>
+  <tbody><tr>
+      <td rowspan="2" valign="top" class="wirter">
+                <dl class="user_info ">
+          <dt class="user_head" data-username="zhaozheng1988"><a href="http://my.csdn.net/zhaozheng1988" target="_blank"><img alt="zhaozheng1988" class="avatar" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/1_zhaozheng1988.jpg"></a>
+          </dt>
+          <dd class="username"><a href="http://my.csdn.net/zhaozheng1988" target="_blank">zhaozheng1988</a>
+          </dd>
+          <dd class="nickname"><span class="name2nick">哪吒</span></dd>
+          <dd title="总技术分：1263；总技术排名：21981">等级：<img alt="Blank" class="grade user4" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/blank.gif"></dd>
+          <dd class="close_rate" title="用户结帖率：100%
+总发帖：8
+正常结帖：8
+未结帖：0">结帖率：100%</dd>
+          
+        </dl>
+
+      </td>
+      <td valign="top" class="post_info pointed" data-username="zhaozheng1988" data-floor="11">
+                <div class="data">
+            <span class="fr">
+              <a href="http://bbs.csdn.net/topics/380201721#post-390485980">#11</a>
+              得分：5
+            </span>
+          <span class="time">
+              回复于：
+            2012-03-01 20:03:20
+          </span>
+        </div>
+        <div class="post_body">
+            comm1.DataReceived&nbsp;+=&nbsp;comm1_DataReceived；<br>
+处理每条数据，比如我接受的都是9个字节的。<br>
+然后校验，如果数据正确，则取出&nbsp;数据位，转换为十进制显示。<br>
+mb.CRC16(binary_crc)是crc校验后的两个字节的校验码<br>
+<div><div id="highlighter_617963" class="syntaxhighlighter  csharp"><div class="toolbar"><span>C# code</span><span class="clipboardCopyBtn" title="复制"><div class="d_clip_button"></div></span><span class="clipboardWindowBtn"><a href="http://bbs.csdn.net/topics/380201721#clipboardWindow" title="源码">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div><div class="line number28 index27 alt1">28</div><div class="line number29 index28 alt2">29</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">void</code>&nbsp;<code class="csharp plain">comm1_DataReceived(</code><code class="csharp keyword">object</code>&nbsp;<code class="csharp plain">sender,&nbsp;SerialDataReceivedEventArgs&nbsp;e)</code></div><div class="line number2 index1 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number3 index2 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">try</code></div><div class="line number4 index3 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number5 index4 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">int</code>&nbsp;<code class="csharp plain">n&nbsp;=&nbsp;comm.BytesToRead;</code></div><div class="line number6 index5 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">byte</code><code class="csharp plain">[]&nbsp;buf&nbsp;=&nbsp;</code><code class="csharp keyword">new</code>&nbsp;<code class="csharp keyword">byte</code><code class="csharp plain">[n];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code></div><div class="line number7 index6 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">comm.Read(buf,&nbsp;0,&nbsp;n);</code></div><div class="line number8 index7 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">buffer.AddRange(buf);</code></div><div class="line number9 index8 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">if</code>&nbsp;<code class="csharp plain">(buffer.Count==9)</code></div><div class="line number10 index9 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number11 index10 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">byte</code><code class="csharp plain">[]&nbsp;binary_data_1&nbsp;=&nbsp;</code><code class="csharp keyword">new</code>&nbsp;<code class="csharp keyword">byte</code><code class="csharp plain">[9];</code></div><div class="line number12 index11 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">byte</code><code class="csharp plain">[]&nbsp;binary_crc=</code><code class="csharp keyword">new</code>&nbsp;<code class="csharp keyword">byte</code>&nbsp;<code class="csharp plain">[7];</code></div><div class="line number13 index12 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">buffer.CopyTo(0,&nbsp;binary_data_1,&nbsp;0,&nbsp;9);</code></div><div class="line number14 index13 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">buffer.CopyTo(0,&nbsp;binary_crc,&nbsp;0,&nbsp;7);</code></div><div class="line number15 index14 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">buffer.Clear();</code></div><div class="line number16 index15 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">modbus&nbsp;mb&nbsp;=&nbsp;</code><code class="csharp keyword">new</code>&nbsp;<code class="csharp plain">modbus();</code></div><div class="line number17 index16 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">if</code>&nbsp;<code class="csharp plain">(mb.CRC16(binary_crc)[0]&nbsp;==&nbsp;binary_data_1[8]&nbsp;&amp;&amp;&nbsp;mb.CRC16(binary_crc)[1]&nbsp;==&nbsp;binary_data_1[7])</code></div><div class="line number18 index17 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number19 index18 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">string</code>&nbsp;<code class="csharp plain">data&nbsp;=&nbsp;binary_data_1[3].ToString(</code><code class="csharp string">"X2"</code><code class="csharp plain">)&nbsp;+&nbsp;binary_data_1[4].ToString(</code><code class="csharp string">"X2"</code><code class="csharp plain">)&nbsp;+&nbsp;binary_data_1[5].ToString(</code><code class="csharp string">"X2"</code><code class="csharp plain">)&nbsp;+&nbsp;binary_data_1[6].ToString(</code><code class="csharp string">"X2"</code><code class="csharp plain">);</code></div><div class="line number20 index19 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">int</code>&nbsp;<code class="csharp plain">hex&nbsp;=&nbsp;Convert.ToInt32(data,&nbsp;16);</code></div><div class="line number21 index20 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">this</code><code class="csharp plain">.Invoke((EventHandler)(</code><code class="csharp keyword">delegate</code>&nbsp;<code class="csharp plain">{&nbsp;</code><code class="csharp keyword">this</code><code class="csharp plain">.textBox2.Text&nbsp;=&nbsp;hex.ToString();&nbsp;}));</code></div><div class="line number22 index21 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number23 index22 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number24 index23 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number25 index24 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">finally</code></div><div class="line number26 index25 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number27 index26 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp comments">//多串口，要注意细节。延时啊什么的要调节好。</code></div><div class="line number28 index27 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number29 index28 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div></div></td></tr></tbody></table></div></div>
+        </div>
+
+      </td>
+    </tr>
+    <tr>
+      <td valign="bottom">
+              <div class="control">
+          <div id="post-forum-bulletin-11" class="fl">
+          </div>
+        <div class="fr">
+          <a href="http://bbs.csdn.net/posts/390485980/digg?topic_id=380201721" class="red digg" data-method="put" data-remote="true" rel="nofollow">对我有用[0]</a>
+          <a href="http://bbs.csdn.net/posts/390485980/bury?topic_id=380201721" class="bury" data-method="put" data-remote="true" rel="nofollow">丢个板砖[0]</a>
+          <a href="http://bbs.csdn.net/topics/380201721#quote" class="quote">引用</a> |
+          <a href="http://bbs.csdn.net/posts/390485980/report?topic_id=380201721" class="fancybox red" rel="nofollow">举报 </a> |
+          <span class="manage-toggle">
+            <div class="manage" style="display: none;">
+                <a href="http://bbs.csdn.net/posts/390485980/edit" class="fancybox" rel="nofollow">编辑</a>
+                <a href="http://bbs.csdn.net/posts/390485980/destroy_edit" class="fancybox" rel="nofollow">删除</a>
+            </div>
+            管理
+          </span> |
+          <a href="http://bbs.csdn.net/topics/380201721#">TOP</a>
+        </div>
+      </div>
+
+      </td>
+  </tr>
+</tbody></table>
+<table border="0" cellspacing="0" cellpadding="0" id="post-390486017" class="post  " data-post-id="390486017" data-is-topic-locked="false">
+  <colgroup><col width="180"><col></colgroup>
+  <tbody><tr>
+      <td rowspan="2" valign="top" class="wirter">
+                <dl class="user_info ">
+          <dt class="user_head" data-username="GJHF_Wuchao"><a href="http://my.csdn.net/GJHF_Wuchao" target="_blank"><img alt="GJHF_Wuchao" class="avatar" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/1_gjhf_wuchao.jpg"></a>
+          </dt>
+          <dd class="username"><a href="http://my.csdn.net/GJHF_Wuchao" target="_blank">GJHF_Wuchao</a>
+          </dd>
+          <dd class="nickname"><span class="name2nick">GJHF_Wuchao</span></dd>
+          <dd title="总技术分：38；总技术排名：209291">等级：<img alt="Blank" class="grade user1" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/blank.gif"></dd>
+          <dd class="close_rate" title="用户结帖率：86.67%
+总发帖：30
+正常结帖：26
+未结帖：4">结帖率：86.67%</dd>
+          
+        </dl>
+
+      </td>
+      <td valign="top" class="post_info " data-username="GJHF_Wuchao" data-floor="12">
+                <div class="data">
+            <span class="fr">
+              <a href="http://bbs.csdn.net/topics/380201721#post-390486017">#12</a>
+              得分：0
+            </span>
+          <span class="time">
+              回复于：
+            2012-03-01 20:09:36
+          </span>
+        </div>
+        <div class="post_body">
+            噢&nbsp;,这个处理的代码.已经实现了...怎么能处理多个串口同这个一个事件的...数据混乱了我...<br>
+<br>
+
+        </div>
+
+      </td>
+    </tr>
+    <tr>
+      <td valign="bottom">
+              <div class="control">
+          <div id="post-forum-bulletin-12" class="fl">
+          </div>
+        <div class="fr">
+          <a href="http://bbs.csdn.net/posts/390486017/digg?topic_id=380201721" class="red digg" data-method="put" data-remote="true" rel="nofollow">对我有用[0]</a>
+          <a href="http://bbs.csdn.net/posts/390486017/bury?topic_id=380201721" class="bury" data-method="put" data-remote="true" rel="nofollow">丢个板砖[0]</a>
+          <a href="http://bbs.csdn.net/topics/380201721#quote" class="quote">引用</a> |
+          <a href="http://bbs.csdn.net/posts/390486017/report?topic_id=380201721" class="fancybox red" rel="nofollow">举报 </a> |
+          <span class="manage-toggle">
+            <div class="manage" style="display: none;">
+                <a href="http://bbs.csdn.net/posts/390486017/edit" class="fancybox" rel="nofollow">编辑</a>
+                <a href="http://bbs.csdn.net/posts/390486017/destroy_edit" class="fancybox" rel="nofollow">删除</a>
+            </div>
+            管理
+          </span> |
+          <a href="http://bbs.csdn.net/topics/380201721#">TOP</a>
+        </div>
+      </div>
+
+      </td>
+  </tr>
+</tbody></table>
+<table border="0" cellspacing="0" cellpadding="0" id="post-390486039" class="post  " data-post-id="390486039" data-is-topic-locked="false">
+  <colgroup><col width="180"><col></colgroup>
+  <tbody><tr>
+      <td rowspan="2" valign="top" class="wirter">
+                <dl class="user_info ">
+          <dt class="user_head" data-username="zhaozheng1988"><a href="http://my.csdn.net/zhaozheng1988" target="_blank"><img alt="zhaozheng1988" class="avatar" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/1_zhaozheng1988.jpg"></a>
+          </dt>
+          <dd class="username"><a href="http://my.csdn.net/zhaozheng1988" target="_blank">zhaozheng1988</a>
+          </dd>
+          <dd class="nickname"><span class="name2nick">哪吒</span></dd>
+          <dd title="总技术分：1263；总技术排名：21981">等级：<img alt="Blank" class="grade user4" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/blank.gif"></dd>
+          <dd class="close_rate" title="用户结帖率：100%
+总发帖：8
+正常结帖：8
+未结帖：0">结帖率：100%</dd>
+          
+        </dl>
+
+      </td>
+      <td valign="top" class="post_info " data-username="zhaozheng1988" data-floor="13">
+                <div class="data">
+            <span class="fr">
+              <a href="http://bbs.csdn.net/topics/380201721#post-390486039">#13</a>
+              得分：0
+            </span>
+          <span class="time">
+              回复于：
+            2012-03-01 20:12:11
+          </span>
+        </div>
+        <div class="post_body">
+            每个串口的分开写嘛。
+        </div>
+
+      </td>
+    </tr>
+    <tr>
+      <td valign="bottom">
+              <div class="control">
+          <div id="post-forum-bulletin-13" class="fl">
+          </div>
+        <div class="fr">
+          <a href="http://bbs.csdn.net/posts/390486039/digg?topic_id=380201721" class="red digg" data-method="put" data-remote="true" rel="nofollow">对我有用[0]</a>
+          <a href="http://bbs.csdn.net/posts/390486039/bury?topic_id=380201721" class="bury" data-method="put" data-remote="true" rel="nofollow">丢个板砖[0]</a>
+          <a href="http://bbs.csdn.net/topics/380201721#quote" class="quote">引用</a> |
+          <a href="http://bbs.csdn.net/posts/390486039/report?topic_id=380201721" class="fancybox red" rel="nofollow">举报 </a> |
+          <span class="manage-toggle">
+            <div class="manage" style="display: none;">
+                <a href="http://bbs.csdn.net/posts/390486039/edit" class="fancybox" rel="nofollow">编辑</a>
+                <a href="http://bbs.csdn.net/posts/390486039/destroy_edit" class="fancybox" rel="nofollow">删除</a>
+            </div>
+            管理
+          </span> |
+          <a href="http://bbs.csdn.net/topics/380201721#">TOP</a>
+        </div>
+      </div>
+
+      </td>
+  </tr>
+</tbody></table>
+<table border="0" cellspacing="0" cellpadding="0" id="post-390486102" class="post  " data-post-id="390486102" data-is-topic-locked="false">
+  <colgroup><col width="180"><col></colgroup>
+  <tbody><tr>
+      <td rowspan="2" valign="top" class="wirter">
+                <dl class="user_info ">
+          <dt class="user_head" data-username="GJHF_Wuchao"><a href="http://my.csdn.net/GJHF_Wuchao" target="_blank"><img alt="GJHF_Wuchao" class="avatar" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/1_gjhf_wuchao.jpg"></a>
+          <div class="user_material" style="display: none; ">
+  <div class="user_material_bg">
+    <div class="placeholder"></div>
+    <div class="arrow-left"></div>
+    <dl>
+      <dt><a href="http://my.csdn.net/GJHF_Wuchao" target="_blank"><img src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/2_gjhf_wuchao.jpg" class="avatar_75"></a></dt>
+      <dd>账号:<a href="http://my.csdn.net/GJHF_Wuchao" target="_blank">GJHF_Wuchao</a></dd>
+      <dd class="nickname">昵称:<span class="name2nick">GJHF_Wuchao</span></dd>
+      <dd>
+      <a class="button add follow_btn" data-username="GJHF_Wuchao" href="javascript:void(0);">关注</a>
+      <a href="http://blog.csdn.net/GJHF_Wuchao" class="button" target="_blank">博客</a><a href="http://my.csdn.net/GJHF_Wuchao" class="button" target="_blank">空间</a> </dd>
+    </dl>
+      <ol>
+        最新帖子:
+          <li><a href="http://bbs.csdn.net/topics/390339854" target="_blank" title="初始化多个时钟线程，采集串口数据的问题！">初始化多个时钟线程，采集串口数...</a></li>
+          <li><a href="http://bbs.csdn.net/topics/390191696" target="_blank" title="C# 编写exe程序管理器！！！">C# 编写exe程序管理器！！！</a></li>
+          <li><a href="http://bbs.csdn.net/topics/390142013" target="_blank" title="DXF文件解析，坐标怎么换算？">DXF文件解析，坐标怎么换算？</a></li>
+      </ol>
+      <a href="http://bbs.csdn.net/users/GJHF_Wuchao/topics" class="more" target="_blank">更多 &gt;&gt;</a>
+  </div>
+</div></dt>
+          <dd class="username"><a href="http://my.csdn.net/GJHF_Wuchao" target="_blank">GJHF_Wuchao</a>
+          </dd>
+          <dd class="nickname"><span class="name2nick">GJHF_Wuchao</span></dd>
+          <dd title="总技术分：38；总技术排名：209291">等级：<img alt="Blank" class="grade user1" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/blank.gif"></dd>
+          <dd class="close_rate" title="用户结帖率：86.67%
+总发帖：30
+正常结帖：26
+未结帖：4">结帖率：86.67%</dd>
+          
+        </dl>
+
+      </td>
+      <td valign="top" class="post_info " data-username="GJHF_Wuchao" data-floor="14">
+                <div class="data">
+            <span class="fr">
+              <a href="http://bbs.csdn.net/topics/380201721#post-390486102">#14</a>
+              得分：0
+            </span>
+          <span class="time">
+              回复于：
+            2012-03-01 20:20:37
+          </span>
+        </div>
+        <div class="post_body">
+            串口是动态的,是我从数据库中搜出来,有多少个外接设备,再定义多少个SerialPort的...<br>
+
+        </div>
+
+      </td>
+    </tr>
+    <tr>
+      <td valign="bottom">
+              <div class="control">
+          <div id="post-forum-bulletin-14" class="fl">
+          </div>
+        <div class="fr">
+          <a href="http://bbs.csdn.net/posts/390486102/digg?topic_id=380201721" class="red digg" data-method="put" data-remote="true" rel="nofollow">对我有用[0]</a>
+          <a href="http://bbs.csdn.net/posts/390486102/bury?topic_id=380201721" class="bury" data-method="put" data-remote="true" rel="nofollow">丢个板砖[0]</a>
+          <a href="http://bbs.csdn.net/topics/380201721#quote" class="quote">引用</a> |
+          <a href="http://bbs.csdn.net/posts/390486102/report?topic_id=380201721" class="fancybox red" rel="nofollow">举报 </a> |
+          <span class="manage-toggle">
+            <div class="manage" style="display: none;">
+                <a href="http://bbs.csdn.net/posts/390486102/edit" class="fancybox" rel="nofollow">编辑</a>
+                <a href="http://bbs.csdn.net/posts/390486102/destroy_edit" class="fancybox" rel="nofollow">删除</a>
+            </div>
+            管理
+          </span> |
+          <a href="http://bbs.csdn.net/topics/380201721#">TOP</a>
+        </div>
+      </div>
+
+      </td>
+  </tr>
+</tbody></table>
+<table border="0" cellspacing="0" cellpadding="0" id="post-390486224" class="post  " data-post-id="390486224" data-is-topic-locked="false">
+  <colgroup><col width="180"><col></colgroup>
+  <tbody><tr>
+      <td rowspan="2" valign="top" class="wirter">
+                <dl class="user_info ">
+          <dt class="user_head" data-username="csrwgs"><a href="http://my.csdn.net/csrwgs" target="_blank"><img alt="csrwgs" class="avatar" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/1_csrwgs.jpg"></a>
+          </dt>
+          <dd class="username"><a href="http://my.csdn.net/csrwgs" target="_blank">csrwgs</a>
+          </dd>
+          <dd class="nickname"><span class="name2nick">csrwgs</span></dd>
+          <dd title="总技术分：4853；总技术排名：6098">等级：<img alt="Blank" class="grade user5" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/blank.gif"></dd>
+          <dd class="close_rate" title="用户结帖率：100%
+总发帖：36
+正常结帖：36
+未结帖：0">结帖率：100%</dd>
+          
+        </dl>
+
+      </td>
+      <td valign="top" class="post_info pointed" data-username="csrwgs" data-floor="15">
+                <div class="data">
+            <span class="fr">
+              <a href="http://bbs.csdn.net/topics/380201721#post-390486224">#15</a>
+              得分：5
+            </span>
+          <span class="time">
+              回复于：
+            2012-03-01 20:36:48
+          </span>
+        </div>
+        <div class="post_body">
+            <fieldset><legend class="font_bold">引用&nbsp;14&nbsp;楼&nbsp;gjhf_wuchao&nbsp;的回复:</legend><blockquote>串口是动态的,是我从数据库中搜出来,有多少个外接设备,再定义多少个SerialPort的...</blockquote></fieldset><br>
+<br>
+有多少个外设，可以从注册表里读到。<br>
+干嘛要读数据库呢？<br>
+
+        </div>
+
+      </td>
+    </tr>
+    <tr>
+      <td valign="bottom">
+              <div class="control">
+          <div id="post-forum-bulletin-15" class="fl">
+          </div>
+        <div class="fr">
+          <a href="http://bbs.csdn.net/posts/390486224/digg?topic_id=380201721" class="red digg" data-method="put" data-remote="true" rel="nofollow">对我有用[0]</a>
+          <a href="http://bbs.csdn.net/posts/390486224/bury?topic_id=380201721" class="bury" data-method="put" data-remote="true" rel="nofollow">丢个板砖[0]</a>
+          <a href="http://bbs.csdn.net/topics/380201721#quote" class="quote">引用</a> |
+          <a href="http://bbs.csdn.net/posts/390486224/report?topic_id=380201721" class="fancybox red" rel="nofollow">举报 </a> |
+          <span class="manage-toggle">
+            <div class="manage" style="display: none;">
+                <a href="http://bbs.csdn.net/posts/390486224/edit" class="fancybox" rel="nofollow">编辑</a>
+                <a href="http://bbs.csdn.net/posts/390486224/destroy_edit" class="fancybox" rel="nofollow">删除</a>
+            </div>
+            管理
+          </span> |
+          <a href="http://bbs.csdn.net/topics/380201721#">TOP</a>
+        </div>
+      </div>
+
+      </td>
+  </tr>
+</tbody></table>
+<table border="0" cellspacing="0" cellpadding="0" id="post-390487148" class="post  " data-post-id="390487148" data-is-topic-locked="false">
+  <colgroup><col width="180"><col></colgroup>
+  <tbody><tr>
+      <td rowspan="2" valign="top" class="wirter">
+                <dl class="user_info ">
+          <dt class="user_head" data-username="GJHF_Wuchao"><a href="http://my.csdn.net/GJHF_Wuchao" target="_blank"><img alt="GJHF_Wuchao" class="avatar" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/1_gjhf_wuchao.jpg"></a>
+          </dt>
+          <dd class="username"><a href="http://my.csdn.net/GJHF_Wuchao" target="_blank">GJHF_Wuchao</a>
+          </dd>
+          <dd class="nickname"><span class="name2nick">GJHF_Wuchao</span></dd>
+          <dd title="总技术分：38；总技术排名：209291">等级：<img alt="Blank" class="grade user1" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/blank.gif"></dd>
+          <dd class="close_rate" title="用户结帖率：86.67%
+总发帖：30
+正常结帖：26
+未结帖：4">结帖率：86.67%</dd>
+          
+        </dl>
+
+      </td>
+      <td valign="top" class="post_info " data-username="GJHF_Wuchao" data-floor="16">
+                <div class="data">
+            <span class="fr">
+              <a href="http://bbs.csdn.net/topics/380201721#post-390487148">#16</a>
+              得分：0
+            </span>
+          <span class="time">
+              回复于：
+            2012-03-01 22:21:49
+          </span>
+        </div>
+        <div class="post_body">
+            问题不在读外设,问题是在处理同时返回至各个串口的数据...在一个事件上并发太难处理了..是要&nbsp;根据外设的数量开相应的线程处理数据么?有相关代码吗.
+        </div>
+
+      </td>
+    </tr>
+    <tr>
+      <td valign="bottom">
+              <div class="control">
+          <div id="post-forum-bulletin-16" class="fl">
+          </div>
+        <div class="fr">
+          <a href="http://bbs.csdn.net/posts/390487148/digg?topic_id=380201721" class="red digg" data-method="put" data-remote="true" rel="nofollow">对我有用[0]</a>
+          <a href="http://bbs.csdn.net/posts/390487148/bury?topic_id=380201721" class="bury" data-method="put" data-remote="true" rel="nofollow">丢个板砖[0]</a>
+          <a href="http://bbs.csdn.net/topics/380201721#quote" class="quote">引用</a> |
+          <a href="http://bbs.csdn.net/posts/390487148/report?topic_id=380201721" class="fancybox red" rel="nofollow">举报 </a> |
+          <span class="manage-toggle">
+            <div class="manage" style="display: none;">
+                <a href="http://bbs.csdn.net/posts/390487148/edit" class="fancybox" rel="nofollow">编辑</a>
+                <a href="http://bbs.csdn.net/posts/390487148/destroy_edit" class="fancybox" rel="nofollow">删除</a>
+            </div>
+            管理
+          </span> |
+          <a href="http://bbs.csdn.net/topics/380201721#">TOP</a>
+        </div>
+      </div>
+
+      </td>
+  </tr>
+</tbody></table>
+<table border="0" cellspacing="0" cellpadding="0" id="post-390488660" class="post  " data-post-id="390488660" data-is-topic-locked="false">
+  <colgroup><col width="180"><col></colgroup>
+  <tbody><tr>
+      <td rowspan="2" valign="top" class="wirter">
+                <dl class="user_info ">
+          <dt class="user_head" data-username="zdbb"><a href="http://my.csdn.net/zdbb" target="_blank"><img alt="zdbb" class="avatar" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/1_zdbb.jpg"></a>
+          </dt>
+          <dd class="username"><a href="http://my.csdn.net/zdbb" target="_blank">zdbb</a>
+          </dd>
+          <dd class="nickname"><span class="name2nick">只在此山中</span></dd>
+          <dd title="总技术分：13025；总技术排名：1986">等级：<img alt="Blank" class="grade star2" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/blank.gif"></dd>
+          <dd class="close_rate" title="用户结帖率：0%
+总发帖：0
+正常结帖：0
+未结帖：0">结帖率：0%</dd>
+          
+        </dl>
+
+      </td>
+      <td valign="top" class="post_info star pointed" data-username="zdbb" data-floor="17">
+                <div class="data">
+            <span class="fr">
+              <a href="http://bbs.csdn.net/topics/380201721#post-390488660">#17</a>
+              得分：5
+            </span>
+          <span class="time">
+              回复于：
+            2012-03-02 08:47:00
+          </span>
+        </div>
+        <div class="post_body">
+            怎么能处理多个串口同这个一个事件的:<br>
+有多少个串口就开多少个线程读,收到数据后用委托到同一个事件处理过程,收到哪个串口的数据就回写给哪个.
+        </div>
+
+      </td>
+    </tr>
+    <tr>
+      <td valign="bottom">
+              <div class="control">
+          <div id="post-forum-bulletin-17" class="fl">
+          </div>
+        <div class="fr">
+          <a href="http://bbs.csdn.net/posts/390488660/digg?topic_id=380201721" class="red digg" data-method="put" data-remote="true" rel="nofollow">对我有用[0]</a>
+          <a href="http://bbs.csdn.net/posts/390488660/bury?topic_id=380201721" class="bury" data-method="put" data-remote="true" rel="nofollow">丢个板砖[0]</a>
+          <a href="http://bbs.csdn.net/topics/380201721#quote" class="quote">引用</a> |
+          <a href="http://bbs.csdn.net/posts/390488660/report?topic_id=380201721" class="fancybox red" rel="nofollow">举报 </a> |
+          <span class="manage-toggle">
+            <div class="manage" style="display: none;">
+                <a href="http://bbs.csdn.net/posts/390488660/edit" class="fancybox" rel="nofollow">编辑</a>
+                <a href="http://bbs.csdn.net/posts/390488660/destroy_edit" class="fancybox" rel="nofollow">删除</a>
+            </div>
+            管理
+          </span> |
+          <a href="http://bbs.csdn.net/topics/380201721#">TOP</a>
+        </div>
+      </div>
+
+      </td>
+  </tr>
+</tbody></table>
+<table border="0" cellspacing="0" cellpadding="0" id="post-390488881" class="post  " data-post-id="390488881" data-is-topic-locked="false">
+  <colgroup><col width="180"><col></colgroup>
+  <tbody><tr>
+      <td rowspan="2" valign="top" class="wirter">
+                <dl class="user_info ">
+          <dt class="user_head" data-username="lfqsy"><a href="http://my.csdn.net/lfqsy" target="_blank"><img alt="lfqsy" class="avatar" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/1_lfqsy.jpg"></a>
+          </dt>
+          <dd class="username"><a href="http://my.csdn.net/lfqsy" target="_blank">lfqsy</a>
+          </dd>
+          <dd class="nickname"><span class="name2nick">lfqsy</span></dd>
+          <dd title="总技术分：733；总技术排名：33457">等级：<img alt="Blank" class="grade user3" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/blank.gif"></dd>
+          <dd class="close_rate" title="用户结帖率：100%
+总发帖：21
+正常结帖：21
+未结帖：0">结帖率：100%</dd>
+          
+        </dl>
+
+      </td>
+      <td valign="top" class="post_info pointed" data-username="lfqsy" data-floor="18">
+                <div class="data">
+            <span class="fr">
+              <a href="http://bbs.csdn.net/topics/380201721#post-390488881">#18</a>
+              得分：25
+            </span>
+          <span class="time">
+              回复于：
+            2012-03-02 08:58:43
+          </span>
+        </div>
+        <div class="post_body">
+            写一个类，用了多少个穿个就实例化多少个，然后在解析每个接收事件的值
+        </div>
+
+      </td>
+    </tr>
+    <tr>
+      <td valign="bottom">
+              <div class="control">
+          <div id="post-forum-bulletin-18" class="fl">
+          </div>
+        <div class="fr">
+          <a href="http://bbs.csdn.net/posts/390488881/digg?topic_id=380201721" class="red digg" data-method="put" data-remote="true" rel="nofollow">对我有用[0]</a>
+          <a href="http://bbs.csdn.net/posts/390488881/bury?topic_id=380201721" class="bury" data-method="put" data-remote="true" rel="nofollow">丢个板砖[0]</a>
+          <a href="http://bbs.csdn.net/topics/380201721#quote" class="quote">引用</a> |
+          <a href="http://bbs.csdn.net/posts/390488881/report?topic_id=380201721" class="fancybox red" rel="nofollow">举报 </a> |
+          <span class="manage-toggle">
+            <div class="manage" style="display: none;">
+                <a href="http://bbs.csdn.net/posts/390488881/edit" class="fancybox" rel="nofollow">编辑</a>
+                <a href="http://bbs.csdn.net/posts/390488881/destroy_edit" class="fancybox" rel="nofollow">删除</a>
+            </div>
+            管理
+          </span> |
+          <a href="http://bbs.csdn.net/topics/380201721#">TOP</a>
+        </div>
+      </div>
+
+      </td>
+  </tr>
+</tbody></table>
+<table border="0" cellspacing="0" cellpadding="0" id="post-390491387" class="post  " data-post-id="390491387" data-is-topic-locked="false">
+  <colgroup><col width="180"><col></colgroup>
+  <tbody><tr>
+      <td rowspan="2" valign="top" class="wirter">
+                <dl class="user_info ">
+          <dt class="user_head" data-username="GJHF_Wuchao"><a href="http://my.csdn.net/GJHF_Wuchao" target="_blank"><img alt="GJHF_Wuchao" class="avatar" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/1_gjhf_wuchao.jpg"></a>
+          </dt>
+          <dd class="username"><a href="http://my.csdn.net/GJHF_Wuchao" target="_blank">GJHF_Wuchao</a>
+          </dd>
+          <dd class="nickname"><span class="name2nick">GJHF_Wuchao</span></dd>
+          <dd title="总技术分：38；总技术排名：209291">等级：<img alt="Blank" class="grade user1" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/blank.gif"></dd>
+          <dd class="close_rate" title="用户结帖率：86.67%
+总发帖：30
+正常结帖：26
+未结帖：4">结帖率：86.67%</dd>
+          
+        </dl>
+
+      </td>
+      <td valign="top" class="post_info " data-username="GJHF_Wuchao" data-floor="19">
+                <div class="data">
+            <span class="fr">
+              <a href="http://bbs.csdn.net/topics/380201721#post-390491387">#19</a>
+              得分：0
+            </span>
+          <span class="time">
+              回复于：
+            2012-03-02 10:52:16
+          </span>
+        </div>
+        <div class="post_body">
+            <fieldset><legend class="font_bold">引用&nbsp;18&nbsp;楼&nbsp;lfqsy&nbsp;的回复:</legend><blockquote>写一个类，用了多少个穿个就实例化多少个，然后在解析每个接收事件的值</blockquote></fieldset><br>
+<br>
+能贴点例子代码吗?&nbsp;谢谢了
+        </div>
+
+      </td>
+    </tr>
+    <tr>
+      <td valign="bottom">
+              <div class="control">
+          <div id="post-forum-bulletin-19" class="fl">
+          </div>
+        <div class="fr">
+          <a href="http://bbs.csdn.net/posts/390491387/digg?topic_id=380201721" class="red digg" data-method="put" data-remote="true" rel="nofollow">对我有用[0]</a>
+          <a href="http://bbs.csdn.net/posts/390491387/bury?topic_id=380201721" class="bury" data-method="put" data-remote="true" rel="nofollow">丢个板砖[0]</a>
+          <a href="http://bbs.csdn.net/topics/380201721#quote" class="quote">引用</a> |
+          <a href="http://bbs.csdn.net/posts/390491387/report?topic_id=380201721" class="fancybox red" rel="nofollow">举报 </a> |
+          <span class="manage-toggle">
+            <div class="manage" style="display: none;">
+                <a href="http://bbs.csdn.net/posts/390491387/edit" class="fancybox" rel="nofollow">编辑</a>
+                <a href="http://bbs.csdn.net/posts/390491387/destroy_edit" class="fancybox" rel="nofollow">删除</a>
+            </div>
+            管理
+          </span> |
+          <a href="http://bbs.csdn.net/topics/380201721#">TOP</a>
+        </div>
+      </div>
+
+      </td>
+  </tr>
+</tbody></table>
+<table border="0" cellspacing="0" cellpadding="0" id="post-392356908" class="post  " data-post-id="392356908" data-is-topic-locked="false">
+  <colgroup><col width="180"><col></colgroup>
+  <tbody><tr>
+      <td rowspan="2" valign="top" class="wirter">
+                <dl class="user_info ">
+          <dt class="user_head" data-username="sxhgga1"><a href="http://my.csdn.net/sxhgga1" target="_blank"><img alt="sxhgga1" class="avatar" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/1_sxhgga1.jpg"></a>
+          </dt>
+          <dd class="username"><a href="http://my.csdn.net/sxhgga1" target="_blank">sxhgga1</a>
+          </dd>
+          <dd class="nickname"><span class="name2nick">sxhgga1</span></dd>
+          <dd title="总技术分：5；总技术排名：409986">等级：<img alt="Blank" class="grade user1" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/blank.gif"></dd>
+          <dd class="close_rate" title="用户结帖率：100%
+总发帖：4
+正常结帖：4
+未结帖：0">结帖率：100%</dd>
+          
+        </dl>
+
+      </td>
+      <td valign="top" class="post_info " data-username="sxhgga1" data-floor="20">
+                <div class="data">
+            <span class="fr">
+              <a href="http://bbs.csdn.net/topics/380201721#post-392356908">#20</a>
+              得分：0
+            </span>
+          <span class="time">
+              回复于：
+            2012-09-07 09:49:20
+          </span>
+        </div>
+        <div class="post_body">
+            解决了么？
+        </div>
+
+      </td>
+    </tr>
+    <tr>
+      <td valign="bottom">
+              <div class="control">
+          <div id="post-forum-bulletin-20" class="fl">
+          </div>
+        <div class="fr">
+          <a href="http://bbs.csdn.net/posts/392356908/digg?topic_id=380201721" class="red digg" data-method="put" data-remote="true" rel="nofollow">对我有用[0]</a>
+          <a href="http://bbs.csdn.net/posts/392356908/bury?topic_id=380201721" class="bury" data-method="put" data-remote="true" rel="nofollow">丢个板砖[0]</a>
+          <a href="http://bbs.csdn.net/topics/380201721#quote" class="quote">引用</a> |
+          <a href="http://bbs.csdn.net/posts/392356908/report?topic_id=380201721" class="fancybox red" rel="nofollow">举报 </a> |
+          <span class="manage-toggle">
+            <div class="manage" style="display: none;">
+                <a href="http://bbs.csdn.net/posts/392356908/edit" class="fancybox" rel="nofollow">编辑</a>
+                <a href="http://bbs.csdn.net/posts/392356908/destroy_edit" class="fancybox" rel="nofollow">删除</a>
+            </div>
+            管理
+          </span> |
+          <a href="http://bbs.csdn.net/topics/380201721#">TOP</a>
+        </div>
+      </div>
+
+      </td>
+  </tr>
+</tbody></table>
+
+</div>
+<div class="control_area">
+  <form name="form" id="form">
+    
+    <div class="control">
+      <ul>
+        <li class="drop_menu_wrap drop_menu_up"><a href="http://bbs.csdn.net/topics/380201721#" class="drop_toggle drop_toggle_up btn_1"><span><img src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/ico_set.gif" alt="">管理菜单<img src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/arrow_down.gif" alt=""></span></a>
+        <ul class="drop_menu" style="display: none; bottom:26px;">
+            <li><a href="http://bbs.csdn.net/topics/380201721/top" class="fancybox" rel="nofollow">置顶</a></li>
+
+  <li><a href="http://bbs.csdn.net/topics/380201721/recommend" data-confirm="确定要将该帖推荐(加精)吗？被推荐的帖子将给帖主奖励可用分88分!" data-method="put" rel="nofollow">推荐</a></li>
+
+  <li><a href="http://bbs.csdn.net/topics/380201721/lock" class="fancybox" rel="nofollow">锁定</a></li>
+
+<li><a href="http://bbs.csdn.net/topics/380201721/move" class="fancybox" rel="nofollow">移动</a></li>
+<li><a href="http://bbs.csdn.net/topics/380201721/edit" class="fancybox" rel="nofollow">编辑</a></li>
+<li><a href="http://bbs.csdn.net/topics/380201721/destroy_edit" class="fancybox" rel="nofollow">删除</a></li>
+<li><a href="http://bbs.csdn.net/topics/380201721/add_point" class="fancybox" rel="nofollow">帖子加分</a></li>
+  <li><a href="http://bbs.csdn.net/topics/380201721/highlight" class="fancybox" rel="nofollow">帖子高亮</a></li>
+
+        </ul>
+        </li>
+        <li><a href="http://bbs.csdn.net/topics/380201721/close" class="btn_1"><span><img src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/ico_over.gif" alt="">结帖</span></a></li>
+        <li><a href="http://bbs.csdn.net/topics/new?forum_id=CSharp" class="btn_1"><span><img src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/ico_publish.gif" alt="">发帖</span></a></li>
+        <li><a href="http://bbs.csdn.net/topics/380201721#new_post" class="btn_1"><span><img src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/ico_return.gif" alt="">回复</span></a></li>
+      </ul>
+    </div>
+  </form>
+</div>
+
+<div class="comt">
+  <div class="ad_l">
+    <!-- 回复框文字 (D6) -->
+    <ul><li><a href="http://g.csdn.net/5239701" target="_blank">【热】应届生,入职年薪5-10万</a></li><li><a href="http://g.csdn.net/5238982" target="_blank">阿里云服务器 1元狂欢购</a></li><li><a href="http://g.csdn.net/5239418" target="_blank">英特尔嵌入式在线培训课堂</a></li><li><a href="http://g.csdn.net/5239181" target="_blank">首届携程大赛开始报名啦</a></li></ul>
+    <ul>
+        <li><a href="http://bbs.csdn.net/topics/390292018" class="title_style_black" target="_blank">CSDN官方微信正式上线</a></li>
+    </ul>
+    <div class="ad_new" style="padding: 0 0 50px 0">
+      <h4><img alt="" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/csdn_logo_blue.gif"></h4>
+      <p class="title">
+      <a href="http://bbs.csdn.net/topics/390329394" target="_blank">《程序员》杂志超值订阅</a>
+      </p>
+      <p class="con">
+      <a href="http://bbs.csdn.net/topics/390329394" target="_blank">全年iPad版《程序员》杂志超值套餐，只需60元噢！</a>
+      </p>
+    </div>
+  </div>
+  <div class="reply">
+      <form accept-charset="UTF-8" action="http://bbs.csdn.net/posts?topic_id=380201721" class="new_post" id="new_post" method="post" novalidate="novalidate"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="FodMcurGe0IFiVfGEwgYMJ5AwCFSpVZMNMPJrmEwYuY="></div>        <div>
+          <strong>回复内容</strong>
+            匿名用户不能发表回复！
+            <span class="login" id="iframe_login_span"><a id="iframe_login_link" href="https://passport.csdn.net/account/login" target="_blank">登录</a>|<a href="https://passport.csdn.net/account/register" target="_blank">注册</a></span>
+        </div>
+        <div class="editor">
+          <div><div id="markItUpPost_body" class="markItUp"><div class="tab"> <ul> <li class="hover"><a class="edit_btn_a" href="javascript:void(0);"><span>编辑</span></a></li> <li><a class="preview_btn_a" href="javascript:void(0);"><span>预览</span></a></li> </ul> </div><div class="markItUpContainer"><div class="markItUpHeader"><ul><li class="markItUpButton markItUpButton1 bbtn_bold"><a href="" title="粗体">粗体</a></li><li class="markItUpButton markItUpButton2 bbtn_italic"><a href="" title="斜体">斜体</a></li><li class="markItUpButton markItUpButton3 bbtn_underline"><a href="" title="下划线">下划线</a></li><li class="markItUpSeparator">---------------</li><li class="markItUpButton markItUpButton4 bbtn_size not_prompt markItUpDropMenu"><a href="" title="字体大小">字体大小</a><ul><li class="markItUpButton markItUpButton4-1 col1-1"><a href="" title="12px">12px</a></li><li class="markItUpButton markItUpButton4-2 col1-2"><a href="" title="13px">13px</a></li><li class="markItUpButton markItUpButton4-3 col1-3"><a href="" title="14px">14px</a></li><li class="markItUpButton markItUpButton4-4 col2-1"><a href="" title="16px">16px</a></li><li class="markItUpButton markItUpButton4-5 col2-2"><a href="" title="18px">18px</a></li><li class="markItUpButton markItUpButton4-6 col2-3"><a href="" title="24px">24px</a></li></ul></li><li class="markItUpButton markItUpButton5 bbtn_color not_prompt markItUpDropMenu"><a href="" title="字体颜色">字体颜色</a><ul><li class="markItUpButton markItUpButton5-1 col1-1"><a href="" title="黑色">黑色</a></li><li class="markItUpButton markItUpButton5-2 col1-2"><a href="" title="褐色">褐色</a></li><li class="markItUpButton markItUpButton5-3 col1-3"><a href="" title="橄榄色">橄榄色</a></li><li class="markItUpButton markItUpButton5-4 col1-4"><a href="" title="深绿">深绿</a></li><li class="markItUpButton markItUpButton5-5 col1-5"><a href="" title="深青">深青</a></li><li class="markItUpButton markItUpButton5-6 col1-6"><a href="" title="深蓝">深蓝</a></li><li class="markItUpButton markItUpButton5-7 col1-7"><a href="" title="靛蓝">靛蓝</a></li><li class="markItUpButton markItUpButton5-8 col1-8"><a href="" title="灰色-80%">灰色-80%</a></li><li class="markItUpButton markItUpButton5-9 col2-1"><a href="" title="深红">深红</a></li><li class="markItUpButton markItUpButton5-10 col2-2"><a href="" title="橙色">橙色</a></li><li class="markItUpButton markItUpButton5-11 col2-3"><a href="" title="深黄">深黄</a></li><li class="markItUpButton markItUpButton5-12 col2-4"><a href="" title="绿色">绿色</a></li><li class="markItUpButton markItUpButton5-13 col2-5"><a href="" title="绿色">绿色</a></li><li class="markItUpButton markItUpButton5-14 col2-6"><a href="" title="蓝色">蓝色</a></li><li class="markItUpButton markItUpButton5-15 col2-7"><a href="" title="蓝-灰">蓝-灰</a></li><li class="markItUpButton markItUpButton5-16 col2-8"><a href="" title="灰色-50%">灰色-50%</a></li><li class="markItUpButton markItUpButton5-17 col3-1"><a href="" title="红色">红色</a></li><li class="markItUpButton markItUpButton5-18 col3-2"><a href="" title="浅橙">浅橙</a></li><li class="markItUpButton markItUpButton5-19 col3-3"><a href="" title="酸橙">酸橙</a></li><li class="markItUpButton markItUpButton5-20 col3-4"><a href="" title="海绿">海绿</a></li><li class="markItUpButton markItUpButton5-21 col3-5"><a href="" title="水绿色">水绿色</a></li><li class="markItUpButton markItUpButton5-22 col3-6"><a href="" title="浅蓝">浅蓝</a></li><li class="markItUpButton markItUpButton5-23 col3-7"><a href="" title="紫罗兰">紫罗兰</a></li><li class="markItUpButton markItUpButton5-24 col3-8"><a href="" title="灰色-40%">灰色-40%</a></li><li class="markItUpButton markItUpButton5-25 col4-1"><a href="" title="粉红">粉红</a></li><li class="markItUpButton markItUpButton5-26 col4-2"><a href="" title="金色">金色</a></li><li class="markItUpButton markItUpButton5-27 col4-3"><a href="" title="黄色">黄色</a></li><li class="markItUpButton markItUpButton5-28 col4-4"><a href="" title="鲜绿">鲜绿</a></li><li class="markItUpButton markItUpButton5-29 col4-5"><a href="" title="青绿">青绿</a></li><li class="markItUpButton markItUpButton5-30 col4-6"><a href="" title="天蓝">天蓝</a></li><li class="markItUpButton markItUpButton5-31 col4-7"><a href="" title="梅红">梅红</a></li><li class="markItUpButton markItUpButton5-32 col4-8"><a href="" title="灰色-25%">灰色-25%</a></li><li class="markItUpButton markItUpButton5-33 col5-1"><a href="" title="玖瑰红">玖瑰红</a></li><li class="markItUpButton markItUpButton5-34 col5-2"><a href="" title="茶色">茶色</a></li><li class="markItUpButton markItUpButton5-35 col5-3"><a href="" title="浅黄">浅黄</a></li><li class="markItUpButton markItUpButton5-36 col5-4"><a href="" title="浅绿">浅绿</a></li><li class="markItUpButton markItUpButton5-37 col5-5"><a href="" title="浅青绿">浅青绿</a></li><li class="markItUpButton markItUpButton5-38 col5-6"><a href="" title="淡蓝">淡蓝</a></li><li class="markItUpButton markItUpButton5-39 col5-7"><a href="" title="淡紫">淡紫</a></li><li class="markItUpButton markItUpButton5-40 col5-8"><a href="" title="白色">白色</a></li></ul></li><li class="markItUpSeparator">---------------</li><li class="markItUpButton markItUpButton6 picture bbtn_picture"><a href="" title="图片">图片</a></li><li class="markItUpButton markItUpButton7 bbtn_link"><a href="" title="链接">链接</a></li><li class="markItUpSeparator">---------------</li><li class="markItUpButton markItUpButton8 bbtn_align_left"><a href="" title="左对齐">左对齐</a></li><li class="markItUpButton markItUpButton9 bbtn_align_center"><a href="" title="居中对齐">居中对齐</a></li><li class="markItUpButton markItUpButton10 bbtn_align_right"><a href="" title="右对齐">右对齐</a></li><li class="markItUpSeparator">---------------</li><li class="markItUpButton markItUpButton11 bbtn_quotes"><a href="" title="引用">引用</a></li><li class="markItUpButton markItUpButton12 bbtn_code not_prompt markItUpDropMenu"><a href="" title="代码">代码</a><ul><li class="markItUpButton markItUpButton12-1 "><a href="" title="C#">C#</a></li><li class="markItUpButton markItUpButton12-2 "><a href="" title="C/C++">C/C++</a></li><li class="markItUpButton markItUpButton12-3 "><a href="" title="CSS">CSS</a></li><li class="markItUpButton markItUpButton12-4 "><a href="" title="Delphi/Pascal">Delphi/Pascal</a></li><li class="markItUpButton markItUpButton12-5 "><a href="" title="JavaScript">JavaScript</a></li><li class="markItUpButton markItUpButton12-6 "><a href="" title="Java">Java</a></li><li class="markItUpButton markItUpButton12-7 "><a href="" title="Objective C">Objective C</a></li><li class="markItUpButton markItUpButton12-8 "><a href="" title="Perl">Perl</a></li><li class="markItUpButton markItUpButton12-9 "><a href="" title="PHP">PHP</a></li><li class="markItUpButton markItUpButton12-10 "><a href="" title="Python">Python</a></li><li class="markItUpButton markItUpButton12-11 "><a href="" title="Ruby">Ruby</a></li><li class="markItUpButton markItUpButton12-12 "><a href="" title="SQL">SQL</a></li><li class="markItUpButton markItUpButton12-13 "><a href="" title="Visual Basic">Visual Basic</a></li><li class="markItUpButton markItUpButton12-14 "><a href="" title="HTML">HTML</a></li><li class="markItUpButton markItUpButton12-15 "><a href="" title="其他">其他</a></li></ul></li><li class="markItUpSeparator">---------------</li><li class="markItUpButton markItUpButton13 emoticons emoticons_qq markItUpDropMenu"><a href="" title="QQ">QQ</a><ul><li class="markItUpButton markItUpButton13-1 emoticon emoticon_qq_1"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-2 emoticon emoticon_qq_2"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-3 emoticon emoticon_qq_3"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-4 emoticon emoticon_qq_4"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-5 emoticon emoticon_qq_5"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-6 emoticon emoticon_qq_6"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-7 emoticon emoticon_qq_7"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-8 emoticon emoticon_qq_8"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-9 emoticon emoticon_qq_9"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-10 emoticon emoticon_qq_10"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-11 emoticon emoticon_qq_11"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-12 emoticon emoticon_qq_12"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-13 emoticon emoticon_qq_13"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-14 emoticon emoticon_qq_14"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-15 emoticon emoticon_qq_15"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-16 emoticon emoticon_qq_16"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-17 emoticon emoticon_qq_17"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-18 emoticon emoticon_qq_18"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-19 emoticon emoticon_qq_19"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-20 emoticon emoticon_qq_20"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-21 emoticon emoticon_qq_21"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-22 emoticon emoticon_qq_22"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-23 emoticon emoticon_qq_23"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-24 emoticon emoticon_qq_24"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-25 emoticon emoticon_qq_25"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-26 emoticon emoticon_qq_26"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-27 emoticon emoticon_qq_27"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-28 emoticon emoticon_qq_28"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-29 emoticon emoticon_qq_29"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-30 emoticon emoticon_qq_30"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-31 emoticon emoticon_qq_31"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-32 emoticon emoticon_qq_32"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-33 emoticon emoticon_qq_33"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-34 emoticon emoticon_qq_34"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-35 emoticon emoticon_qq_35"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-36 emoticon emoticon_qq_36"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-37 emoticon emoticon_qq_37"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-38 emoticon emoticon_qq_38"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-39 emoticon emoticon_qq_39"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-40 emoticon emoticon_qq_40"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-41 emoticon emoticon_qq_41"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-42 emoticon emoticon_qq_42"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-43 emoticon emoticon_qq_43"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-44 emoticon emoticon_qq_44"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-45 emoticon emoticon_qq_45"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-46 emoticon emoticon_qq_46"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-47 emoticon emoticon_qq_47"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-48 emoticon emoticon_qq_48"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-49 emoticon emoticon_qq_49"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-50 emoticon emoticon_qq_50"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-51 emoticon emoticon_qq_51"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-52 emoticon emoticon_qq_52"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-53 emoticon emoticon_qq_53"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-54 emoticon emoticon_qq_54"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-55 emoticon emoticon_qq_55"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-56 emoticon emoticon_qq_56"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-57 emoticon emoticon_qq_57"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-58 emoticon emoticon_qq_58"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-59 emoticon emoticon_qq_59"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-60 emoticon emoticon_qq_60"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-61 emoticon emoticon_qq_61"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-62 emoticon emoticon_qq_62"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-63 emoticon emoticon_qq_63"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-64 emoticon emoticon_qq_64"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-65 emoticon emoticon_qq_65"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-66 emoticon emoticon_qq_66"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-67 emoticon emoticon_qq_67"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-68 emoticon emoticon_qq_68"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-69 emoticon emoticon_qq_69"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-70 emoticon emoticon_qq_70"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-71 emoticon emoticon_qq_71"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-72 emoticon emoticon_qq_72"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-73 emoticon emoticon_qq_73"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-74 emoticon emoticon_qq_74"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-75 emoticon emoticon_qq_75"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-76 emoticon emoticon_qq_76"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-77 emoticon emoticon_qq_77"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-78 emoticon emoticon_qq_78"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-79 emoticon emoticon_qq_79"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-80 emoticon emoticon_qq_80"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-81 emoticon emoticon_qq_81"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-82 emoticon emoticon_qq_82"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-83 emoticon emoticon_qq_83"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-84 emoticon emoticon_qq_84"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-85 emoticon emoticon_qq_85"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-86 emoticon emoticon_qq_86"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-87 emoticon emoticon_qq_87"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-88 emoticon emoticon_qq_88"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-89 emoticon emoticon_qq_89"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-90 emoticon emoticon_qq_90"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-91 emoticon emoticon_qq_91"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-92 emoticon emoticon_qq_92"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-93 emoticon emoticon_qq_93"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-94 emoticon emoticon_qq_94"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-95 emoticon emoticon_qq_95"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-96 emoticon emoticon_qq_96"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-97 emoticon emoticon_qq_97"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-98 emoticon emoticon_qq_98"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-99 emoticon emoticon_qq_99"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-100 emoticon emoticon_qq_100"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-101 emoticon emoticon_qq_101"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-102 emoticon emoticon_qq_102"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-103 emoticon emoticon_qq_103"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-104 emoticon emoticon_qq_104"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-105 emoticon emoticon_qq_105"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-106 emoticon emoticon_qq_106"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-107 emoticon emoticon_qq_107"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-108 emoticon emoticon_qq_108"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-109 emoticon emoticon_qq_109"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-110 emoticon emoticon_qq_110"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-111 emoticon emoticon_qq_111"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-112 emoticon emoticon_qq_112"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-113 emoticon emoticon_qq_113"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-114 emoticon emoticon_qq_114"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-115 emoticon emoticon_qq_115"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-116 emoticon emoticon_qq_116"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-117 emoticon emoticon_qq_117"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-118 emoticon emoticon_qq_118"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-119 emoticon emoticon_qq_119"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-120 emoticon emoticon_qq_120"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-121 emoticon emoticon_qq_121"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-122 emoticon emoticon_qq_122"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-123 emoticon emoticon_qq_123"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-124 emoticon emoticon_qq_124"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-125 emoticon emoticon_qq_125"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-126 emoticon emoticon_qq_126"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-127 emoticon emoticon_qq_127"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-128 emoticon emoticon_qq_128"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-129 emoticon emoticon_qq_129"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-130 emoticon emoticon_qq_130"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-131 emoticon emoticon_qq_131"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-132 emoticon emoticon_qq_132"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-133 emoticon emoticon_qq_133"><a href="" title=""></a></li><li class="markItUpButton markItUpButton13-134 emoticon emoticon_qq_134"><a href="" title=""></a></li></ul></li><li class="markItUpButton markItUpButton14 emoticons emoticons_monkey markItUpDropMenu"><a href="" title="monkey">monkey</a><ul><li class="markItUpButton markItUpButton14-1 emoticon emoticon_monkey_1"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-2 emoticon emoticon_monkey_2"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-3 emoticon emoticon_monkey_3"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-4 emoticon emoticon_monkey_4"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-5 emoticon emoticon_monkey_5"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-6 emoticon emoticon_monkey_6"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-7 emoticon emoticon_monkey_7"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-8 emoticon emoticon_monkey_8"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-9 emoticon emoticon_monkey_9"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-10 emoticon emoticon_monkey_10"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-11 emoticon emoticon_monkey_11"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-12 emoticon emoticon_monkey_12"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-13 emoticon emoticon_monkey_13"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-14 emoticon emoticon_monkey_14"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-15 emoticon emoticon_monkey_15"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-16 emoticon emoticon_monkey_16"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-17 emoticon emoticon_monkey_17"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-18 emoticon emoticon_monkey_18"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-19 emoticon emoticon_monkey_19"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-20 emoticon emoticon_monkey_20"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-21 emoticon emoticon_monkey_21"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-22 emoticon emoticon_monkey_22"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-23 emoticon emoticon_monkey_23"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-24 emoticon emoticon_monkey_24"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-25 emoticon emoticon_monkey_25"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-26 emoticon emoticon_monkey_26"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-27 emoticon emoticon_monkey_27"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-28 emoticon emoticon_monkey_28"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-29 emoticon emoticon_monkey_29"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-30 emoticon emoticon_monkey_30"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-31 emoticon emoticon_monkey_31"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-32 emoticon emoticon_monkey_32"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-33 emoticon emoticon_monkey_33"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-34 emoticon emoticon_monkey_34"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-35 emoticon emoticon_monkey_35"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-36 emoticon emoticon_monkey_36"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-37 emoticon emoticon_monkey_37"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-38 emoticon emoticon_monkey_38"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-39 emoticon emoticon_monkey_39"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-40 emoticon emoticon_monkey_40"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-41 emoticon emoticon_monkey_41"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-42 emoticon emoticon_monkey_42"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-43 emoticon emoticon_monkey_43"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-44 emoticon emoticon_monkey_44"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-45 emoticon emoticon_monkey_45"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-46 emoticon emoticon_monkey_46"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-47 emoticon emoticon_monkey_47"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-48 emoticon emoticon_monkey_48"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-49 emoticon emoticon_monkey_49"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-50 emoticon emoticon_monkey_50"><a href="" title=""></a></li><li class="markItUpButton markItUpButton14-51 emoticon emoticon_monkey_51"><a href="" title=""></a></li></ul></li><li class="markItUpButton markItUpButton15 emoticons emoticons_onion markItUpDropMenu"><a href="" title="onion">onion</a><ul><li class="markItUpButton markItUpButton15-1 emoticon emoticon_onion_1"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-2 emoticon emoticon_onion_2"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-3 emoticon emoticon_onion_3"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-4 emoticon emoticon_onion_4"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-5 emoticon emoticon_onion_5"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-6 emoticon emoticon_onion_6"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-7 emoticon emoticon_onion_7"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-8 emoticon emoticon_onion_8"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-9 emoticon emoticon_onion_9"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-10 emoticon emoticon_onion_10"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-11 emoticon emoticon_onion_11"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-12 emoticon emoticon_onion_12"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-13 emoticon emoticon_onion_13"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-14 emoticon emoticon_onion_14"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-15 emoticon emoticon_onion_15"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-16 emoticon emoticon_onion_16"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-17 emoticon emoticon_onion_17"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-18 emoticon emoticon_onion_18"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-19 emoticon emoticon_onion_19"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-20 emoticon emoticon_onion_20"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-21 emoticon emoticon_onion_21"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-22 emoticon emoticon_onion_22"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-23 emoticon emoticon_onion_23"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-24 emoticon emoticon_onion_24"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-25 emoticon emoticon_onion_25"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-26 emoticon emoticon_onion_26"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-27 emoticon emoticon_onion_27"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-28 emoticon emoticon_onion_28"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-29 emoticon emoticon_onion_29"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-30 emoticon emoticon_onion_30"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-31 emoticon emoticon_onion_31"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-32 emoticon emoticon_onion_32"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-33 emoticon emoticon_onion_33"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-34 emoticon emoticon_onion_34"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-35 emoticon emoticon_onion_35"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-36 emoticon emoticon_onion_36"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-37 emoticon emoticon_onion_37"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-38 emoticon emoticon_onion_38"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-39 emoticon emoticon_onion_39"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-40 emoticon emoticon_onion_40"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-41 emoticon emoticon_onion_41"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-42 emoticon emoticon_onion_42"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-43 emoticon emoticon_onion_43"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-44 emoticon emoticon_onion_44"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-45 emoticon emoticon_onion_45"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-46 emoticon emoticon_onion_46"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-47 emoticon emoticon_onion_47"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-48 emoticon emoticon_onion_48"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-49 emoticon emoticon_onion_49"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-50 emoticon emoticon_onion_50"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-51 emoticon emoticon_onion_51"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-52 emoticon emoticon_onion_52"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-53 emoticon emoticon_onion_53"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-54 emoticon emoticon_onion_54"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-55 emoticon emoticon_onion_55"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-56 emoticon emoticon_onion_56"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-57 emoticon emoticon_onion_57"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-58 emoticon emoticon_onion_58"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-59 emoticon emoticon_onion_59"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-60 emoticon emoticon_onion_60"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-61 emoticon emoticon_onion_61"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-62 emoticon emoticon_onion_62"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-63 emoticon emoticon_onion_63"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-64 emoticon emoticon_onion_64"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-65 emoticon emoticon_onion_65"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-66 emoticon emoticon_onion_66"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-67 emoticon emoticon_onion_67"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-68 emoticon emoticon_onion_68"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-69 emoticon emoticon_onion_69"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-70 emoticon emoticon_onion_70"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-71 emoticon emoticon_onion_71"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-72 emoticon emoticon_onion_72"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-73 emoticon emoticon_onion_73"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-74 emoticon emoticon_onion_74"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-75 emoticon emoticon_onion_75"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-76 emoticon emoticon_onion_76"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-77 emoticon emoticon_onion_77"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-78 emoticon emoticon_onion_78"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-79 emoticon emoticon_onion_79"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-80 emoticon emoticon_onion_80"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-81 emoticon emoticon_onion_81"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-82 emoticon emoticon_onion_82"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-83 emoticon emoticon_onion_83"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-84 emoticon emoticon_onion_84"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-85 emoticon emoticon_onion_85"><a href="" title=""></a></li><li class="markItUpButton markItUpButton15-86 emoticon emoticon_onion_86"><a href="" title=""></a></li></ul></li><li class="markItUpSeparator">---------------</li><li class="markItUpButton markItUpButton16 bbtn_yabao"><a href="" title="押宝">押宝</a></li><li class="markItUpSeparator">---------------</li><li class="markItUpButton markItUpButton17 clean bbtn_clean"><a href="" title="清除格式">清除格式</a></li></ul></div><textarea class="required quoteOnly markItUpEditor" cols="40" id="post_body" name="post[body]" rows="20"></textarea><div class="markItUpFooter"></div></div></div></div>
+          <div class="pub"><span class="fr">每天回帖即可获得10分可用分！小技巧：<a href="http://bbs.csdn.net/help#common_problem" target="_blank">教您如何更快获得可用分</a> <span id="body_count_notice" class="body_count_notice_fixed">你还可以输入10000个字符</span></span><input class="btn_b" id="submit_new_post_form" name="commit" type="submit" value="提交回复">(Ctrl+Enter)</div>
+        </div>
+        <ol class="notice">
+          <li>这里发言，表示您接受了CSDN论坛的用户<a href="http://bbs.csdn.net/help#user_criterion" target="_blank">行为准则</a>。</li>
+          <li>请对您的言行负责，并遵守中华人民共和国有关法律法规,尊重网上道德。</li>
+          <li>转载文章请注明出自“CSDN（www.csdn.net）”。如是商业用途请联系原作者。</li>
+        </ol>
+</form>      <script id="countTemplate" type="text/x-jquery-tmpl">
+        你还可以输入${count}个字符
+      </script>
+
+  </div>
+</div>
+
+
+
+<!-- 对联广告 -->
+<div id="ad_left" style="position: absolute; width: 120px; top: 184px; left: 10px; ">
+  <a style="float:right;" href="http://bbs.csdn.net/topics/380201721#" onclick="javascript:this.parentNode.style.display=&#39;none&#39;;return false;">[关闭]</a>
+  <iframe src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/TopicDaLeft.htm" frameborder="0" height="600" width="120" scrolling="no"></iframe>
+</div>
+<div id="ad_right" style="position: absolute; width: 120px; top: 184px; right: 10px; ">
+  <a style="float:left;" href="http://bbs.csdn.net/topics/380201721#" onclick="javascript:this.parentNode.style.display=&#39;none&#39;;return false;">[关闭]</a>
+  <iframe src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/TopicDaRight.htm" frameborder="0" height="600" width="120" scrolling="no"></iframe>
+</div>
+
+
+
+      <script type="text/javascript" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/publib_footer.js"></script><link rel="stylesheet" type="text/css" href="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/pub_footer_2012.css"><div class="pub_footerall"><dl><dt></dt> <dd><a href="http://www.csdn.net/company/about.html" target="_blank">公司简介</a>|<a href="http://www.csdn.net/company/recruit.html" target="_blank">招贤纳士</a>|<a href="http://www.csdn.net/company/marketing.html" target="_blank">广告服务</a>|<a href="http://www.csdn.net/company/account.html" target="_blank">银行汇款帐号</a>|<a href="http://www.csdn.net/company/contact.html" target="_blank">联系方式</a>|<a href="http://www.csdn.net/company/statement.html" target="_blank">版权声明</a>|<a href="http://www.csdn.net/company/layer.html" target="_blank">法律顾问</a>|<a href="mailto:webmaster@csdn.net">问题报告</a></dd><dd>京&nbsp;ICP&nbsp;证&nbsp;070598&nbsp;号</dd><dd>北京创新乐知信息技术有限公司 版权所有</dd><dd>世纪乐知(北京)网络技术有限公司 提供技术支持</dd><dd>江苏乐知网络技术有限公司 提供商务支持</dd><dd><img src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/ico_email.gif" alt="" title=""> 联系邮箱：webmaster(at)csdn.net</dd><dd>Copyright © 1999-2012, CSDN.NET, All Rights Reserved&nbsp;<a href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001032100010" target="_blank"><img src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/gongshang_logos.gif" alt="GongshangLogo" title=""></a></dd></dl></div><script type="text/javascript" charset="utf-8" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/tracking.js"></script>
+
+<script type="text/javascript" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/counter.js"></script><script type="text/javascript" charset="UTF-8" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/msg.popup.js"></script>
+
+    </div>
+          <script type="text/javascript">
+        $(function(){ posts_page_js._form_page(); });
+      </script>
+<script type="text/javascript" language="javascript" charset="utf-8">
+//<![CDATA[
+$(function(){
+  topics_page_js.show_page();
+    var bulletin_link = '<a href="http://www.csdn.net/article/2013-01-21/2813843" class="title_style_blue title_style_bold" target="_blank">专访杨刚：移动互联网是孕育下一代高科技企业的土壤</a>'
+    $('#post-forum-bulletin-1').html(bulletin_link);
+    var bulletin_link = '<a href="http://bbs.csdn.net/topics/390352607" class="title_style_red title_style_bold" target="_blank">CSDN社区“聊聊春运买票那点事儿”活动正式开始！</a>'
+    $('#post-forum-bulletin-2').html(bulletin_link);
+    var bulletin_link = '<a href="http://blog.csdn.net/blogdevteam/article/details/8534797" class="title_style_red title_style_bold" target="_blank">智能开发框架 JEECG 作者张代浩专访 </a>'
+    $('#post-forum-bulletin-3').html(bulletin_link);
+});
+//]]>
+</script>
+<script type="text/javascript" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/ad-bbs.js"></script><script type="text/javascript" src="./C# dataReceived事件多个串口接受数据问题 - CSDN论坛 - CSDN.NET_files/ad-ms459.js"></script>
+
+
+  
+
+<div id="fancybox-tmp"></div><div id="fancybox-loading"><div></div></div><div id="fancybox-overlay"></div><div id="fancybox-wrap"><div id="fancybox-outer"><div class="fancybox-bg" id="fancybox-bg-n"></div><div class="fancybox-bg" id="fancybox-bg-ne"></div><div class="fancybox-bg" id="fancybox-bg-e"></div><div class="fancybox-bg" id="fancybox-bg-se"></div><div class="fancybox-bg" id="fancybox-bg-s"></div><div class="fancybox-bg" id="fancybox-bg-sw"></div><div class="fancybox-bg" id="fancybox-bg-w"></div><div class="fancybox-bg" id="fancybox-bg-nw"></div><div id="fancybox-content"></div><a id="fancybox-close"></a><div id="fancybox-title"></div><a href="javascript:;" id="fancybox-left"><span class="fancy-ico" id="fancybox-left-ico"></span></a><a href="javascript:;" id="fancybox-right"><span class="fancy-ico" id="fancybox-right-ico"></span></a></div></div></body></html>

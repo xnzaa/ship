@@ -1,0 +1,512 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0052)http://blog.csdn.net/wuyazhe/article/details/5657188 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET</title>
+
+<meta name="description" content=".net serialport 文本 数据 协议 分析。">
+<script type="text/javascript" async="" src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/ga.js"></script><script src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/jquery.js" type="text/javascript"></script>
+<script src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/plugins.js" type="text/javascript"></script>
+<script src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/common.js" type="text/javascript"></script>
+<script type="text/javascript" src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/ad.js"></script>
+<link rel="Stylesheet" type="text/css" href="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/style.css">
+<link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="http://blog.csdn.net/wuyazhe/rss/list">
+<link rel="shortcut icon" href="http://blog.csdn.net/favicon.ico">
+<link type="text/css" rel="stylesheet" href="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/default.css">
+<style type="text/css" id="LB_ADBLOCK_0">.ad_960,.banner_top2,.banner_top3,[src*="&sourcesuninfo=ad-"],.adarea,.adarea_top,#lovexin1,#lovexin2,.m_ad,#topBanner,.ad1,.ad2,.ad3,.ad4,.ad5,.ad6,.ad7,.ad8,.ad9,.adSpace,.ad_240_h,.side-Rad,.ol_ad_xiala,iframe[src^="http://a.cntv.cn"],[id^="youku_ad_"],#bd1,#bd2,#bd3,.h8r.font0,.topbod>.topbodr,.topbodr>table[width="670"][height="70"],.widget_ad_slot_wrapper,.gg01,.gg02,.gg03,.gg04,.gg05,.gg06,.gg07,.gg08,.gg09,#_SNYU_Ad_Wrap,[id^="snyu_slot_"],.random-box>.random-banner,.gonglue_rightad,iframe[src^="http://www.37cs.com/html/click/"],#AdZoneRa,#AdZoneRb,#AdZoneRc,#AdZoneRd,#AdZoneRe,#AdZoneRf,#AdZoneRg,div[id="adAreaBbox"],.absolute.a_cover,#QQCOM_Width3,#auto_gen_6,.l_qq_com,#cj_ad,[href^="http://c.l.qq.com/adsclick?oid="],.right_ad_lefttext,.right_ad_righttext,.AdTop-Article-QQ,.business-Article-QQ,.qiye-Article-QQ,.AdBox-Article-QQ,td[width="960"][height="90"][align="center"],.adclass,.ad1,[id^="tonglan_"],.ads5,.adv,.ads220_60,.ad-h60,.ad-h65,.ggs,[class^="ads360"],.news_ad_box,#XianAd,.Ad3Top-Article-QQ,.AdTop2-Article-QQ,.adbutton-Aritcle-QQ,#AdRight-Article-QQ,[id^=ad-block],.sidBoxNoborder.mar-b8,#ent_ad,[class="ad"][id="ad_bottom"],[class="ad"][id="ad_top"],.plrad,.ad300,#top_ad1,#top_ad2,#top_ad3,#top_ad4,#top_ad5,#top_ad6,#top_ad7,#top_ad8,#top_ad9,#mid_ad1,#mid_ad2,#mid_ad3,#mid_ad4,#mid_ad5,#mid_ad6,#mid_ad7,#mid_ad8,#mid_ad9,#ads1,#ads2,#ads3,#ads4,#ads5,#ads6,#ads7,#ads8,#ads9,.dlAd,.changeAd,.unionCpv,#Advertisement,iframe[src*="/advertisement."],img[src*="/advertisement."],.ad_headerbanner,#ad_headerbanner,div[class^=ad_textlink],iframe[src*="guanggao"],img[src*="guanggao"],#ads-top,#ads-bot,.adBanner,#topAd,.top_ad,.topAds,.topAd,.ad_column,#ad1,#ad2,#ad3,#ad4,#ad5,#ad6,#ad7,#ad8,#ad9,.ad_footerbanner,#adleft,#adright,.advleft,.advright,.ad980X60,.banner-ad,.top-ad,#adright,#AdLayer1,#AdLayer2,#AdLayer3,div[href*="click.mediav.com"],div[class=top_ad],div[class^="headads"],div[class="ads"],.txtad,.guanggao,#guanggao,.adclass,div[id*="AdsLayer"],.ad950,.guangg,.header-ads-top,#adleft,#adright,#ad_show,.ad_pic,#fullScreenAd,div[class^="adbox"],#topADImg,div[class^="ad_box"],div[id^="adbox"],div[class^="ads_"],div[alt*="￥ﾹ﾿￥ﾑﾊ￤ﾽﾍ"],div[id^="ads_"],div[src*="/adfile/"],.delayadv,#vplayad,.jadv,div[src*="/ads/"],div[src*="/advpic/"],div[id*="_adbox"],div[id*="-adbox"],div[class^="showad"],div[id^="adshow"],#bottomads,.ad_column,div[id^="_AdSame"],iframe[src^="http://drmcmm.baidu.com"],div[src^="http://drmcmm.baidu.com"],frame[src^="http://drmcmm.baidu.com"],div[href^="http://www.baidu.com/cpro.php?"],iframe[href^="http://www.baidu.com/cpro.php?"],div[src^="http://cpro.baidu.com"],div[src^="http://eiv.baidu.com"],div[href^="http://www.baidu.com/baidu.php?url="],div[href^="http://www.baidu.com/adrc.php?url="],.ad_text,div[href^="http://click.cm.sandai.net"],div.adA.area,div[src*=".qq937.com"],iframe[src*=".qq937.com"],div[src*=".88210212.com"],iframe[src*=".88210212.com"],.adBox,.adRight,.adLeft,.banner-ads,.right_ad,.left_ad,.content_ad,.post-top-gg,div[class*="_ad_slot"],.col_ad,.block_ad,div[class^="adList"],.adBlue,.mar_ad,div[id^="ArpAdPro"],.adItem,.ggarea,.adiframe,iframe[src*="/adiframe/"],#bottom_ad,.bottom_ad,.crumb_ad,.topadna,.topadbod,div[src*="qq494.cn"],iframe[src*="qq494.cn"],.topadbod,embed[src*="gamefiles.qq937.com"],embed[src*="17kuxun.com"],.crazy_ad_layer,#crazy_ad_layer,.bannerad,iframe[src*="/ads/"],img[src*="/ads/"],embed[src*="/ads/"],#crazy_ad_float,.crazy_ad_float,.main_ad,.topads,div[class^="txtadsblk"],.head-ad,div[src*="/728x90."],img[src*="/728x90."],embed[src*="/728x90."],iframe[src*="/gg/"],img[src*="/gg/"],iframe[src^="http://www.460.com.cn"],#bg_ad,.ad_pic,iframe[src*="gg.yxdown.com"],.ad_top,#baiduSpFrame,.flashad,#flashad,#ShowAD,[onclick^="ad_clicked"],[class^="ad_video_"],#ad_240,.wp.a_f,.a_mu,#hd_ad,#top_ads,#header_ad,#adbanner,#adbanner_1,#Left_bottomAd,#Right_bottomAd,#ad_alimama,#vipTip,.ad_pip,#show-gg,.ad-box,.advbox,.widget-ads.banner,.a760x100,.a200x375,.a760x100,.a200x100,.ad_left,.ad_right{display:none !important;}</style></head>
+<body>
+<script src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/pub_topnav_2011.js" type="text/javascript"></script><link rel="stylesheet" type="text/css" href="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/navtop_2012.css">
+<div class="nav_top_2011">
+<p><span style="color:red;">您还未登录！</span>|<a href="https://passport.csdn.net/account/login" target="_top">登录</a>|<a href="https://passport.csdn.net/account/register" target="_top">注册</a>|<a href="https://passport.csdn.net/help/faq" target="_blank">帮助</a></p><ul>
+<li><a href="http://www.csdn.net/" target="_blank">首页</a></li>
+<li><a href="http://news.csdn.net/" target="_blank">业界</a></li>
+<li><a href="http://mobile.csdn.net/" target="_blank">移动</a></li>
+<li><a href="http://cloud.csdn.net/" target="_blank">云计算</a></li>
+<li><a href="http://sd.csdn.net/" target="_blank">研发</a></li>
+<li><a href="http://bbs.csdn.net/" target="_blank">论坛</a></li>
+<li><a href="http://blog.csdn.net/" target="_blank">博客</a></li>
+<li><a href="http://download.csdn.net/" target="_blank">下载</a></li>
+<li class="more"><h2 id="topnav_btnmore" onclick="showNavMore(this)"><a href="javascript:void(0);">更多</a></h2>
+<div id="topnav_hidlist">
+<iframe name="nav_frm" src="about:blank" width="92" height="178" scrolling="no" frameborder="no"></iframe>
+</div>
+</li>
+</ul>
+</div>
+
+
+<div id="container">
+<div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h1><a href="http://blog.csdn.net/wuyazhe">不要抱怨，要不断的追求，上帝才会给你。</a></h1>
+            <h2></h2>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg"></div>
+    <div class="navigator">
+        <ul>
+            <li id="btnContents"><a href="http://blog.csdn.net/wuyazhe?viewmode=contents"><span><img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/ico_list.gif">目录视图</span></a></li>
+            <li id="btnView"><a href="http://blog.csdn.net/wuyazhe?viewmode=list"><span><img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/ico_summary.gif">摘要视图</span></a></li>
+            <li id="btnRss"><a href="http://blog.csdn.net/wuyazhe/rss/list"><span><img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/ico_rss.gif">订阅</span></a></li>
+</ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "wuyazhe";
+    var blog_address = "http://blog.csdn.net/wuyazhe";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";
+</script>
+        
+<div id="body">
+<div id="main">
+<div class="main">
+<div class="notice"> 
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/8472541" target="_blank">
+<font color="blue">
+2013年1月当选微软MVP名单揭晓！   </font></a>
+
+
+
+&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/8534797" target="_blank"><font color="red">智能开发框架 JEECG 作者张代浩专访</font></a>
+
+
+<br>
+
+
+
+
+
+<a href="http://vote.blog.csdn.net/details/blogstar" target="_blank">
+<font color="red">2012CSDN博客之星火热出炉！ </font></a>
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/csdnstudent/article/details/8077932" target="_blank">
+<font color="red">2013年全国百所高校巡讲讲师招募  </font></a>
+
+
+</div><div id="article_details" class="details">
+    <div class="article_title">
+    <span class="ico ico_type_Original"></span>
+    <h3>
+        <span class="link_title"><a href="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET.htm">
+        C# 串口操作系列(4) -- 协议篇，文本协议数据解析
+        </a></span>
+    </h3>
+</div>
+
+        
+    <div class="article_manage">
+        <span class="link_categories">
+        分类：
+            <a href="http://blog.csdn.net/wuyazhe/article/category/695097">通讯类库设计</a> 
+        </span>
+    <span class="link_postdate">2010-06-09 01:50</span>
+    <span class="link_view" title="阅读次数">7727人阅读</span>
+    <span class="link_comments" title="评论次数"><a href="http://blog.csdn.net/wuyazhe/article/details/5657188#comments">评论</a>(25)</span>
+    <span class="link_collect"><a href="javascript:void(0);" onclick="javascript:collectArticle(&#39;C# 串口操作系列(4) -- 协议篇，文本协议数据解析&#39;,&#39;5657188&#39;);return false;" title="收藏">收藏</a></span>
+    <span class="link_report"><a href="http://blog.csdn.net/wuyazhe/article/details/5657188#report" onclick="javascript:report(5657188,2);return false;" title="举报">举报</a></span>
+    
+</div>
+
+
+    
+<div id="article_content" class="article_content">
+<p>上一篇已经介绍了协议的组成，一个协议，一般具有 ：<span style="color: #0000ff;">协议头</span>+<span style="color: #0000ff;">长度</span>+<span style="color: #0000ff;">数据</span>+<span style="color: #0000ff;">校验</span> ， 文本格式可以直观的定义回车换行是协议的结尾，所以我们可以省略数据长度，增加协议尾。即： <span style="color: #0000ff;">协议头</span> + <span style="color: #0000ff;">数据</span> + <span style="color: #0000ff;">校验</span> + <span style="color: #ff0000;">数据尾<span style="color: #000000;"> 。</span></span></p>
+<p><span style="color: #ff0000;"><span style="color: #000000;">文本方式的数据比较容易分析。如果数据缓存，可以考虑用StringBuilder。或是不缓存也可以。文本格式数据大多有换行结尾。稍微修改即可。例如分析常见的NMEA 0183格式的卫星坐标数据GGA。</span></span></p>
+<p>$GPGGA,121252.000,3937.3032,N,11611.6046,E,1,05,2.0,45.9,M,-5.7,M,,0000*77 </p>
+<p>&nbsp;</p>
+<p><span style="color: #ff0000;"><span style="color: #000000;">$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 开始</span></span></p>
+<p><span style="color: #ff0000;"><span style="color: #000000;">GPGGA&nbsp;&nbsp;&nbsp;&nbsp; 命令字</span></span></p>
+<p><span style="color: #ff0000;"><span style="color: #000000;">*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 结尾</span></span></p>
+<p><span style="color: #ff0000;"><span style="color: #000000;">77&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 校验</span></span></p>
+<p>&nbsp;</p>
+<p><span style="color: #ff0000;"><span style="color: #000000;">对上一篇代码稍作修改就可以了。例子不贴了。文本格式比较简单，只是为了内容完整。贴来做参考。只有分析的地方简化很多。</span></span></p>
+<p>&nbsp;</p>
+<p><span style="color: #ff0000;"><span style="color: #000000;"><div class="dp-highlighter bg_c-sharp"><div class="bar"><div class="tools"><b>[c-sharp]</b> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><a href="http://blog.csdn.net/wuyazhe/article/details/5657188#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><a href="http://blog.csdn.net/wuyazhe/article/details/5657188#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a><a href="http://blog.csdn.net/wuyazhe/article/details/5657188#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a><div style="position: absolute; left: 585px; top: 886px; width: 18px; height: 18px; z-index: 99; "><embed id="ZeroClipboardMovie_1" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_1" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=1&amp;width=18&amp;height=18" wmode="transparent"></div></div></div><ol start="1" class="dp-c"><li class="alt"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">void</span><span>&nbsp;comm_DataReceived(</span><span class="keyword">object</span><span>&nbsp;sender,&nbsp;SerialDataReceivedEventArgs&nbsp;e)&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(Closing)&nbsp;</span><span class="keyword">return</span><span>;</span><span class="comment">//如果正在关闭，忽略操作，直接返回，尽快的完成串口监听线程的一次循环</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Listening&nbsp;=&nbsp;<span class="keyword">true</span><span>;</span><span class="comment">//设置标记，说明我已经开始处理数据，一会儿要使用系统UI的。</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="comment">//文本格式比较简单，你可以死等。</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">string</span><span>&nbsp;line&nbsp;=&nbsp;comm.ReadLine();</span><span class="comment">//这就得到回车换行结尾的了。但是不是从头开始的就要检查了</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/////////////////////////////////////////////////////////////////////////////////////////////////////////////</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&lt;协议解析&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="comment">//因为恢复的代码在finally中。你可以直接的return</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>(line[0]&nbsp;!=&nbsp;</span><span class="string">'$'</span><span>)&nbsp;</span><span class="keyword">return</span><span>;</span><span class="comment">//虽然可能有点垃圾，但是数据不重要。直接丢弃就可以了。后续的都是对的</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">int</span><span>&nbsp;star&nbsp;=&nbsp;line.IndexOf(</span><span class="string">"*"</span><span>,1);&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">if</span><span>(star&nbsp;==&nbsp;-1)&nbsp;</span><span class="keyword">return</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="comment">//根据$后面数据计算异或校验，并和*后面的数字对比。如果不同，也不进行分析。因为校验错误</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span><span class="comment">//当确定头尾存在，校验正确。就可以分析数据了。</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//分析数据</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//略</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//因为要访问ui资源，所以需要使用invoke方式同步ui。</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">this</span><span>.Invoke((EventHandler)(</span><span class="keyword">delegate</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//判断是否是显示为16禁止</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(checkBoxHexView.Checked)&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//依次的拼接出16进制字符串</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">foreach</span><span>&nbsp;(</span><span class="keyword">byte</span><span>&nbsp;b&nbsp;</span><span class="keyword">in</span><span>&nbsp;buf)&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;builder.Append(b.ToString(<span class="string">"X2"</span><span>)&nbsp;+&nbsp;</span><span class="string">"&nbsp;"</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//直接按ASCII规则转换成字符串</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;builder.Append(Encoding.ASCII.GetString(buf));&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//追加的形式添加到文本框末端，并滚动到最后。</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">this</span><span>.txGet.AppendText(builder.ToString());&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//修改接收计数</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;labelGetCount.Text&nbsp;=&nbsp;<span class="string">"Get:"</span><span>&nbsp;+&nbsp;received_count.ToString();&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}));&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">finally</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Listening&nbsp;=&nbsp;<span class="keyword">false</span><span>;</span><span class="comment">//我用完了，ui可以关闭串口了。</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li></ol></div><textarea cols="86" rows="53" name="code" class="c-sharp" style="display: none; ">        void comm_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            if (Closing) return;//如果正在关闭，忽略操作，直接返回，尽快的完成串口监听线程的一次循环
+            try
+            {
+                Listening = true;//设置标记，说明我已经开始处理数据，一会儿要使用系统UI的。
+				//文本格式比较简单，你可以死等。
+				string line = comm.ReadLine();//这就得到回车换行结尾的了。但是不是从头开始的就要检查了
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //&lt;协议解析&gt;
+				//因为恢复的代码在finally中。你可以直接的return
+                if(line[0] != '$') return;//虽然可能有点垃圾，但是数据不重要。直接丢弃就可以了。后续的都是对的
+				int star = line.IndexOf("*",1);
+				if(star == -1) return;
+				//根据$后面数据计算异或校验，并和*后面的数字对比。如果不同，也不进行分析。因为校验错误
+				
+				//当确定头尾存在，校验正确。就可以分析数据了。
+                //分析数据
+                //略
+				
+                //因为要访问ui资源，所以需要使用invoke方式同步ui。
+                this.Invoke((EventHandler)(delegate
+                {
+                    //判断是否是显示为16禁止
+                    if (checkBoxHexView.Checked)
+                    {
+                        //依次的拼接出16进制字符串
+                        foreach (byte b in buf)
+                        {
+                            builder.Append(b.ToString("X2") + " ");
+                        }
+                    }
+                    else
+                    {
+                        //直接按ASCII规则转换成字符串
+                        builder.Append(Encoding.ASCII.GetString(buf));
+                    }
+                    //追加的形式添加到文本框末端，并滚动到最后。
+                    this.txGet.AppendText(builder.ToString());
+                    //修改接收计数
+                    labelGetCount.Text = "Get:" + received_count.ToString();
+                }));
+            }
+            finally
+            {
+                Listening = false;//我用完了，ui可以关闭串口了。
+            }
+        }
+
+        </textarea> </span></span></p>
+</div>
+<div class="share_buttons" id="sharePanel"><span>分享到：</span> <a name="sina" class="share_sina" title="分享到新浪微博"></a><a name="qq" class="share_qq" title="分享到腾讯微博"></a></div>
+<!--192.168.1.237-->
+<div class="article_next_prev">
+    <li class="prev_article"><span>上一篇：</span><a href="http://blog.csdn.net/wuyazhe/article/details/5642431">语法糖(1) -- 打开新窗体，关闭入口窗体的最简化方法</a></li>
+    <li class="next_article"><span>下一篇：</span><a href="http://blog.csdn.net/wuyazhe/article/details/5676881">List中的值类型无法修改的原因详解</a></li>
+</div>
+
+
+    
+</div>
+<div id="ad_cen"><iframe id="ad_frm_0" frameborder="0" scrolling="no" style="border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; overflow-x: hidden; overflow-y: hidden; width: 732px; height: 0px; " src="about:blank"></iframe></div>
+<script type="text/javascript">
+    new Ad(4, 'ad_cen');
+</script>
+<div id="comment_title" class="panel_head">查看评论<a name="comments"></a></div>
+<div id="comment_list"><dl class="comment_item comment_topic" id="comment_item_2466974"><dt class="comment_head" floor="25">25楼 <span class="user"><a class="username" href="http://blog.csdn.net/lugon" target="_blank">lugon</a> <span class="ptime">2012-12-13 10:21发表</span>  <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2466974" username="lugon"> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/lugon" target="_blank"><img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/3_lugon.jpg" width="40" height="40"></a></dd><dd class="comment_body">谢谢博主，很受益</dd></dl><dl class="comment_item comment_topic" id="comment_item_2435123"><dt class="comment_head" floor="24">24楼 <span class="user"><a class="username" href="http://blog.csdn.net/ziliuxing2008" target="_blank">ziliuxing2008</a> <span class="ptime">2012-11-16 15:37发表</span>  <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2435123" username="ziliuxing2008"> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/ziliuxing2008" target="_blank"><img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/3_ziliuxing2008.jpg" width="40" height="40"></a></dd><dd class="comment_body">好东西，学习中！</dd></dl><dl class="comment_item comment_topic" id="comment_item_2424051"><dt class="comment_head" floor="23">23楼 <span class="user"><a class="username" href="http://blog.csdn.net/wang379275614" target="_blank">王志鹏</a> <span class="ptime">2012-11-06 15:51发表</span>  <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2424051" username="wang379275614"> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/wang379275614" target="_blank"><img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/3_wang379275614.jpg" width="40" height="40"></a></dd><dd class="comment_body">牛</dd></dl><dl class="comment_item comment_topic" id="comment_item_2421470"><dt class="comment_head" floor="22">22楼 <span class="user"><a class="username" href="http://blog.csdn.net/me514336779" target="_blank">me514336779</a> <span class="ptime">2012-11-03 18:51发表</span>  <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2421470" username="me514336779"> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/me514336779" target="_blank"><img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/3_me514336779.jpg" width="40" height="40"></a></dd><dd class="comment_body">什么都不说了，感谢呀！</dd></dl><dl class="comment_item comment_topic" id="comment_item_2389508"><dt class="comment_head" floor="21">21楼 <span class="user"><a class="username" href="http://blog.csdn.net/wait31415" target="_blank">wait31415</a> <span class="ptime">2012-10-02 16:00发表</span>  <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2389508" username="wait31415"> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/wait31415" target="_blank"><img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/3_wait31415.jpg" width="40" height="40"></a></dd><dd class="comment_body">哎,好人 强人  牛人</dd></dl><dl class="comment_item comment_topic" id="comment_item_2381701"><dt class="comment_head" floor="20">20楼 <span class="user"><a class="username" href="http://blog.csdn.net/liqishun" target="_blank">liqishun</a> <span class="ptime">2012-09-24 21:37发表</span>  <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2381701" username="liqishun"> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/liqishun" target="_blank"><img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/3_liqishun.jpg" width="40" height="40"></a></dd><dd class="comment_body">这个内容确实不错，数据封包、解析，方法同样适用于TCP/ip通迅。</dd></dl><dl class="comment_item comment_topic" id="comment_item_2372474"><dt class="comment_head" floor="19">19楼 <span class="user"><a class="username" href="http://blog.csdn.net/shuyuea3" target="_blank">shuyuea3</a> <span class="ptime">2012-09-15 00:32发表</span>  <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2372474" username="shuyuea3"> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/shuyuea3" target="_blank"><img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/3_shuyuea3.jpg" width="40" height="40"></a></dd><dd class="comment_body">写的很好,找了很多例子都不全或者不合适<br>这个很好<br>我试试封装成组件</dd></dl><dl class="comment_item comment_topic" id="comment_item_2370756"><dt class="comment_head" floor="18">18楼 <span class="user"><a class="username" href="http://blog.csdn.net/i_coner" target="_blank">i_coner</a> <span class="ptime">2012-09-13 13:10发表</span>  <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2370756" username="i_coner"> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/i_coner" target="_blank"><img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/3_i_coner.jpg" width="40" height="40"></a></dd><dd class="comment_body">讲的很仔细 ，找了很久的资料 非常好，楼主牛人。</dd></dl><dl class="comment_item comment_topic" id="comment_item_2351755"><dt class="comment_head" floor="17">17楼 <span class="user"><a class="username" href="http://blog.csdn.net/erpaoerbao" target="_blank">erpaoerbao</a> <span class="ptime">2012-08-25 18:10发表</span>  <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2351755" username="erpaoerbao"> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/erpaoerbao" target="_blank"><img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/3_erpaoerbao.jpg" width="40" height="40"></a></dd><dd class="comment_body">谢谢楼主，对我帮助太大了</dd></dl><dl class="comment_item comment_topic" id="comment_item_2314905"><dt class="comment_head" floor="16">16楼 <span class="user"><a class="username" href="http://blog.csdn.net/springwhere" target="_blank">springwhere</a> <span class="ptime">2012-07-31 14:55发表</span>  <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2314905" username="springwhere"> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/springwhere" target="_blank"><img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/3_springwhere.jpg" width="40" height="40"></a></dd><dd class="comment_body">大侠中的大侠啊，谢谢楼主！！！</dd></dl><dl class="comment_item comment_topic" id="comment_item_2252122"><dt class="comment_head" floor="15">15楼 <span class="user"><a class="username" href="http://blog.csdn.net/shl716" target="_blank">shl716</a> <span class="ptime">2012-06-12 14:34发表</span>  <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2252122" username="shl716"> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/shl716" target="_blank"><img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/3_shl716.jpg" width="40" height="40"></a></dd><dd class="comment_body">确实是难得的好人啊！辛苦了！</dd></dl><dl class="comment_item comment_topic" id="comment_item_2099435"><dt class="comment_head" floor="14">14楼 <span class="user"><a class="username" href="http://blog.csdn.net/erpaoerbao" target="_blank">erpaoerbao</a> <span class="ptime">2012-02-14 20:02发表</span>  <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2099435" username="erpaoerbao"> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/erpaoerbao" target="_blank"><img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/3_erpaoerbao.jpg" width="40" height="40"></a></dd><dd class="comment_body">楼主这五篇内容写的很经典，从中学的哦啊了许多，谢谢</dd></dl><dl class="comment_item comment_topic" id="comment_item_2090115"><dt class="comment_head" floor="13">13楼 <span class="user"><a class="username" href="http://blog.csdn.net/Josslin025" target="_blank">Josslin025</a> <span class="ptime">2012-02-03 14:25发表</span>  <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2090115" username="Josslin025"> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/Josslin025" target="_blank"><img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/3_josslin025.jpg" width="40" height="40"></a></dd><dd class="comment_body">非常感谢楼主的分享</dd></dl><dl class="comment_item comment_topic" id="comment_item_2067036"><dt class="comment_head" floor="12">12楼 <span class="user"><a class="username" href="http://blog.csdn.net/conquerwave" target="_blank">conquerwave</a> <span class="ptime">2011-12-29 21:29发表</span>  <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2067036" username="conquerwave"> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/conquerwave" target="_blank"><img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/3_conquerwave.jpg" width="40" height="40"></a></dd><dd class="comment_body">感谢</dd></dl><dl class="comment_item comment_topic" id="comment_item_2040273"><dt class="comment_head" floor="11">11楼 <span class="user"><a class="username" href="http://blog.csdn.net/dalian_lishuwang" target="_blank">dalian_lishuwang</a> <span class="ptime">2011-12-05 10:43发表</span>  <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2040273" username="dalian_lishuwang"> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/dalian_lishuwang" target="_blank"><img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/3_dalian_lishuwang.jpg" width="40" height="40"></a></dd><dd class="comment_body">楼主这5篇文章写得太经典，谢谢</dd></dl><dl class="comment_item comment_topic" id="comment_item_1958674"><dt class="comment_head" floor="10">10楼 <span class="user"><a class="username" href="http://blog.csdn.net/tanjsong" target="_blank">tanjsong</a> <span class="ptime">2011-09-15 18:02发表</span>  <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="1958674" username="tanjsong"> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/tanjsong" target="_blank"><img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/3_tanjsong.jpg" width="40" height="40"></a></dd><dd class="comment_body">非常感谢楼主，正在做串口开发！</dd></dl><dl class="comment_item comment_topic" id="comment_item_1948097"><dt class="comment_head" floor="9">9楼 <span class="user"><a class="username" href="http://blog.csdn.net/yapingma2008" target="_blank">yapingma2008</a> <span class="ptime">2011-09-05 14:30发表</span>  <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="1948097" username="yapingma2008"> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/yapingma2008" target="_blank"><img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/3_yapingma2008.jpg" width="40" height="40"></a></dd><dd class="comment_body">太实用了,感谢!很受启发</dd></dl><dl class="comment_item comment_topic" id="comment_item_1837863"><dt class="comment_head" floor="8">8楼 <span class="user"><a class="username" href="http://blog.csdn.net/foolkidgg" target="_blank">foolkidgg</a> <span class="ptime">2011-07-08 11:03发表</span>  <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="1837863" username="foolkidgg"> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/foolkidgg" target="_blank"><img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/3_foolkidgg.jpg" width="40" height="40"></a></dd><dd class="comment_body">受益匪浅的说</dd></dl><dl class="comment_item comment_topic" id="comment_item_1808213"><dt class="comment_head" floor="7">7楼 <span class="user"><a class="username" href="http://blog.csdn.net/timcrl" target="_blank">passiontim</a> <span class="ptime">2011-06-27 11:10发表</span>  <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="1808213" username="timcrl"> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/timcrl" target="_blank"><img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/3_timcrl.jpg" width="40" height="40"></a></dd><dd class="comment_body">请问楼主文本格式的代码 是否可以发给我一下呢 现在毕业需要参考一下呀 ！邮箱crl_1987@126.com</dd></dl><dl class="comment_item comment_topic" id="comment_item_1793431"><dt class="comment_head" floor="6">6楼 <span class="user"><a class="username" href="http://blog.csdn.net/zhalia521" target="_blank">zhalia521</a> <span class="ptime">2011-06-09 19:27发表</span>  <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="1793431" username="zhalia521"> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/zhalia521" target="_blank"><img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/3_zhalia521.jpg" width="40" height="40"></a></dd><dd class="comment_body">谢谢你，受益了太多 。[e01]</dd></dl><dl class="comment_item comment_topic" id="comment_item_1647977"><dt class="comment_head" floor="5">5楼 <span class="user"><a class="username" href="http://blog.csdn.net/liaoxinxing" target="_blank">liaoxinxing</a> <span class="ptime">2011-04-20 16:58发表</span>  <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="1647977" username="liaoxinxing"> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/liaoxinxing" target="_blank"><img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/3_liaoxinxing.jpg" width="40" height="40"></a></dd><dd class="comment_body">[e01][e01]<br>楼主帮了大忙</dd></dl><dl class="comment_item comment_topic" id="comment_item_1647526"><dt class="comment_head" floor="4">4楼 <span class="user"><a class="username" href="http://blog.csdn.net/Liuchuanbaolcb11" target="_blank">Liuchuanbaolcb11</a> <span class="ptime">2011-04-20 12:07发表</span>  <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="1647526" username="Liuchuanbaolcb11"> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/Liuchuanbaolcb11" target="_blank"><img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/3_liuchuanbaolcb11.jpg" width="40" height="40"></a></dd><dd class="comment_body">楼主这四篇博客写的太给力了，[e04][e03]</dd></dl><dl class="comment_item comment_topic" id="comment_item_1635399"><dt class="comment_head" floor="3">3楼 <span class="user"><a class="username" href="http://blog.csdn.net/liu_du_1" target="_blank">liu_du_1</a> <span class="ptime">2011-04-08 10:54发表</span>  <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="1635399" username="liu_du_1"> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/liu_du_1" target="_blank"><img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/3_liu_du_1.jpg" width="40" height="40"></a></dd><dd class="comment_body">谢谢你，受益了</dd></dl><dl class="comment_item comment_topic" id="comment_item_1507243"><dt class="comment_head" floor="2">2楼 <span class="user"><a class="username" href="http://blog.csdn.net/hby123456" target="_blank">hby123456</a> <span class="ptime">2010-10-09 10:06发表</span>  <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="1507243" username="hby123456"> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/hby123456" target="_blank"><img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/3_hby123456.jpg" width="40" height="40"></a></dd><dd class="comment_body">我的QQ：342161531，你加我吧！我还有很多问题想请教你！</dd></dl><dl class="comment_item comment_topic" id="comment_item_1507241"><dt class="comment_head" floor="1">1楼 <span class="user"><a class="username" href="http://blog.csdn.net/hby123456" target="_blank">hby123456</a> <span class="ptime">2010-10-09 10:05发表</span>  <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="1507241" username="hby123456"> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/hby123456" target="_blank"><img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/3_hby123456.jpg" width="40" height="40"></a></dd><dd class="comment_body">你好！我想把接收到的数据在每个窗体中都可以调用，解析协议的程序改放什么位置？</dd></dl><div class="clear"></div></div>
+<div id="comment_bar" style="display: none; "></div>
+<div id="comment_form"><div class="guest_link">您还没有登录,请<a href="http://passport.csdn.net/account/login?from=http%3A%2F%2Fblog.csdn.net%2Fwuyazhe%2Farticle%2Fdetails%2F5657188">[登录]</a>或<a href="http://passport.csdn.net/account/register?from=http%3A%2F%2Fblog.csdn.net%2Fwuyazhe%2Farticle%2Fdetails%2F5657188">[注册]</a></div></div>
+<div class="announce">* 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+<script type="text/javascript">
+    var fileName = '5657188';
+    var commentscount = 25;
+    var islock = false
+</script>
+<script type="text/javascript" src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/comment.js"></script>
+<div id="ad_bot"><iframe id="ad_frm_1" frameborder="0" scrolling="no" style="border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; overflow-x: hidden; overflow-y: hidden; width: 732px; height: 0px; " src="about:blank"></iframe></div>
+<script type="text/javascript">
+    new Ad(5, 'ad_bot');
+</script>
+<div id="report_dialog"></div>
+
+<div id="d-top">
+<a href="http://blog.csdn.net/wuyazhe/article/details/5657188#" onclick="javascript:document.body.scrollTop=0;document.documentElement.scrollTop=0;this.blur();return false;" title="回到顶部">
+<img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/top.png" alt="TOP"></a>
+</div>
+
+
+
+<div class="clear"></div>
+</div>
+</div>
+
+<div id="side">
+<div class="side">
+<div id="panel_Profile" class="panel">
+    <ul class="panel_head"><span>个人资料</span></ul>
+    <ul class="panel_body profile">
+        <div id="blog_userface">
+            <a href="http://my.csdn.net/wuyazhe" target="_blank">
+            <img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/1_wuyazhe.jpg" title="访问我的空间" style="max-width:90%">
+            </a>
+            <br>
+            <span><a href="http://my.csdn.net/wuyazhe" class="user_name" target="_blank">wuyazhe</a></span>
+        </div>
+<div class="interact">
+<!--<a href="#" class="attented" title="已关注"></a>-->
+<a href="http://blog.csdn.net/wuyazhe/article/details/5657188#" class="attent" id="span_add_follow" title="[加关注]"></a>
+<a href="http://my.csdn.net/my/letter/send/wuyazhe" class="letter" title="[发私信]"></a>
+</div>
+        <div id="blog_medal">
+        <div id="bms_box"></div></div>
+        <ul id="blog_rank">
+            <li>访问：<span>163627次</span></li>
+            <li>积分：<span>1961分</span></li>
+            <li>排名：<span>第3540名</span></li>
+        </ul>
+        <ul id="blog_statistics">
+            <li>原创：<span>36篇</span></li>
+            <li>转载：<span>3篇</span></li>
+            <li>译文：<span>0篇</span></li>
+            <li>评论：<span>803条</span></li>
+        </ul>
+    </ul>
+</div>
+<script type="text/javascript">
+    var _blogger = 'wuyazhe';
+</script>
+<script type="text/javascript">
+$(document).ready(function () {
+    var un = getUN().toLowerCase();
+    if (un == _blogger.toLowerCase()) {
+        $('.interact').hide();
+    } else if(un) {
+        var url = "http://my.csdn.net/index.php/follow/check_is_followed/" + encodeURIComponent(un) + "/" + encodeURIComponent(_blogger) + "?jsonpcallback=?";
+        $.getJSON(url, {}, function (data) {
+            if (data.succ == 1 && data.info == 1) {
+                $('#span_add_follow').attr('class', 'attented');
+            } else {
+                $('#span_add_follow').click(guanzhu);
+            }
+        }, 'json');
+    }
+});
+function guanzhu() {
+    var url = "http://my.csdn.net/index.php/follow/do_follow?jsonpcallback=?";
+    $.getJSON(url, { "username": _blogger }, function (data) {
+        if (data.succ == 1) {
+            alert('关注成功！');
+            $('#span_add_follow').attr('class', 'attented').click(function () { return false; });
+        } else {
+            alert(data.msg);
+        }
+    });
+    return false;
+}
+function getUN() {
+    var m = document.cookie.match(new RegExp("(^| )UserName=([^;]*)(;|$)"));
+    if (m) return m[2];
+    else return '';
+}
+</script>
+
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字"></span>
+        <input id="btnSubmit" type="submit" value="搜索" title="search in blog">
+        <input type="hidden" name="q" id="inputQ">
+        <input type="hidden" name="t" value="blog">
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div><div id="panel_Category" class="panel">
+    <ul class="panel_head"><span>文章分类</span></ul>
+    <ul class="panel_body">
+        <li>
+        <a href="http://blog.csdn.net/wuyazhe/article/category/695095">.net 小技巧 - 语法糖</a><span>(10)</span>
+        </li>
+        <li>
+        <a href="http://blog.csdn.net/wuyazhe/article/category/754123">c#开发技巧</a><span>(6)</span>
+        </li>
+        <li>
+        <a href="http://blog.csdn.net/wuyazhe/article/category/695097">通讯类库设计</a><span>(5)</span>
+        </li>
+        <li>
+        <a href="http://blog.csdn.net/wuyazhe/article/category/959879">c#</a><span>(2)</span>
+        </li>
+        <li>
+        <a href="http://blog.csdn.net/wuyazhe/article/category/959880">同步</a><span>(1)</span>
+        </li>
+        <li>
+        <a href="http://blog.csdn.net/wuyazhe/article/category/959881">滚动</a><span>(1)</span>
+        </li>
+        <li>
+        <a href="http://blog.csdn.net/wuyazhe/article/category/959882">Textbox</a><span>(1)</span>
+        </li>
+        <li>
+        <a href="http://blog.csdn.net/wuyazhe/article/category/959883">控件</a><span>(2)</span>
+        </li>
+    </ul>
+</div><div id="panel_Archive" class="panel">
+    <ul class="panel_head"><span>文章存档</span></ul>
+    <ul class="panel_body">
+        <div id="archive_list"><li><a href="http://blog.csdn.net/wuyazhe/article/month/2012/06">2012年06月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/wuyazhe/article/month/2011/12">2011年12月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/wuyazhe/article/month/2011/01">2011年01月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/wuyazhe/article/month/2010/11">2010年11月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/wuyazhe/article/month/2010/10">2010年10月</a><span>(3)</span></li><span class="hidelist" style="display:none;"><li><a href="http://blog.csdn.net/wuyazhe/article/month/2010/09">2010年09月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/wuyazhe/article/month/2010/08">2010年08月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/wuyazhe/article/month/2010/07">2010年07月</a><span>(9)</span></li><li><a href="http://blog.csdn.net/wuyazhe/article/month/2010/06">2010年06月</a><span>(6)</span></li><li><a href="http://blog.csdn.net/wuyazhe/article/month/2010/05">2010年05月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/wuyazhe/article/month/2007/09">2007年09月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/wuyazhe/article/month/2007/01">2007年01月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/wuyazhe/article/month/2006/11">2006年11月</a><span>(1)</span></li></span><div id="archive_list_button" class="list_closed">展开</div></div>
+    </ul>
+</div>
+<div id="hotarticls" class="panel">
+    <ul class="panel_head"><span>阅读排行</span></ul>
+    <ul class="panel_body itemlist">
+        <li>
+            <a href="http://blog.csdn.net/wuyazhe/article/details/5598945" title="C# 串口操作系列(1) -- 入门篇，一个标准的，简陋的串口例子。">C# 串口操作系列(1) -- 入门篇，一个标准的，简陋的串口例子。</a><span>(49785)</span>
+        </li>
+        <li>
+            <a href="http://blog.csdn.net/wuyazhe/article/details/5606276" title="C# 串口操作系列(2) -- 入门篇，为什么我的串口程序在关闭串口时候会死锁 ？">C# 串口操作系列(2) -- 入门篇，为什么我的串口程序在关闭串口时候会死锁 ？</a><span>(26328)</span>
+        </li>
+        <li>
+            <a href="http://blog.csdn.net/wuyazhe/article/details/5627253" title="C# 串口操作系列(3) -- 协议篇，二进制协议数据解析">C# 串口操作系列(3) -- 协议篇，二进制协议数据解析</a><span>(23111)</span>
+        </li>
+        <li>
+            <a href="http://blog.csdn.net/wuyazhe/article/details/5797673" title="C# 串口操作系列(5)--通讯库雏形">C# 串口操作系列(5)--通讯库雏形</a><span>(8752)</span>
+        </li>
+        <li>
+            <a href="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET.htm" title="C# 串口操作系列(4) -- 协议篇，文本协议数据解析">C# 串口操作系列(4) -- 协议篇，文本协议数据解析</a><span>(7727)</span>
+        </li>
+        <li>
+            <a href="http://blog.csdn.net/wuyazhe/article/details/5729338" title="c# 只能输入数字的文本框">c# 只能输入数字的文本框</a><span>(6560)</span>
+        </li>
+        <li>
+            <a href="http://blog.csdn.net/wuyazhe/article/details/5728286" title="c# 窗体全屏显示的完整范例">c# 窗体全屏显示的完整范例</a><span>(3260)</span>
+        </li>
+        <li>
+            <a href="http://blog.csdn.net/wuyazhe/article/details/5676881" title="List中的值类型无法修改的原因详解">List中的值类型无法修改的原因详解</a><span>(2694)</span>
+        </li>
+        <li>
+            <a href="http://blog.csdn.net/wuyazhe/article/details/5642431" title="语法糖(1) -- 打开新窗体，关闭入口窗体的最简化方法">语法糖(1) -- 打开新窗体，关闭入口窗体的最简化方法</a><span>(2506)</span>
+        </li>
+        <li>
+            <a href="http://blog.csdn.net/wuyazhe/article/details/5922167" title="全文关键字检索-KMP改进算法">全文关键字检索-KMP改进算法</a><span>(2230)</span>
+        </li>
+    </ul>
+</div>
+<div id="hotarticls2" class="panel">
+    <ul class="panel_head"><span>评论排行</span></ul>
+    <ul class="panel_body itemlist">
+        <li>
+            <a href="http://blog.csdn.net/wuyazhe/article/details/5598945" title="C# 串口操作系列(1) -- 入门篇，一个标准的，简陋的串口例子。">C# 串口操作系列(1) -- 入门篇，一个标准的，简陋的串口例子。</a><span>(219)</span>
+        </li>
+        <li>
+            <a href="http://blog.csdn.net/wuyazhe/article/details/5627253" title="C# 串口操作系列(3) -- 协议篇，二进制协议数据解析">C# 串口操作系列(3) -- 协议篇，二进制协议数据解析</a><span>(182)</span>
+        </li>
+        <li>
+            <a href="http://blog.csdn.net/wuyazhe/article/details/5606276" title="C# 串口操作系列(2) -- 入门篇，为什么我的串口程序在关闭串口时候会死锁 ？">C# 串口操作系列(2) -- 入门篇，为什么我的串口程序在关闭串口时候会死锁 ？</a><span>(163)</span>
+        </li>
+        <li>
+            <a href="http://blog.csdn.net/wuyazhe/article/details/5797673" title="C# 串口操作系列(5)--通讯库雏形">C# 串口操作系列(5)--通讯库雏形</a><span>(45)</span>
+        </li>
+        <li>
+            <a href="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET.htm" title="C# 串口操作系列(4) -- 协议篇，文本协议数据解析">C# 串口操作系列(4) -- 协议篇，文本协议数据解析</a><span>(25)</span>
+        </li>
+        <li>
+            <a href="http://blog.csdn.net/wuyazhe/article/details/6022771" title="c#自杀程序的关键方法">c#自杀程序的关键方法</a><span>(24)</span>
+        </li>
+        <li>
+            <a href="http://blog.csdn.net/wuyazhe/article/details/5729338" title="c# 只能输入数字的文本框">c# 只能输入数字的文本框</a><span>(16)</span>
+        </li>
+        <li>
+            <a href="http://blog.csdn.net/wuyazhe/article/details/6011536" title="高效获取网页源码">高效获取网页源码</a><span>(12)</span>
+        </li>
+        <li>
+            <a href="http://blog.csdn.net/wuyazhe/article/details/5854512" title="正则表达式之分组捕获、条件表达式、平衡组">正则表达式之分组捕获、条件表达式、平衡组</a><span>(11)</span>
+        </li>
+        <li>
+            <a href="http://blog.csdn.net/wuyazhe/article/details/5676881" title="List中的值类型无法修改的原因详解">List中的值类型无法修改的原因详解</a><span>(9)</span>
+        </li>
+    </ul>
+</div>
+<div id="homepageArticles" class="panel">
+    <ul class="panel_head"><span>推荐文章</span></ul>
+    <ul class="panel_body" id="ad_commend">
+    <iframe id="ad_frm_2" frameborder="0" scrolling="no" style="border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; overflow-x: hidden; overflow-y: hidden; width: 182px; height: 0px; " src="about:blank"></iframe></ul>
+</div>
+<script type="text/javascript">
+    new Ad(12, 'ad_commend');
+</script><div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+    <a href="http://blog.csdn.net/wuyazhe/article/details/5598945#comments">C# 串口操作系列(1) -- 入门篇，一个标准的，简陋的串口例子。</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/china688" class="user_name">china688</a>:
+SerialPort 控件的 DataReceived 事件始终无法触发
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/wuyazhe/article/details/5627253#comments">C# 串口操作系列(3) -- 协议篇，二进制协议数据解析</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/wangjian10101" class="user_name">wangjian10101</a>:
+咨询楼主一个问题，SerialPort.GetPortNames得不到我PC的串口名称，这个结果是空...
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/wuyazhe/article/details/5676881#comments">List中的值类型无法修改的原因详解</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/cloudfile" class="user_name">cloudfile</a>:
+谢谢分享
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/wuyazhe/article/details/5598945#comments">C# 串口操作系列(1) -- 入门篇，一个标准的，简陋的串口例子。</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/chenlaoyang" class="user_name">chenlaoyang</a>:
+@yyadbss:这个问题解决了没？我也遇到了
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/wuyazhe/article/details/7691393#comments">C#无闪烁绘图方法</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/WMMCY" class="user_name">不是为我</a>:
+不错，学习了。
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/wuyazhe/article/details/5598945#comments">C# 串口操作系列(1) -- 入门篇，一个标准的，简陋的串口例子。</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/cbwfn" class="user_name">cbwfn</a>:
+if(checkSendHex.Checked) {                //我们不管规则...
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/wuyazhe/article/details/5606276#comments">C# 串口操作系列(2) -- 入门篇，为什么我的串口程序在关闭串口时候会死锁 ？</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/zyin121" class="user_name">zyin121</a>:
+看了楼主的文章，获益匪浅啊！一直遇到这个问题，终于知道怎么做了！多谢楼主！
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/wuyazhe/article/details/5729338#comments">c# 只能输入数字的文本框</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/lugon" class="user_name">lugon</a>:
+为什么要把数字8单独判断？
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/wuyazhe/article/details/5657188#comments">C# 串口操作系列(4) -- 协议篇，文本协议数据解析</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/lugon" class="user_name">lugon</a>:
+谢谢博主，很受益
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/wuyazhe/article/details/5797673#comments">C# 串口操作系列(5)--通讯库雏形</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/zhang890724" class="user_name">zhang890724</a>:
+厉害
+    </p>
+    </li>
+</ul>
+</div>
+</div>
+<div class="clear"></div>
+</div>
+
+<div class="clear"></div>
+</div>
+<script type="text/javascript" src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/shCore-src.js"></script>
+<script type="text/javascript" src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/ZeroClipboard.js"></script>
+<script type="text/javascript" src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/article_code.js"></script>
+<script type="text/javascript" src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/cnick.js"></script>
+
+<script type="text/javascript" src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/show.js"></script>
+<script type="text/javascript" src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/showblogmedal.ashx"></script>
+
+<script type="text/javascript" src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/publib_footer.js"></script><link rel="stylesheet" type="text/css" href="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/pub_footer_2012.css"><div class="pub_footerall"><dl><dt></dt> <dd><a href="http://www.csdn.net/company/about.html" target="_blank">公司简介</a>|<a href="http://www.csdn.net/company/recruit.html" target="_blank">招贤纳士</a>|<a href="http://www.csdn.net/company/marketing.html" target="_blank">广告服务</a>|<a href="http://www.csdn.net/company/account.html" target="_blank">银行汇款帐号</a>|<a href="http://www.csdn.net/company/contact.html" target="_blank">联系方式</a>|<a href="http://www.csdn.net/company/statement.html" target="_blank">版权声明</a>|<a href="http://www.csdn.net/company/layer.html" target="_blank">法律顾问</a>|<a href="mailto:webmaster@csdn.net">问题报告</a></dd><dd>京&nbsp;ICP&nbsp;证&nbsp;070598&nbsp;号</dd><dd>北京创新乐知信息技术有限公司 版权所有</dd><dd>世纪乐知(北京)网络技术有限公司 提供技术支持</dd><dd>江苏乐知网络技术有限公司 提供商务支持</dd><dd><img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/ico_email.gif" alt="" title=""> 联系邮箱：webmaster(at)csdn.net</dd><dd>Copyright © 1999-2012, CSDN.NET, All Rights Reserved&nbsp;<a href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001032100010" target="_blank"><img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/gongshang_logos.gif" alt="GongshangLogo" title=""></a></dd></dl></div><script type="text/javascript" charset="utf-8" src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/tracking.js"></script>
+
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script><img src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/pv.aspx" border="0" width="0" height="0">
+<script type="text/javascript" src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/counter.js"></script><script type="text/javascript" charset="UTF-8" src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/msg.popup.js"></script>
+
+<!--ad.csdn.net-->
+<script type="text/javascript" src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/ad-blog.js"></script><script type="text/javascript" src="./C# 串口操作系列(4) -- 协议篇，文本协议数据解析 - 不要抱怨，要不断的追求，上帝才会给你。 - 博客频道 - CSDN.NET_files/ad-ms460.js"></script>
+
+
+
+
+</div>
+
+</body></html>

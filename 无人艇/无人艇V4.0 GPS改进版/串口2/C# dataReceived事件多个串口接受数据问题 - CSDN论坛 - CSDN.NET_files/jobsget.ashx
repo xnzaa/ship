@@ -1,0 +1,1 @@
+document.write('<li><a href="http://www.csdn.net/article/2013-01-22/2813873" target=_blank>国外媒体唱衰：Windows RT必死的7大理由</a></li>');

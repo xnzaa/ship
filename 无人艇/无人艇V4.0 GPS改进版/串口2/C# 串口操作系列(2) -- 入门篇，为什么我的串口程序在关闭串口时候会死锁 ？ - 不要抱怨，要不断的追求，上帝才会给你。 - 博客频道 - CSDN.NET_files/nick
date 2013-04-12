@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>授权机制说明 - CSDN.NET</title>
+    <link type="text/css" rel="Stylesheet" href="/style/css/docs.css" />
+</head>
+<body>
+<div class="topbar">
+<div class="topcon">
+<img src="/style/images/logo_white.png" />
+<a href="#">论坛</a>
+<a href="#">开发文档</a>
+<a href="#">网站接入</a>
+<a href="#">首页</a>
+</div>
+</div>
+
+<div class="main">
+<div class="left">
+<h2>技术文档</h2>
+<p><a href="oauth.html">OAuth认证</a></p>
+<p><a href="userinfo.html">获取用户信息</a></p>
+</div>
+<div class="right">
+<h1>OAuth认证</h1>
+<p>OAuth是一种国际通用的授权方式，OAuth的官方技术说明可参看 <a href="http://oauth.net/2/" target="_blank">http://oauth.net/2/</a></p>
+<p>CSDN已经推出OAuth2.0，但只对内部一些站点提供服务。</p>
+<h2>基本流程</h2>
+<p><img src="/style/images/oAuth2_01.gif" /></p>
+<h2>Web应用的验证授权(Authorization Code)</h2>
+<h4>用户登录</h4>
+<p>登录流程开始于重定向用户浏览器（如果需要的话，可以弹出窗口或打开新页面）到CSDN OAuth 2.0的Authorize Endpoint，并传递三个必须参数</p>
+<ul>
+<li>client_id：在开发者中心注册应用时获得的API Key。</li>
+<li>redirect_uri：登录成功后浏览器回跳的URL。</li>
+<li>response_type：服务端流程，此值固定为“code”。</li>
+</ul>
+<code>http://api.csdn.net/oauth/authorize?
+     client_id=YOUR_API_KEY&redirect_uri=YOUR_CALLBACK_URL&response_type=code
+</code>
+<h4>获取Access Token</h4>
+<p>当用户成功登录后，就可以使用服务返回的Authorization Code来获取Access Token。</p>
+<ul>
+<li>client_id：在开发者中心注册应用时获得的API Key。</li>
+<li>client_secret：在开发者中心注册应用时获得的API Secret。</li>
+<li>grant_type：此值为“authorization_code”。</li>
+<li>redirect_uri：流程结束后要跳转回得URL。</li>
+<li>code：用户登录成功后获得的 Authorization Code。</li>
+</ul>
+<code>
+http://api.csdn.net/oauth/access_token?
+client_id=YOUR_API_KEY&client_secret=YOUR_API_SECRET&grant_type=authorization_code
+&redirect_uri=YOUR_CALLBACK_URL&code=THE_CODE_FROM_ABOVE
+</code>
+<p>服务返回结果如下：</p>
+<code>{"access_token":"0dd49b2a5afa45bba6765ba4fdd1b3c9","expires_in":86400,"username":"zhuyi"}</code>
+
+<h2>客户端的验证授权（Resource Owner Password Credentials）</h2>
+<h4>获取Access Token</h4>
+<p>直接传输用户名、密码来获取Access Token。</p>
+<ul>
+<li>client_id：在开发者中心注册应用时获得的API Key。</li>
+<li>client_secret：在开发者中心注册应用时获得的API Secret。</li>
+<li>grant_type：此值为“password”。</li>
+<li>username：授权用户的用户名。</li>
+<li>password：授权用户的密码。</li>
+</ul>
+<code>
+http://api.csdn.net/oauth/access_token?
+client_id=YOUR_API_KEY&client_secret=YOUR_API_SECRET&grant_type=password
+&username=USER_NAME&password=PASSWORD
+</code>
+<p>服务返回结果如下：</p>
+<code>{"access_token":"0dd49b2a5afa45bba6765ba4fdd1b3c9","expires_in":86400,"username":"zhuyi"}</code>
+<p>注：客户端的验证授权审核比较严格</p>
+
+<h3>&nbsp;</h3>
+</div>
+<div class="clear"></div>
+</div>
+
+<div class="footer">Copyright &copy; 1999-2012, CSDN.NET, All Rights Reserved</div>
+</body>
+</html>

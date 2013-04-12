@@ -1,0 +1,1 @@
+document.write('<li><a href="http://www.csdn.net/article/2013-01-23/2813907-github-shield" target=_blank>屏蔽GitHub是互联网时代的“闭关锁国”吗？</a></li>');

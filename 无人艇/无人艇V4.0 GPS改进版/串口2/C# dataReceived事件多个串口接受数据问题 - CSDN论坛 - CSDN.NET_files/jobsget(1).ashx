@@ -1,0 +1,1 @@
+document.write('<li><a href="http://www.csdn.net/article/2013-01-21/2813843" target=_blank>[社区之星]专访杨刚：做一个有节操的开发者</a></li><li><a href="http://www.csdn.net/article/2013-01-23/2813896-google-q4-2012-revenue-up" target=_blank>谷歌Q4财报净利润28.86亿美元 超分析师预期</a></li>');

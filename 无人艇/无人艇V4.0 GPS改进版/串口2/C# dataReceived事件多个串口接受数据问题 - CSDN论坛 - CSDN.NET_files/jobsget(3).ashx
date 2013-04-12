@@ -1,0 +1,1 @@
+document.write('<li><a href="http://g.csdn.net/5240632" target=_blank>即刻试用Internet Explorer 10</a></li><li><a href="http://g.csdn.net/5239419" target=_blank>首届携程大赛开始报名啦</a></li>');
