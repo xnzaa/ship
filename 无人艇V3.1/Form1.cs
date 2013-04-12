@@ -127,9 +127,9 @@ namespace whut_ship_control
                     comboBox6.SelectedIndex = 1;
                     GPS_sp.DataReceived += comm_DataReceived2;
                 }
-                catch (Exception ex)
+                catch 
                 {
-                    MessageBox.Show(ex.Message.ToString());
+                    MessageBox.Show("     差分功能初始化失败，\r\n请检查差分GPS串口是否插上！");
                 }
             }
             catch (Exception ex)
@@ -275,7 +275,7 @@ namespace whut_ship_control
                             /***采用数学方法计算球面两点间距离****/
                             point A = temp1.latlog;
                             point B = temp2.latlog;
-                            double distance = Math.Sqrt(Math.Pow((B.y - A.y) * 111700, 2) + Math.Pow((6371000*2*Math.PI*Math.Cos(A.y*180/Math.PI)*(B.x-A.x)/360),2));
+                            double distance = Math.Sqrt(Math.Pow((B.y - A.y) * 111700, 2) + Math.Pow((6371000*Math.Cos(A.y*180/Math.PI)*(B.x-A.x)/360),2));
                             /*************************************/
                             double time = Math.Abs(temp2.time - temp1.time) / 1000.0;       //毫秒转化为秒
                             double speed = distance / time;
@@ -609,6 +609,7 @@ namespace whut_ship_control
                 MessageBox.Show("串口未打开！", "错误提示");
             }
             sws.Write(control_instruction);
+            if (!(label7.Text == "失去连接" || label7.Text == "未连接"))
             order_back(control_instruction);
             try
             {
@@ -1215,19 +1216,22 @@ namespace whut_ship_control
         // 测试按钮
         private void button27_Click(object sender, EventArgs e)
         {
-           main_sp_receive (":10$GPRMC,031015.00,A,3036.78331,N,11421.08548,E,0.101,,020313,,,A*7B,!##!");
+           //main_sp_receive (":10$GPRMC,031015.00,A,3036.78331,N,11421.08548,E,0.101,,020313,,,A*7B,!##!");
+            objArray[0] = (object)30.61217415;
+            objArray[1] = (object)114.35349584;
+            webBrowser1.Document.InvokeScript("mark", objArray);
         }
 
         private void button28_Click(object sender, EventArgs e)
         {
-
+            //自主避碰学习，自动控制学习。
             Form_navigation form_navigation = new Form_navigation();
             form_navigation.MessageSent += delegate(object caller, string msg, string msg2)
             {
                 form_navigation_name = msg;
                 sww_nag = new StreamWriter("E:\\" + form_navigation_name+".txt", false);
             };
-            if (button28.Text == "开始学习")
+            if (button28.Text == "智能学习")
             {
                 form_navigation.ShowDialog();
                 button28.Text = "结束学习";
@@ -1236,7 +1240,7 @@ namespace whut_ship_control
             }
             else
             { 
-                button28.Text = "开始学习"; 
+                button28.Text = "智能学习"; 
                 timer3.Stop();
                 sww_nag.Close();
                 is_sww_nag = false;
@@ -1245,11 +1249,18 @@ namespace whut_ship_control
 
         private void button29_Click(object sender, EventArgs e)
         {
+            if (button28.Text == "智能学习")
+            {
                 openFileDialog1.Title = "选择动作";
                 if (openFileDialog1.ShowDialog() == DialogResult.OK)
                     swr_nag = new StreamReader(openFileDialog1.FileName);
                 button29.Text = "停止执行";
                 timer4.Start();
+            }
+            else
+            {
+                MessageBox.Show("请先结束学习");
+            }
         }
 
         private void timer3_Tick(object sender, EventArgs e)
@@ -1269,20 +1280,80 @@ namespace whut_ship_control
                 }
                 else
                 {
-                    button29.Text = "一键执行";
+                    一键执行ToolStripMenuItem.Text = "一键执行";
                     timer4.Stop();
                     MessageBox.Show("执行完毕");
                     swr_nag.Close();
                 }
-                //label14.Text = str;
             }
-            //label15.Text = str;
-
         }
 
-        private void button30_Click(object sender, EventArgs e)
+        private void 一键执行ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            main_sp.DiscardInBuffer();
+            if (智能学习ToolStripMenuItem.Text == "智能学习")
+            {
+                openFileDialog1.Title = "选择动作";
+                if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                    swr_nag = new StreamReader(openFileDialog1.FileName);
+                一键执行ToolStripMenuItem.Text = "停止执行";
+                timer4.Start();
+            }
+            else
+            {
+                MessageBox.Show("请先结束学习");
+            }
         }
+
+        private void 自主避碰学习ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form_navigation form_navigation = new Form_navigation();
+            form_navigation.MessageSent += delegate(object caller, string msg, string msg2)
+            {
+                form_navigation_name = msg;
+                sww_nag = new StreamWriter("E:\\" + form_navigation_name + ".txt", false);
+            };
+            if (智能学习ToolStripMenuItem.Text == "智能学习")
+            {
+                form_navigation.ShowDialog();
+                智能学习ToolStripMenuItem.Text = "结束学习";
+                自主避碰学习ToolStripMenuItem .Text = "结束自主避碰学习";
+                timer3.Start();
+                is_sww_nag = true;
+            }
+            else
+            {
+                智能学习ToolStripMenuItem.Text = "智能学习";
+                timer3.Stop();
+                sww_nag.Close();
+                is_sww_nag = false;
+            }
+        }
+
+        private void 自主控制学习ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form_navigation form_navigation = new Form_navigation();
+            form_navigation.MessageSent += delegate(object caller, string msg, string msg2)
+            {
+                form_navigation_name = msg;
+                sww_nag = new StreamWriter("E:\\" + form_navigation_name + ".txt", false);
+            };
+            if (智能学习ToolStripMenuItem.Text == "智能学习")
+            {
+                form_navigation.ShowDialog();
+                智能学习ToolStripMenuItem.Text = "结束学习";
+                自主控制学习ToolStripMenuItem.Text = "结束自动控制学习";
+                timer3.Start();
+                is_sww_nag = true;
+            }
+            else
+            {
+                智能学习ToolStripMenuItem.Text = "智能学习";
+                timer3.Stop();
+                sww_nag.Close();
+                is_sww_nag = false;
+            }
+        }
+
+
     }
 }

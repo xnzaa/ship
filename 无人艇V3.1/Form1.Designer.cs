@@ -45,6 +45,20 @@ namespace whut_ship_control
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint1 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 1D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint2 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(1D, 2D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint3 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(2D, 3D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint4 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(3D, 4D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint5 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(4D, 5D);
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint6 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 1D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint7 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(1D, 2D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint8 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(2D, 3D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint9 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(3D, 4D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint10 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(4D, 5D);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -69,6 +83,16 @@ namespace whut_ship_control
             this.其他功能ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.重载地图ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gPS校正ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.智能学习ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.自主避碰学习ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.自主控制学习ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.一键执行ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.路径规划ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.最短路径规划ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.最安全路径规划ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.网络选择ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.中国移动ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.中国联通ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label13 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
@@ -142,8 +166,6 @@ namespace whut_ship_control
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.progressBar2 = new System.Windows.Forms.ProgressBar();
             this.progressBar3 = new System.Windows.Forms.ProgressBar();
-            this.button28 = new System.Windows.Forms.Button();
-            this.button29 = new System.Windows.Forms.Button();
             this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.timer4 = new System.Windows.Forms.Timer(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
@@ -151,7 +173,12 @@ namespace whut_ship_control
             this.label33 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
-            this.button30 = new System.Windows.Forms.Button();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.label36 = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
+            this.button29 = new System.Windows.Forms.Button();
+            this.button28 = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -163,6 +190,8 @@ namespace whut_ship_control
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             this.SuspendLayout();
             // 
             // webBrowser1
@@ -295,6 +324,11 @@ namespace whut_ship_control
             // numericUpDown1
             // 
             this.numericUpDown1.Location = new System.Drawing.Point(47, 50);
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(48, 21);
             this.numericUpDown1.TabIndex = 0;
@@ -333,10 +367,14 @@ namespace whut_ship_control
             this.menuStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.菜单ToolStripMenuItem,
-            this.其他功能ToolStripMenuItem});
+            this.其他功能ToolStripMenuItem,
+            this.智能学习ToolStripMenuItem,
+            this.一键执行ToolStripMenuItem,
+            this.路径规划ToolStripMenuItem,
+            this.网络选择ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1203, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(1099, 25);
             this.menuStrip1.TabIndex = 37;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -386,6 +424,79 @@ namespace whut_ship_control
             this.gPS校正ToolStripMenuItem1.Size = new System.Drawing.Size(124, 22);
             this.gPS校正ToolStripMenuItem1.Text = "GPS校正";
             this.gPS校正ToolStripMenuItem1.Click += new System.EventHandler(this.gPS校正ToolStripMenuItem1_Click);
+            // 
+            // 智能学习ToolStripMenuItem
+            // 
+            this.智能学习ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.自主避碰学习ToolStripMenuItem,
+            this.自主控制学习ToolStripMenuItem});
+            this.智能学习ToolStripMenuItem.Name = "智能学习ToolStripMenuItem";
+            this.智能学习ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.智能学习ToolStripMenuItem.Text = "智能学习";
+            // 
+            // 自主避碰学习ToolStripMenuItem
+            // 
+            this.自主避碰学习ToolStripMenuItem.Name = "自主避碰学习ToolStripMenuItem";
+            this.自主避碰学习ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.自主避碰学习ToolStripMenuItem.Text = "自主避碰学习";
+            this.自主避碰学习ToolStripMenuItem.Click += new System.EventHandler(this.自主避碰学习ToolStripMenuItem_Click);
+            // 
+            // 自主控制学习ToolStripMenuItem
+            // 
+            this.自主控制学习ToolStripMenuItem.Name = "自主控制学习ToolStripMenuItem";
+            this.自主控制学习ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.自主控制学习ToolStripMenuItem.Text = "自动控制学习";
+            this.自主控制学习ToolStripMenuItem.Click += new System.EventHandler(this.自主控制学习ToolStripMenuItem_Click);
+            // 
+            // 一键执行ToolStripMenuItem
+            // 
+            this.一键执行ToolStripMenuItem.Name = "一键执行ToolStripMenuItem";
+            this.一键执行ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.一键执行ToolStripMenuItem.Text = "一键执行";
+            this.一键执行ToolStripMenuItem.Click += new System.EventHandler(this.一键执行ToolStripMenuItem_Click);
+            // 
+            // 路径规划ToolStripMenuItem
+            // 
+            this.路径规划ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.最短路径规划ToolStripMenuItem,
+            this.最安全路径规划ToolStripMenuItem});
+            this.路径规划ToolStripMenuItem.Name = "路径规划ToolStripMenuItem";
+            this.路径规划ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.路径规划ToolStripMenuItem.Text = "路径规划";
+            // 
+            // 最短路径规划ToolStripMenuItem
+            // 
+            this.最短路径规划ToolStripMenuItem.Name = "最短路径规划ToolStripMenuItem";
+            this.最短路径规划ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.最短路径规划ToolStripMenuItem.Text = "最短路径规划";
+            // 
+            // 最安全路径规划ToolStripMenuItem
+            // 
+            this.最安全路径规划ToolStripMenuItem.Name = "最安全路径规划ToolStripMenuItem";
+            this.最安全路径规划ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.最安全路径规划ToolStripMenuItem.Text = "最安全路径规划";
+            // 
+            // 网络选择ToolStripMenuItem
+            // 
+            this.网络选择ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.中国移动ToolStripMenuItem,
+            this.中国联通ToolStripMenuItem});
+            this.网络选择ToolStripMenuItem.Name = "网络选择ToolStripMenuItem";
+            this.网络选择ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.网络选择ToolStripMenuItem.Text = "网络选择";
+            // 
+            // 中国移动ToolStripMenuItem
+            // 
+            this.中国移动ToolStripMenuItem.Enabled = false;
+            this.中国移动ToolStripMenuItem.Name = "中国移动ToolStripMenuItem";
+            this.中国移动ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.中国移动ToolStripMenuItem.Text = "中国移动";
+            // 
+            // 中国联通ToolStripMenuItem
+            // 
+            this.中国联通ToolStripMenuItem.Name = "中国联通ToolStripMenuItem";
+            this.中国联通ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.中国联通ToolStripMenuItem.Text = "中国联通";
             // 
             // label13
             // 
@@ -686,7 +797,7 @@ namespace whut_ship_control
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(386, 7);
+            this.label6.Location = new System.Drawing.Point(537, 7);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(65, 12);
             this.label6.TabIndex = 44;
@@ -697,7 +808,7 @@ namespace whut_ship_control
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.Color.Red;
             this.label7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label7.Location = new System.Drawing.Point(457, 7);
+            this.label7.Location = new System.Drawing.Point(608, 7);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(44, 12);
             this.label7.TabIndex = 45;
@@ -1142,45 +1253,25 @@ namespace whut_ship_control
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(539, 202);
+            this.progressBar1.Location = new System.Drawing.Point(533, 202);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(100, 23);
+            this.progressBar1.Size = new System.Drawing.Size(129, 23);
             this.progressBar1.TabIndex = 69;
             // 
             // progressBar2
             // 
-            this.progressBar2.Location = new System.Drawing.Point(539, 257);
+            this.progressBar2.Location = new System.Drawing.Point(533, 257);
             this.progressBar2.Name = "progressBar2";
-            this.progressBar2.Size = new System.Drawing.Size(100, 23);
+            this.progressBar2.Size = new System.Drawing.Size(129, 23);
             this.progressBar2.TabIndex = 70;
             // 
             // progressBar3
             // 
-            this.progressBar3.Location = new System.Drawing.Point(539, 329);
+            this.progressBar3.Location = new System.Drawing.Point(533, 329);
             this.progressBar3.Maximum = 1200;
             this.progressBar3.Name = "progressBar3";
-            this.progressBar3.Size = new System.Drawing.Size(100, 23);
+            this.progressBar3.Size = new System.Drawing.Size(129, 23);
             this.progressBar3.TabIndex = 71;
-            // 
-            // button28
-            // 
-            this.button28.Location = new System.Drawing.Point(695, 2);
-            this.button28.Name = "button28";
-            this.button28.Size = new System.Drawing.Size(75, 23);
-            this.button28.TabIndex = 72;
-            this.button28.Text = "开始学习";
-            this.button28.UseVisualStyleBackColor = true;
-            this.button28.Click += new System.EventHandler(this.button28_Click);
-            // 
-            // button29
-            // 
-            this.button29.Location = new System.Drawing.Point(799, 2);
-            this.button29.Name = "button29";
-            this.button29.Size = new System.Drawing.Size(75, 23);
-            this.button29.TabIndex = 73;
-            this.button29.Text = "一键执行";
-            this.button29.UseVisualStyleBackColor = true;
-            this.button29.Click += new System.EventHandler(this.button29_Click);
             // 
             // timer3
             // 
@@ -1228,28 +1319,109 @@ namespace whut_ship_control
             this.label35.Size = new System.Drawing.Size(0, 12);
             this.label35.TabIndex = 77;
             // 
-            // button30
+            // chart1
             // 
-            this.button30.Location = new System.Drawing.Point(1105, 152);
-            this.button30.Name = "button30";
-            this.button30.Size = new System.Drawing.Size(75, 23);
-            this.button30.TabIndex = 78;
-            this.button30.Text = "button30";
-            this.button30.UseVisualStyleBackColor = true;
-            this.button30.Click += new System.EventHandler(this.button30_Click);
+            this.chart1.BackColor = System.Drawing.SystemColors.ButtonFace;
+            chartArea1.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea1.AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea1.BackColor = System.Drawing.SystemColors.ButtonFace;
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            this.chart1.Location = new System.Drawing.Point(947, 466);
+            this.chart1.Name = "chart1";
+            series1.BorderColor = System.Drawing.Color.White;
+            series1.ChartArea = "ChartArea1";
+            series1.Color = System.Drawing.Color.Lime;
+            series1.Name = "Series1";
+            dataPoint1.Color = System.Drawing.Color.Lime;
+            dataPoint5.Color = System.Drawing.Color.Lime;
+            series1.Points.Add(dataPoint1);
+            series1.Points.Add(dataPoint2);
+            series1.Points.Add(dataPoint3);
+            series1.Points.Add(dataPoint4);
+            series1.Points.Add(dataPoint5);
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(39, 30);
+            this.chart1.TabIndex = 79;
+            this.chart1.Text = "chart1";
+            // 
+            // chart2
+            // 
+            this.chart2.BackColor = System.Drawing.SystemColors.ButtonFace;
+            chartArea2.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea2.AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea2.BackColor = System.Drawing.SystemColors.ButtonFace;
+            chartArea2.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea2);
+            this.chart2.Location = new System.Drawing.Point(1048, 466);
+            this.chart2.Name = "chart2";
+            series2.BorderColor = System.Drawing.Color.White;
+            series2.ChartArea = "ChartArea1";
+            series2.Color = System.Drawing.Color.Lime;
+            series2.Name = "Series1";
+            dataPoint6.Color = System.Drawing.Color.Lime;
+            dataPoint10.Color = System.Drawing.Color.DarkOliveGreen;
+            series2.Points.Add(dataPoint6);
+            series2.Points.Add(dataPoint7);
+            series2.Points.Add(dataPoint8);
+            series2.Points.Add(dataPoint9);
+            series2.Points.Add(dataPoint10);
+            this.chart2.Series.Add(series2);
+            this.chart2.Size = new System.Drawing.Size(39, 30);
+            this.chart2.TabIndex = 80;
+            this.chart2.Text = "chart2";
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(894, 484);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(59, 12);
+            this.label36.TabIndex = 82;
+            this.label36.Text = "中国移动:";
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(995, 484);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(59, 12);
+            this.label37.TabIndex = 83;
+            this.label37.Text = "中国联通:";
+            // 
+            // button29
+            // 
+            this.button29.Location = new System.Drawing.Point(1210, 123);
+            this.button29.Name = "button29";
+            this.button29.Size = new System.Drawing.Size(75, 23);
+            this.button29.TabIndex = 85;
+            this.button29.Text = "一键执行";
+            this.button29.UseVisualStyleBackColor = true;
+            // 
+            // button28
+            // 
+            this.button28.Location = new System.Drawing.Point(1119, 123);
+            this.button28.Name = "button28";
+            this.button28.Size = new System.Drawing.Size(75, 23);
+            this.button28.TabIndex = 84;
+            this.button28.Text = "智能学习";
+            this.button28.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1203, 469);
-            this.Controls.Add(this.button30);
+            this.ClientSize = new System.Drawing.Size(1099, 497);
+            this.Controls.Add(this.button29);
+            this.Controls.Add(this.button28);
+            this.Controls.Add(this.label37);
+            this.Controls.Add(this.label36);
+            this.Controls.Add(this.chart2);
+            this.Controls.Add(this.chart1);
             this.Controls.Add(this.label35);
             this.Controls.Add(this.label34);
             this.Controls.Add(this.label33);
             this.Controls.Add(this.label32);
-            this.Controls.Add(this.button29);
-            this.Controls.Add(this.button28);
             this.Controls.Add(this.progressBar3);
             this.Controls.Add(this.progressBar2);
             this.Controls.Add(this.progressBar1);
@@ -1304,12 +1476,17 @@ namespace whut_ship_control
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
+
+
+
 
         private System.Windows.Forms.WebBrowser webBrowser1;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -1407,8 +1584,6 @@ namespace whut_ship_control
         private ProgressBar progressBar1;
         private ProgressBar progressBar2;
         private ProgressBar progressBar3;
-        private Button button28;
-        private Button button29;
         private System.Windows.Forms.Timer timer3;
         private System.Windows.Forms.Timer timer4;
         private OpenFileDialog openFileDialog1;
@@ -1416,7 +1591,22 @@ namespace whut_ship_control
         private Label label33;
         private Label label34;
         private Label label35;
-        private Button button30;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
+        private Label label36;
+        private Label label37;
+        private ToolStripMenuItem 智能学习ToolStripMenuItem;
+        private ToolStripMenuItem 一键执行ToolStripMenuItem;
+        private ToolStripMenuItem 路径规划ToolStripMenuItem;
+        private ToolStripMenuItem 自主避碰学习ToolStripMenuItem;
+        private ToolStripMenuItem 自主控制学习ToolStripMenuItem;
+        private ToolStripMenuItem 最短路径规划ToolStripMenuItem;
+        private ToolStripMenuItem 最安全路径规划ToolStripMenuItem;
+        private ToolStripMenuItem 网络选择ToolStripMenuItem;
+        private ToolStripMenuItem 中国移动ToolStripMenuItem;
+        private ToolStripMenuItem 中国联通ToolStripMenuItem;
+        private Button button29;
+        private Button button28;
 
     }
 }
