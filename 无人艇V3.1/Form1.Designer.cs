@@ -151,7 +151,6 @@ namespace whut_ship_control
             this.label33 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
-            this.button30 = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -295,6 +294,11 @@ namespace whut_ship_control
             // numericUpDown1
             // 
             this.numericUpDown1.Location = new System.Drawing.Point(47, 50);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
             this.numericUpDown1.Minimum = new decimal(new int[] {
             1,
             0,
@@ -341,7 +345,7 @@ namespace whut_ship_control
             this.其他功能ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1094, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(1086, 25);
             this.menuStrip1.TabIndex = 37;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -1233,22 +1237,11 @@ namespace whut_ship_control
             this.label35.Size = new System.Drawing.Size(0, 12);
             this.label35.TabIndex = 77;
             // 
-            // button30
-            // 
-            this.button30.Location = new System.Drawing.Point(1105, 152);
-            this.button30.Name = "button30";
-            this.button30.Size = new System.Drawing.Size(75, 23);
-            this.button30.TabIndex = 78;
-            this.button30.Text = "button30";
-            this.button30.UseVisualStyleBackColor = true;
-            this.button30.Click += new System.EventHandler(this.button30_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1094, 469);
-            this.Controls.Add(this.button30);
+            this.ClientSize = new System.Drawing.Size(1086, 469);
             this.Controls.Add(this.label35);
             this.Controls.Add(this.label34);
             this.Controls.Add(this.label33);
@@ -1421,7 +1414,6 @@ namespace whut_ship_control
         private Label label33;
         private Label label34;
         private Label label35;
-        private Button button30;
 
     }
 }

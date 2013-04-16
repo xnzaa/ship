@@ -43,7 +43,7 @@ namespace whut_ship_control
         //基站纬度校正值
         static double latitude_check =-0.245311050;
 
-        //TODO
+        //差分GPS使用的接收用字符串
         string GPS_text = "";
 
         //主串口
@@ -138,6 +138,22 @@ namespace whut_ship_control
             }
         }
 
+        //主窗体关闭
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                Application.DoEvents();
+                if (main_sp != null)
+                    main_sp.Close();
+                if (GPS_sp != null)
+                    GPS_sp.Close();
+                sws.Close();
+                swr.Close();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message.ToString()); }
+        }
+
         //主串口数据监听器
         private void comm_DataReceived1(object sender, SerialDataReceivedEventArgs e)
         {
@@ -152,7 +168,8 @@ namespace whut_ship_control
             }));
         }
 
-        private void comm_DataReceived2(object sender, SerialDataReceivedEventArgs e)//串口数据监听器
+        //差分GPS串口数据监听器
+        private void comm_DataReceived2(object sender, SerialDataReceivedEventArgs e)
         {
             GPS_text = GPS_text + GPS_sp.ReadExisting();  // 读取串口数据
             if (GPS_text. Contains  ("$"))      // 如果GPS_text字符串最后一个字符是“回车”&&GPS_text.EndsWith("\n")
@@ -162,6 +179,7 @@ namespace whut_ship_control
             
         }
 
+        //差分GPS计算用函数
         private void update_data(object sender, EventArgs e)
         {
             //string[] GPS_info = GPS_text.Split(','); // 按照逗号分隔把$GPRMC各种信号分割到字符串数组
@@ -191,12 +209,16 @@ namespace whut_ship_control
                 GPS_text = "";                // 置空GPS_text以便存储新的串口接收到的字符串
         }
 
+        #region 计算速度 航向
+
+        //计算速度用 计时器递増
         void receive_time_Elapsed(Object sender, ElapsedEventArgs e)
         {
             time_passed += 1;
         }
 
-        public static void init(coordinate[] axis)						//计算速度初始化函数 必须调用一次
+        //计算速度初始化函数 必须调用一次
+        public static void init(coordinate[] axis)
         {
             coordinate temp;
             temp.x = 1;
@@ -213,7 +235,8 @@ namespace whut_ship_control
             axis[3] = temp;		//(0,-1)
         }
 
-        public static double get_angle(coordinate a, coordinate b)			//计算两个向量的夹角
+        //计算两个向量的夹角
+        public static double get_angle(coordinate a, coordinate b)
         {
             double angle = Math.Acos((a.x * b.x + a.y * b.y) / (Math.Sqrt(a.x * a.x + a.y * a.y) * Math.Sqrt(b.x * b.x + b.y * b.y))) / 3.1415926 * 180;
             if (angle < 0.0001)
@@ -221,6 +244,7 @@ namespace whut_ship_control
             return angle;
         }
 
+        //计算两点组成的向量
         public static coordinate get_direction(point previous_location, point current_location)
         {
             coordinate temp;
@@ -228,6 +252,8 @@ namespace whut_ship_control
             temp.y = current_location.y - previous_location.y;
             return temp;
         }
+
+        #endregion
 
         //主串口字符串处理函数
         private void main_sp_receive(string str)
@@ -406,9 +432,10 @@ namespace whut_ship_control
             }
         }
 
-        private void order_back(string str1)
+        //确认指令的显示
+        private void order_back(string str)
         {
-            switch (str1)
+            switch (str)
             {
                 case "!0": textBox1.Text += "舵角已调整为左5级\r\n"; break;
                 case "!1": textBox1.Text += "舵角已调整为左4级\r\n"; break;
@@ -439,17 +466,55 @@ namespace whut_ship_control
             }
         }
 
+        //确认指令显示自动滚动
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-
             textBox1.SelectionStart = textBox1.Text.Length;
-
             textBox1.ScrollToCaret();
-
         }
 
-        #region 串口配置库函数
-        private bool CheckPortSetting()      //检查端口是否初始化
+        //串口发送函数
+        private void send()
+        {
+            if (!CheckPortSetting())
+            { MessageBox.Show("串口未设置！", "错误提示"); }
+            if (!CheckSendData())
+            { MessageBox.Show("请输入要发送的数据！", "错误提示"); }
+            if (!isopen1)
+            { SetPortProperty1(main_sp); }
+            if (isopen1)
+            {
+                try
+                {
+                    main_sp.WriteLine(control_instruction);
+                }
+                catch (Exception)
+                {
+                    //label8.Text = "发送数据时发生错误！";
+                }
+            }
+            else
+            {
+                MessageBox.Show("串口未打开！", "错误提示");
+            }
+            sws.Write(control_instruction);
+            if (!(label7.Text == "失去连接" || label7.Text == "未连接"))
+                order_back(control_instruction);
+            try
+            {
+                if (is_sww_nag)
+                {
+                    sww_nag.Write(control_instruction);
+                    sww_nag.Write("\r\n");
+                }
+            }
+            catch { return; }
+        }
+
+        #region 串口配置函数
+
+        //检查端口是否初始化
+        private bool CheckPortSetting()
         {
             if (comboBox1.Text.Trim() == "") return false;
             if (comboBox2.Text.Trim() == "") return false;
@@ -464,14 +529,15 @@ namespace whut_ship_control
             return true;
         }
 
-        private bool CheckSendData()        //检测发送数据是否为空
+        //检测发送数据是否为空
+        private bool CheckSendData()
         {
             if (control_instruction == "") return false;
             return true;
         }
-        #endregion 
 
-        private void SetPortProperty1(SerialPort sp)       //初始化端口状态
+        //初始化主串口状态
+        private void SetPortProperty1(SerialPort sp)       
         {
 
             sp.PortName = comboBox1.Text.Trim();
@@ -528,7 +594,8 @@ namespace whut_ship_control
             }
         }
 
-        private void SetPortProperty2(SerialPort sp)       //初始化端口状态
+        //初始化辅助串口状态
+        private void SetPortProperty2(SerialPort sp)
         {
 
             sp.PortName = comboBox10.Text.Trim();
@@ -585,42 +652,8 @@ namespace whut_ship_control
             }
         }
 
-        private void send()//端口发射函数
-        {
-            if (!CheckPortSetting())
-            { MessageBox.Show("串口未设置！", "错误提示"); }
-            if (!CheckSendData())
-            { MessageBox.Show("请输入要发送的数据！", "错误提示"); }
-            if (!isopen1)
-            { SetPortProperty1(main_sp); }
-            if (isopen1)
-            {
-                try
-                {
-                    main_sp.WriteLine(control_instruction);
-                }
-                catch (Exception)
-                {
-                    //label8.Text = "发送数据时发生错误！";
-                }
-            }
-            else
-            {
-                MessageBox.Show("串口未打开！", "错误提示");
-            }
-            sws.Write(control_instruction);
-            if (!(label7.Text == "失去连接" || label7.Text == "未连接"))
-            order_back(control_instruction);
-            try
-            {
-                if (is_sww_nag)
-                {
-                    sww_nag.Write(control_instruction);
-                    sww_nag.Write("\r\n");
-                }
-            }
-            catch {return ;}
-        }
+        #endregion
+
         #region 菜单组
         private void gPS校正ToolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -636,17 +669,13 @@ namespace whut_ship_control
 
         private void gPS开始接收ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //if (check_ok)
-            //{
-                if (!isopen1)
-                {
+            if (!isopen1)
+            {
                 SetPortProperty1(main_sp);
                 SetPortProperty2(GPS_sp);
-                }
-                gPS开始接收ToolStripMenuItem.Enabled = false;
-                暂停接收ToolStripMenuItem.Enabled = true;
-            //}
-            //else { MessageBox .Show ("请先设置GPS校正值")}
+            }
+            gPS开始接收ToolStripMenuItem.Enabled = false;
+            暂停接收ToolStripMenuItem.Enabled = true;
         }
 
         private void 暂停接收ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1198,37 +1227,16 @@ namespace whut_ship_control
 
         #endregion
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            try
-            {
-                Application.DoEvents();
-                if (main_sp != null)
-                    main_sp.Close();
-                if (GPS_sp != null)
-                    GPS_sp.Close();
-                sws.Close();
-                swr.Close();
-            }
-            catch (Exception ex) { MessageBox.Show(ex.Message.ToString()); }
-        }
+        #region 自学习功能
 
-        // 测试按钮
-        private void button27_Click(object sender, EventArgs e)
-        {
-           //main_sp_receive (":10$GPRMC,031015.00,A,3036.78331,N,11421.08548,E,0.101,,020313,,,A*7B,!##!");
-            objArray[0] = (object)30.61217415;
-            objArray[1] = (object)114.35349584;
-            webBrowser1.Document.InvokeScript("mark", objArray);
-        }
-
+        //开始学习
         private void button28_Click(object sender, EventArgs e)
         {
             Form_navigation form_navigation = new Form_navigation();
             form_navigation.MessageSent += delegate(object caller, string msg, string msg2)
             {
                 form_navigation_name = msg;
-                sww_nag = new StreamWriter("E:\\" + form_navigation_name+".txt", false);
+                sww_nag = new StreamWriter("E:\\" + form_navigation_name + ".txt", false);
             };
             if (button28.Text == "开始学习")
             {
@@ -1238,14 +1246,15 @@ namespace whut_ship_control
                 is_sww_nag = true;
             }
             else
-            { 
-                button28.Text = "开始学习"; 
+            {
+                button28.Text = "开始学习";
                 timer3.Stop();
                 sww_nag.Close();
                 is_sww_nag = false;
             }
         }
 
+        //执行学习记录
         private void button29_Click(object sender, EventArgs e)
         {
             if (button28.Text == "开始学习")
@@ -1262,11 +1271,13 @@ namespace whut_ship_control
             }
         }
 
+        //自学习 学习计时器
         private void timer3_Tick(object sender, EventArgs e)
         {
             sww_nag.Write("navigation\r\n");
         }
 
+        //自学习 重放计时器
         private void timer4_Tick(object sender, EventArgs e)
         {
             string str = swr_nag.ReadLine();
@@ -1287,9 +1298,15 @@ namespace whut_ship_control
             }
         }
 
-        private void button30_Click(object sender, EventArgs e)
+        #endregion
+
+        // 测试按钮
+        private void button27_Click(object sender, EventArgs e)
         {
-            main_sp.DiscardInBuffer();
+           //main_sp_receive (":10$GPRMC,031015.00,A,3036.78331,N,11421.08548,E,0.101,,020313,,,A*7B,!##!");
+            objArray[0] = (object)30.61217415;
+            objArray[1] = (object)114.35349584;
+            webBrowser1.Document.InvokeScript("mark", objArray);
         }
     }
 }
