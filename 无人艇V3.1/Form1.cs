@@ -1354,6 +1354,5 @@ namespace whut_ship_control
             }
         }
 
-
     }
 }
