@@ -275,7 +275,7 @@ namespace whut_ship_control
                             /***采用数学方法计算球面两点间距离****/
                             point A = temp1.latlog;
                             point B = temp2.latlog;
-                            double distance = Math.Sqrt(Math.Pow((B.y - A.y) * 111700, 2) + Math.Pow((6371000*Math.Cos(A.y*180/Math.PI)*(B.x-A.x)/360),2));
+                            double distance = Math.Sqrt(Math.Pow((B.y - A.y) * 111700, 2) + Math.Pow((6371000*2*Math.PI*Math.Cos(A.y*180/Math.PI)*(B.x-A.x)/360), 2));
                             /*************************************/
                             double time = Math.Abs(temp2.time - temp1.time) / 1000.0;       //毫秒转化为秒
                             double speed = distance / time;
