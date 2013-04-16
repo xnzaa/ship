@@ -23,6 +23,8 @@ body {
 	var poly;					//线
 	var path = [];				//路径点组
 	var markers = [];
+	var latlngstr_start = "null";
+	var latlngstr_end = "null";
 
 
   function initialize() {					<!--初始化时加载默认参数的地图-->
@@ -31,11 +33,12 @@ body {
       zoom: 8,
       center: latlng,
 	  disableDefaultUI: true,
+	  disableDoubleClickZoom: true,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     map = new google.maps.Map(document.getElementById("map_canvas"),
         myOptions);
-		
+
 	var polyOptions = {
         strokeColor: '#000000',
         strokeOpacity: 1.0,
@@ -44,6 +47,45 @@ body {
     poly = new google.maps.Polyline(polyOptions);
     poly.setMap(map);
 	path = poly.getPath();
+	
+	<!--双击设置起点-->
+	google.maps.event.addListener(map, 'dblclick', function(event) {
+		latlngstr_start = event.latLng.lat().toString()+"#"+event.latLng.lng().toString();
+		var marker = new google.maps.Marker({
+      				position: event.latLng, 
+      				map: map,
+      				icon: "http://maps.google.com/mapfiles/markerS.png"
+    			});
+		google.maps.event.addListener(marker, 'dblclick', function() {
+		marker.setMap(null);
+    });
+		marker.setMap(map);
+    });
+	
+	
+	<!--右击设置终点-->
+	google.maps.event.addListener(map, 'rightclick', function(event) {
+		latlngstr_end = event.latLng.lat().toString()+"#"+event.latLng.lng().toString();
+		var marker = new google.maps.Marker({
+      				position: event.latLng, 
+      				map: map,
+      				icon: "http://maps.google.com/mapfiles/markerE.png"
+    			});
+		google.maps.event.addListener(marker, 'dblclick', function() {
+		marker.setMap(null);
+    });
+		marker.setMap(map);
+    });
+	
+  }
+  
+  
+  function get_start_point() {
+	return latlngstr_start;
+  }
+  
+  function get_end_point() {
+	return latlngstr_end;
   }
   
   function start(lng, lat) {
@@ -77,6 +119,8 @@ body {
 	center(lat, lng);
   }
   
+  
+  
   function center(lat, lng) {
 	  var latlng = new google.maps.LatLng(lat, lng);
 	  map.setCenter(latlng);
@@ -103,7 +147,7 @@ body {
     };
     map = new google.maps.Map(document.getElementById("map_canvas"),
         myOptions);
-		
+
 	var latlng = new google.maps.LatLng(lat, lng);		//这里给经纬度 纬度 经度
 	var marker = new google.maps.Marker({position: latlng, title:"Current Position"});
 	marker.setMap(map);
