@@ -1224,7 +1224,6 @@ namespace whut_ship_control
 
         private void button28_Click(object sender, EventArgs e)
         {
-
             Form_navigation form_navigation = new Form_navigation();
             form_navigation.MessageSent += delegate(object caller, string msg, string msg2)
             {
