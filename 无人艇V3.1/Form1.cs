@@ -90,6 +90,8 @@ namespace whut_ship_control
         
         #endregion
 
+        #region 窗口构造 析构函数
+
         //主窗体构造函数
         public Form1()
         {
@@ -154,6 +156,8 @@ namespace whut_ship_control
             catch (Exception ex) { MessageBox.Show(ex.Message.ToString()); }
         }
 
+        #endregion
+
         //主串口数据监听器
         private void comm_DataReceived1(object sender, SerialDataReceivedEventArgs e)
         {
@@ -208,52 +212,6 @@ namespace whut_ship_control
             }  // 处理GPS_info字符串数组，完成GPS数据显示、处理等功能
                 GPS_text = "";                // 置空GPS_text以便存储新的串口接收到的字符串
         }
-
-        #region 计算速度 航向
-
-        //计算速度用 计时器递増
-        void receive_time_Elapsed(Object sender, ElapsedEventArgs e)
-        {
-            time_passed += 1;
-        }
-
-        //计算速度初始化函数 必须调用一次
-        public static void init(coordinate[] axis)
-        {
-            coordinate temp;
-            temp.x = 1;
-            temp.y = 0;
-            axis[0] = temp;		//(1,0)
-            temp.x = 0;
-            temp.y = 1;
-            axis[1] = temp;		//(0,1)
-            temp.x = -1;
-            temp.y = 0;
-            axis[2] = temp;		//(-1,0)
-            temp.x = 0;
-            temp.y = -1;
-            axis[3] = temp;		//(0,-1)
-        }
-
-        //计算两个向量的夹角
-        public static double get_angle(coordinate a, coordinate b)
-        {
-            double angle = Math.Acos((a.x * b.x + a.y * b.y) / (Math.Sqrt(a.x * a.x + a.y * a.y) * Math.Sqrt(b.x * b.x + b.y * b.y))) / 3.1415926 * 180;
-            if (angle < 0.0001)
-                angle = 0;
-            return angle;
-        }
-
-        //计算两点组成的向量
-        public static coordinate get_direction(point previous_location, point current_location)
-        {
-            coordinate temp;
-            temp.x = current_location.x - previous_location.x;
-            temp.y = current_location.y - previous_location.y;
-            return temp;
-        }
-
-        #endregion
 
         //主串口字符串处理函数
         private void main_sp_receive(string str)
@@ -432,6 +390,46 @@ namespace whut_ship_control
             }
         }
 
+        //串口发送函数
+        private void send()
+        {
+            if (!CheckPortSetting())
+            { MessageBox.Show("串口未设置！", "错误提示"); }
+            if (!CheckSendData())
+            { MessageBox.Show("请输入要发送的数据！", "错误提示"); }
+            if (!isopen1)
+            { SetPortProperty1(main_sp); }
+            if (isopen1)
+            {
+                try
+                {
+                    main_sp.WriteLine(control_instruction);
+                }
+                catch (Exception)
+                {
+                    //label8.Text = "发送数据时发生错误！";
+                }
+            }
+            else
+            {
+                MessageBox.Show("串口未打开！", "错误提示");
+            }
+            sws.Write(control_instruction);
+            if (!(label7.Text == "失去连接" || label7.Text == "未连接"))
+                order_back(control_instruction);
+            try
+            {
+                if (is_sww_nag)
+                {
+                    sww_nag.Write(control_instruction);
+                    sww_nag.Write("\r\n");
+                }
+            }
+            catch { return; }
+        }
+
+        #region 命令执行确认
+
         //确认指令的显示
         private void order_back(string str)
         {
@@ -473,43 +471,7 @@ namespace whut_ship_control
             textBox1.ScrollToCaret();
         }
 
-        //串口发送函数
-        private void send()
-        {
-            if (!CheckPortSetting())
-            { MessageBox.Show("串口未设置！", "错误提示"); }
-            if (!CheckSendData())
-            { MessageBox.Show("请输入要发送的数据！", "错误提示"); }
-            if (!isopen1)
-            { SetPortProperty1(main_sp); }
-            if (isopen1)
-            {
-                try
-                {
-                    main_sp.WriteLine(control_instruction);
-                }
-                catch (Exception)
-                {
-                    //label8.Text = "发送数据时发生错误！";
-                }
-            }
-            else
-            {
-                MessageBox.Show("串口未打开！", "错误提示");
-            }
-            sws.Write(control_instruction);
-            if (!(label7.Text == "失去连接" || label7.Text == "未连接"))
-                order_back(control_instruction);
-            try
-            {
-                if (is_sww_nag)
-                {
-                    sww_nag.Write(control_instruction);
-                    sww_nag.Write("\r\n");
-                }
-            }
-            catch { return; }
-        }
+        #endregion
 
         #region 串口配置函数
 
@@ -654,7 +616,54 @@ namespace whut_ship_control
 
         #endregion
 
+        #region 计算速度 航向 库函数
+
+        //计算速度用 计时器递増
+        void receive_time_Elapsed(Object sender, ElapsedEventArgs e)
+        {
+            time_passed += 1;
+        }
+
+        //计算速度初始化函数 必须调用一次
+        public static void init(coordinate[] axis)
+        {
+            coordinate temp;
+            temp.x = 1;
+            temp.y = 0;
+            axis[0] = temp;		//(1,0)
+            temp.x = 0;
+            temp.y = 1;
+            axis[1] = temp;		//(0,1)
+            temp.x = -1;
+            temp.y = 0;
+            axis[2] = temp;		//(-1,0)
+            temp.x = 0;
+            temp.y = -1;
+            axis[3] = temp;		//(0,-1)
+        }
+
+        //计算两个向量的夹角
+        public static double get_angle(coordinate a, coordinate b)
+        {
+            double angle = Math.Acos((a.x * b.x + a.y * b.y) / (Math.Sqrt(a.x * a.x + a.y * a.y) * Math.Sqrt(b.x * b.x + b.y * b.y))) / 3.1415926 * 180;
+            if (angle < 0.0001)
+                angle = 0;
+            return angle;
+        }
+
+        //计算两点组成的向量
+        public static coordinate get_direction(point previous_location, point current_location)
+        {
+            coordinate temp;
+            temp.x = current_location.x - previous_location.x;
+            temp.y = current_location.y - previous_location.y;
+            return temp;
+        }
+
+        #endregion
+
         #region 菜单组
+
         private void gPS校正ToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             GPS gps = new GPS();
@@ -693,9 +702,11 @@ namespace whut_ship_control
             }
             catch (Exception ex) { MessageBox.Show(ex.Message.ToString()); }
         }
+
         #endregion
 
-        #region 按钮，等级舵角，速度，电机按钮
+        #region 控制 速度 舵角 水泵 按钮 
+
         private void button1_Click(object sender, EventArgs e)
         {
             control_instruction = "!0";
@@ -1149,15 +1160,20 @@ namespace whut_ship_control
             button26.Enabled = false ;
             
         }
+
         #endregion
 
         #region 定时器组
-        private void timer1_Tick(object sender, EventArgs e)//定时发送@函数
+
+        //定时发送@函数
+        private void timer1_Tick(object sender, EventArgs e)
         {
             control_instruction = "@";
             send();
         }
-        private void timer2_Tick(object sender, EventArgs e)//是否 连接 判断函数
+
+        //是否 连接 判断函数
+        private void timer2_Tick(object sender, EventArgs e)
         {
             connect_count++;
             if (connect_count > 4)
@@ -1171,6 +1187,7 @@ namespace whut_ship_control
                 label7.BackColor = Color.White;
             }
         }
+
         #endregion
 
         #region 地图操作控件
