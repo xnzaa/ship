@@ -1114,7 +1114,7 @@ namespace whut_ship_control
             
         }
 
-        private void button3_Click(object sender, EventArgs e)//游动机开启
+        private void button3_Click(object sender, EventArgs e)//油动机开启
         {
             //control_instruction = ":OO";
             //send();
@@ -1123,7 +1123,7 @@ namespace whut_ship_control
             //button24.Enabled = true;
         }
 
-        private void button24_Click(object sender, EventArgs e)//游动机关闭
+        private void button24_Click(object sender, EventArgs e)//油动机关闭
         {
             control_instruction = ":OC";
             send(); 
