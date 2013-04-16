@@ -295,6 +295,11 @@ namespace whut_ship_control
             // numericUpDown1
             // 
             this.numericUpDown1.Location = new System.Drawing.Point(47, 50);
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(48, 21);
             this.numericUpDown1.TabIndex = 0;
@@ -336,7 +341,7 @@ namespace whut_ship_control
             this.其他功能ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1203, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(1094, 25);
             this.menuStrip1.TabIndex = 37;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -1142,29 +1147,29 @@ namespace whut_ship_control
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(539, 202);
+            this.progressBar1.Location = new System.Drawing.Point(533, 202);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(100, 23);
+            this.progressBar1.Size = new System.Drawing.Size(129, 23);
             this.progressBar1.TabIndex = 69;
             // 
             // progressBar2
             // 
-            this.progressBar2.Location = new System.Drawing.Point(539, 257);
+            this.progressBar2.Location = new System.Drawing.Point(533, 257);
             this.progressBar2.Name = "progressBar2";
-            this.progressBar2.Size = new System.Drawing.Size(100, 23);
+            this.progressBar2.Size = new System.Drawing.Size(129, 23);
             this.progressBar2.TabIndex = 70;
             // 
             // progressBar3
             // 
-            this.progressBar3.Location = new System.Drawing.Point(539, 329);
+            this.progressBar3.Location = new System.Drawing.Point(533, 329);
             this.progressBar3.Maximum = 1200;
             this.progressBar3.Name = "progressBar3";
-            this.progressBar3.Size = new System.Drawing.Size(100, 23);
+            this.progressBar3.Size = new System.Drawing.Size(129, 23);
             this.progressBar3.TabIndex = 71;
             // 
             // button28
             // 
-            this.button28.Location = new System.Drawing.Point(695, 2);
+            this.button28.Location = new System.Drawing.Point(681, 0);
             this.button28.Name = "button28";
             this.button28.Size = new System.Drawing.Size(75, 23);
             this.button28.TabIndex = 72;
@@ -1174,7 +1179,7 @@ namespace whut_ship_control
             // 
             // button29
             // 
-            this.button29.Location = new System.Drawing.Point(799, 2);
+            this.button29.Location = new System.Drawing.Point(793, 0);
             this.button29.Name = "button29";
             this.button29.Size = new System.Drawing.Size(75, 23);
             this.button29.TabIndex = 73;
@@ -1242,7 +1247,7 @@ namespace whut_ship_control
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1203, 469);
+            this.ClientSize = new System.Drawing.Size(1094, 469);
             this.Controls.Add(this.button30);
             this.Controls.Add(this.label35);
             this.Controls.Add(this.label34);
